@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="jumbotron">
         <h1 class="headline">Stop wasting your time!</h1>

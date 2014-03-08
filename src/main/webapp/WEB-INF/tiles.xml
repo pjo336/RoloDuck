@@ -21,13 +21,18 @@
     </definition>
 
     <definition name="login" extends="roloduck.common">
-        <put-attribute name="title" value="Jonrah | Login" />
+        <put-attribute name="title" value="RoloDuck | Login" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/login.jsp" />
     </definition>
 
     <definition name="signup" extends="roloduck.common">
-        <put-attribute name="title" value="Jonrah | Register" />
+        <put-attribute name="title" value="RoloDuck | Register" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/signup.jsp" />
+    </definition>
+
+    <definition name="projects" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Projects" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
     </definition>
 
 </tiles-definitions>

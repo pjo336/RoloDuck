@@ -1,4 +1,4 @@
-package com.roloduck.web;
+package com.roloduck.web.registration;
 
 import com.roloduck.exception.BusinessLogicException;
 import com.roloduck.user.converter.UserConverter;
@@ -11,30 +11,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.security.Principal;
-
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
- * @since 3/7/14
+ * @since 3/8/14
  * RoloDuck
  */
 
 @Controller
-public class RoloDuckController {
+public class RegistrationController {
 
     @Autowired
     private UserService userService;
-
-    @RequestMapping(value="/")
-    public String serveIndex(ModelMap model, Principal principal) {
-        if(principal != null) {
-            String name = principal.getName(); //get logged in username
-            model.addAttribute("user", name);
-        }
-        model.addAttribute("page", "projects");
-        return "index";
-    }
 
     @RequestMapping(value="/signup", method = RequestMethod.GET)
     public String serveSignup(ModelMap model) {
@@ -52,21 +40,5 @@ public class RoloDuckController {
         }
         model.put("user", newUser);
         return "index";
-    }
-
-    @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String login(ModelMap model) {
-        return "login";
-    }
-
-    @RequestMapping(value="/login_error=1", method = RequestMethod.GET)
-    public String loginerror(ModelMap model) {
-        model.addAttribute("error", "true");
-        return "login";
-    }
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logout(ModelMap model) {
-        return "login";
     }
 }

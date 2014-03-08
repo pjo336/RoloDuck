@@ -16,7 +16,7 @@ public interface UserDAO {
 
     /**
      * Insert a user into the database
-     * @param user a pickle payments user
+     * @param user a roloduck user
      */
     public void insert(User user);
 

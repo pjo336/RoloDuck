@@ -7,16 +7,17 @@
 	                             http://www.springframework.org/schema/security
 	                             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+    <http pattern="/" security="none"/>
     <http pattern="/login" security="none"/>
     <http pattern="/login_error=1" security="none"/>
     <http pattern="/logout" security="none"/>
     <http pattern="/signup" security="none"/>
 
     <http auto-config="true">
-        <form-login login-page="/login" default-target-url="/"
+        <intercept-url pattern="/*" access="ROLE_USER"/>
+        <form-login login-page="/login" default-target-url="/projects"
                     authentication-failure-url="/login_error=1"/>
         <logout logout-success-url="/logout" delete-cookies="JSESSIONID"/>
-        <intercept-url pattern="/com/pickle" access="ROLE_USER"/>
         <remember-me data-source-ref="dataSource" user-service-ref="customUserDetailsService"/>
     </http>
 
