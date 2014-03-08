@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_USER` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(100) NOT NULL,
   `user_email` VARCHAR(100) NOT NULL,
-  `user_password` VARCHAR(45) NOT NULL,
+  `user_password` VARCHAR(75) NOT NULL,
   `company_id` BIGINT NOT NULL,
   `date_created` TIMESTAMP NOT NULL,
   `date_modified` TIMESTAMP NULL,

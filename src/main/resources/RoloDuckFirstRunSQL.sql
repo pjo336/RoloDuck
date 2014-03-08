@@ -1,3 +1,10 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+DROP SCHEMA IF EXISTS `ROLODUCK` ;
+CREATE SCHEMA IF NOT EXISTS `ROLODUCK` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `ROLODUCK` ;
 -- -----------------------------------------------------
 -- Table `ROLODUCK`.`RD_USER`
 -- -----------------------------------------------------
@@ -7,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_USER` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(100) NOT NULL,
   `user_email` VARCHAR(100) NOT NULL,
-  `user_password` VARCHAR(45) NOT NULL,
+  `user_password` VARCHAR(75) NOT NULL,
   `date_created` TIMESTAMP NOT NULL,
   `date_modified` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
