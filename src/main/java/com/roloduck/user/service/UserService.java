@@ -1,5 +1,6 @@
 package com.roloduck.user.service;
 
+import com.roloduck.exception.BusinessLogicException;
 import com.roloduck.exception.NotFoundException;
 import com.roloduck.user.model.User;
 
@@ -15,10 +16,13 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * Sign up a new user, and assign a unique login_hash before adding to the database
+     * Sign up a new user, and assign a unique login_hash before adding to the database.
+     * The company identifier is used to tie the User to a particular company
      * @param user the user to be added
+     * @param companyIdentifier a generated identifier of a company, if this doesnt exist, the user
+     * cannot be added
      */
-    public void signUpUser(User user);
+    public void signUpUser(User user, String companyIdentifier) throws BusinessLogicException;
 
     /**
      * Return the user with the given id. Throw exception if no user is found
@@ -26,7 +30,7 @@ public interface UserService {
      * @return the user with the given id
      * @exception NotFoundException
      */
-    public User restoreUserById(int id) throws NotFoundException;
+    public User restoreUserById(long id) throws NotFoundException;
 
     /**
      * Return all users in the database

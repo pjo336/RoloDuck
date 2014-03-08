@@ -19,10 +19,11 @@ public class User implements RoloDuckEntity {
 
     private static final String TABLE_NAME = "RD_USER";
 
-    private int id;
+    private long id;
     private String name;
     private String email;
     private String password;
+    private long companyId;
     private UserRole userRole;
 
     /**
@@ -49,7 +50,7 @@ public class User implements RoloDuckEntity {
 
     @Override
     public String[] getColumnNames() {
-        return new String[]{"user_name", "user_email", "user_password"};
+        return new String[]{"user_name", "user_email", "user_password", "company_id"};
     }
 
     @Override
@@ -61,6 +62,7 @@ public class User implements RoloDuckEntity {
                 ps.setString(1, newUser.getName());
                 ps.setString(2, newUser.getEmail());
                 ps.setString(3, newUser.getPassword());
+                ps.setLong(4, newUser.getCompanyId());
                 return ps;
             }
         };
@@ -72,12 +74,12 @@ public class User implements RoloDuckEntity {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -111,5 +113,11 @@ public class User implements RoloDuckEntity {
         this.userRole = userRole;
     }
 
+    public long getCompanyId() {
+        return companyId;
+    }
 
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
+    }
 }

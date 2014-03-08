@@ -20,13 +20,13 @@ public class UserRole implements RoloDuckEntity {
 
     private static final String TABLE_NAME = "RD_USER_ROLES";
 
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
     private String authority;
 
     public UserRole(){}
 
-    public UserRole(int userId, Authority authority) {
+    public UserRole(long userId, Authority authority) {
         this.userId = userId;
         this.authority = authority.getStringValue();
     }
@@ -47,7 +47,7 @@ public class UserRole implements RoloDuckEntity {
         return new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(SQL, new String[]{"id"});
-                ps.setInt(1, newRole.getUserId());
+                ps.setLong(1, newRole.getUserId());
                 ps.setString(2, newRole.getAuthority());
                 return ps;
             }
@@ -60,19 +60,19 @@ public class UserRole implements RoloDuckEntity {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

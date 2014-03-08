@@ -24,5 +24,5 @@ public interface UserRoleDAO {
      * @return the UserRole corresponding to the user
      * @exception com.roloduck.exception.NotFoundException
      */
-    public UserRole restoreByUserId(int userId) throws NotFoundException;
+    public UserRole restoreByUserId(long userId) throws NotFoundException;
 }
