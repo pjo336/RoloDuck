@@ -40,11 +40,11 @@ public interface RoloDuckEntity {
     /**
      * @return the entity's id
      */
-    public int getId();
+    public long getId();
 
     /**
      * Set the entity's id
      * @param id the id given to the entity
      */
-    public void setId(int id);
+    public void setId(long id);
 }

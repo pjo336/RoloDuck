@@ -1,5 +1,7 @@
 package com.roloduck.web;
 
+import com.roloduck.exception.BusinessLogicException;
+import com.roloduck.user.converter.UserConverter;
 import com.roloduck.user.model.User;
 import com.roloduck.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,11 @@ public class RoloDuckController {
 
     @RequestMapping(value="/")
     public String serveIndex(ModelMap model, Principal principal) {
-        //Spring uses InternalResourceViewResolver and return back index.jsp
         if(principal != null) {
             String name = principal.getName(); //get logged in username
             model.addAttribute("user", name);
         }
+        model.addAttribute("page", "projects");
         return "index";
     }
 
@@ -40,9 +42,15 @@ public class RoloDuckController {
     }
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public String signUpUser(@ModelAttribute("user") User user, ModelMap model) {
-        userService.signUpUser(user);
-        model.put("user", user);
+    public String signUpUser(@ModelAttribute("user") UserConverter userConverter, ModelMap model) {
+        User newUser = new User(userConverter.getName(), userConverter.getEmail(), userConverter.getPassword());
+        try {
+            userService.signUpUser(newUser, userConverter.getCompanyIdentifier());
+        } catch(BusinessLogicException ble) {
+            // TODO figure out how to present exceptions
+            ble.printStackTrace();
+        }
+        model.put("user", newUser);
         return "index";
     }
 

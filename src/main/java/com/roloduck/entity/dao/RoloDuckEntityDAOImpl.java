@@ -37,7 +37,7 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);
         // Set the objects id to the value that was generated
-        entity.setId(keyHolder.getKey().intValue());
+        entity.setId(keyHolder.getKey().longValue());
     }
 
     @SuppressWarnings("unchecked")
