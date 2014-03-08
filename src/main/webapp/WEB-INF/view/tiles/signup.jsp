@@ -11,12 +11,14 @@
       action="${userRegistration}">
     <div class="row">
         <div class="col-xs-6 col-md-6">
-            <input class="form-control" name="name" placeholder="Name" type="text" path="name"
+            <input class="form-control" name="name" placeholder="Name" type="text"
                    required autofocus />
         </div>
     </div>
-    <input class="form-control" name="email" placeholder="Your Email" type="email" path="email"/>
-    <input class="form-control" name="password" placeholder="New Password" type="password" path="password"/>
+    <input class="form-control" name="email" placeholder="Your Email" type="email"/>
+    <input class="form-control" name="password" placeholder="New Password" type="password"/>
+    <h3>Enter your company identifier here:</h3>
+    <input class="form-control" name="companyIdentifier" placeholder="Company Identifier" type="text"/>
     <br />
     <br />
     <button class="btn btn-lg btn-primary btn-block" type="submit">

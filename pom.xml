@@ -13,6 +13,7 @@
         <junit.version>4.11</junit.version>
         <jdk.version>1.6</jdk.version>
         <spring.security.version>3.2.0.RELEASE</spring.security.version>
+        <tiles.version>3.0.3</tiles.version>
     </properties>
 
     <dependencies>
@@ -76,13 +77,14 @@
             <version>${spring.security.version}</version>
         </dependency>
 
-        <!-- MySQL database driver -->
+        <!--MySQL database driver-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.29</version>
         </dependency>
 
+        <!--Servlet-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -90,6 +92,21 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Tiles -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-extras</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+
+        <!--log4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.8</version>
+        </dependency>
+
 
     </dependencies>
 
