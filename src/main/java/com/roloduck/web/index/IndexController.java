@@ -29,4 +29,9 @@ public class IndexController {
         return "projects";
     }
 
+    @RequestMapping(value="/projects/create")
+    public String serveProjectsCreate(ModelMap model, Principal principal) {
+        model.addAttribute("page", "projects");
+        return "projects-create";
+    }
 }
