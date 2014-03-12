@@ -23,7 +23,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <a href="/project/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Project</button></a>
+        <a href="/projects/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Project</button></a>
     </nav>
 
     <table class="table table-striped">
