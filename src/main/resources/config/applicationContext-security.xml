@@ -7,14 +7,14 @@
 	                             http://www.springframework.org/schema/security
 	                             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http pattern="/" security="none"/>
-    <http pattern="/login" security="none"/>
-    <http pattern="/login_error=1" security="none"/>
-    <http pattern="/logout" security="none"/>
-    <http pattern="/signup" security="none"/>
 
-    <http auto-config="true">
-        <intercept-url pattern="/*" access="ROLE_USER"/>
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/" access="permitAll()"/>
+        <intercept-url pattern="/static/**" access="permitAll()"/>
+        <intercept-url pattern="/signup" access="isAnonymous()"/>
+        <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/projects"
                     authentication-failure-url="/login_error=1"/>
         <logout logout-success-url="/logout" delete-cookies="JSESSIONID"/>

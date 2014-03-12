@@ -1,6 +1,8 @@
 package com.roloduck.utils;
 
 import com.roloduck.user.model.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -25,6 +27,12 @@ public class SecurityUtils {
      * @return users name
      */
     public static String getCurrentUserName() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication auth = context.getAuthentication();
+        if(auth == null) {
+            return null;
+        } else {
+            return auth.getName();
+        }
     }
 }

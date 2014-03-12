@@ -1,30 +1,35 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <nav class="navbar navbar-static-top navbar-inverse" role="navigation">
     <div class="navbar-inner">
         <div class="container">
             <div class="navbar-header navbar-left">
                 <a class="navbar-brand" alt="Home" href="/"></a>
             </div>
+            <sec:authorize var="loggedIn" access="isAuthenticated()" />
             <core:choose>
-                <core:when test="${not empty principal}">
+                <core:when test="${loggedIn}">
                 <ul class="nav navbar-nav navbar-right">
                     <li
                     <core:if test="${page.equals('projects')}">
                         class="active"
-                    </core:if>>
+                    </core:if>
+                            >
                         <a href="/projects">Projects</a>
                         </li>
                     <li
                     <core:if test="${page.equals('partners')}">
                         class="active"
-                    </core:if>>
+                    </core:if>
+                            >
                         <a href="/partners">Partners</a>
                         </li>
                     <li
                     <core:if test="${page.equals('contacts')}">
                         class="active"
-                    </core:if>>
+                    </core:if>
+                            >
                     <a href="/contacts">Contacts</a>
                         </li>
                     <li class="dropdown">

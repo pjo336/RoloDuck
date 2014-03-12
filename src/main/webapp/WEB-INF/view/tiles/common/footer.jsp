@@ -1,10 +1,10 @@
 <footer>
     <p class="pull-left">&copy; 2014 RoloDuck, Inc</p>
     <ul class="pull-right">
-        <li><a herf="#">Privacy</a></li>
-        <li><a herf="#">Terms</a></li>
-        <li><a herf="#">Help</a></li>
-        <li><a herf="#">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Contact</a></li>
     </ul>
 </footer>
 

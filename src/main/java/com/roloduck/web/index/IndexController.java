@@ -18,11 +18,6 @@ public class IndexController {
 
     @RequestMapping(value="/")
     public String serveIndex(ModelMap model, Principal principal) {
-        if(principal != null) {
-            // TODO checking if the user is logged in should be done in java in JSPs
-            model.addAttribute("principal", principal);
-            return "redirect: /projects";
-        }
         model.addAttribute("page", "projects");
         return "index";
     }
