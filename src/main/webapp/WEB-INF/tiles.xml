@@ -35,4 +35,9 @@
         <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
     </definition>
 
+    <definition name="projects-create" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Projects - Add New" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects-create.jsp" />
+    </definition>
+
 </tiles-definitions>
