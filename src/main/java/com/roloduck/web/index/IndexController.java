@@ -6,6 +6,9 @@ import com.roloduck.models.company.model.Company;
 import com.roloduck.models.project.model.Project;
 import com.roloduck.user.model.User;
 import com.roloduck.user.service.UserService;
+import com.roloduck.utils.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +28,8 @@ import java.security.Principal;
 @Controller
 public class IndexController {
 
+    static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
     @Autowired
     CompanyDAO companyDAO;
 
@@ -32,7 +37,15 @@ public class IndexController {
     UserService userService;
 
     @RequestMapping(value="/")
-    public String serveIndex(ModelMap model, Principal principal) {
+    public String serveIndex(ModelMap model) {
+        try {
+            User currentUser = SecurityUtils.getCurrentUser();
+            model.addAttribute("LoggedInUser", currentUser);
+            logger.info("Current user is: " + currentUser.getEmail());
+        } catch(NotFoundException nfe) {
+            // A logged in user wasnt found, swallow this
+            logger.info("An anonymousUser accessed the index page.");
+        }
         model.addAttribute("page", "projects");
         return "index";
     }
@@ -45,7 +58,7 @@ public class IndexController {
     }
 
     @RequestMapping(value="/projects/create", method = RequestMethod.GET)
-    public String serveProjectsCreate(ModelMap model, Principal principal) throws NotFoundException {
+    public String serveProjectsCreate(ModelMap model) throws NotFoundException {
         model.addAttribute("page", "projects");
         User user = userService.restoreUserById(1);
         Company company = companyDAO.restoreById(user.getCompanyId());

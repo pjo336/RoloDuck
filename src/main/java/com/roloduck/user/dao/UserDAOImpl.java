@@ -5,6 +5,7 @@ import com.roloduck.exception.NotFoundException;
 import com.roloduck.user.model.User;
 import com.roloduck.user.model.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -36,10 +37,19 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     }
 
     @Override
-    public User findByEmail(String email) {
-        final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_email = ?";
-        return jdbcTemplateObject.queryForObject(SQL,
-                new Object[]{email}, new UserMapper());
+    public User findByEmail(String email) throws NotFoundException {
+        try {
+            final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_email = ?";
+            User user = jdbcTemplateObject.queryForObject(SQL,
+                    new Object[]{email}, new UserMapper());
+            if(user != null) {
+                return user;
+            } else {
+                return null;
+            }
+        } catch(EmptyResultDataAccessException emptyException) {
+            throw new NotFoundException("A user with the email: " + email + " was not found.");
+        }
     }
 
     @Override

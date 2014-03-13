@@ -44,7 +44,7 @@ public interface UserService {
      * @return the user with the given email
      * @exception com.roloduck.exception.NotFoundException
      */
-    public List<User> findUserByEmail(String email) throws NotFoundException;
+    public User findUserByEmail(String email) throws NotFoundException;
 
     /**
      * If the user exists, update them to whatever is set in the user parameter, otherwise add the user to the database

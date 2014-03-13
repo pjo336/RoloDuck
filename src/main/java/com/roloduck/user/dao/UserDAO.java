@@ -33,7 +33,7 @@ public interface UserDAO {
      * @param email the email of the user to be found
      * @return the user with the given email
      */
-    public User findByEmail(String email);
+    public User findByEmail(String email) throws NotFoundException;
 
     /**
      * Find all users

@@ -71,9 +71,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUserByEmail(String email) {
-        // TODO
-        return null;
+    public User findUserByEmail(String email) throws NotFoundException {
+        return userDAO.findByEmail(email);
     }
 
     @Override

@@ -44,9 +44,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throws UsernameNotFoundException {
         // Find the user by the given login parameter
         // This is currently the users email address
-        User user = userDAO.findByEmail(login);
+        User user = null;
         UserRole role = null;
         try {
+            user = userDAO.findByEmail(login);
             role = userRoleDAO.restoreByUserId(user.getId());
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -57,6 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(
                     user.getEmail(),
                     user.getPassword(),
+                    // TODO magic trues
                     true,
                     true,
                     true,
