@@ -81,4 +81,14 @@ public class CompanyServiceImpl implements CompanyService {
         }
     }
 
+    @Override
+    public Company restoreCompanyByName(String name) throws ServiceLogicException {
+        try {
+            return companyDAO.restoreCompanyByName(name);
+        } catch(DAOException de) {
+            logger.warn(de.getMessage());
+            throw new ServiceLogicException(de);
+        }
+    }
+
 }

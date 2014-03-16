@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_COMPANY` (
   `date_modified` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `company_name_UNIQUE` (`company_name` ASC),
   UNIQUE INDEX `company_identifying_string_UNIQUE` (`company_identifying_string` ASC))
 ENGINE = InnoDB;
 

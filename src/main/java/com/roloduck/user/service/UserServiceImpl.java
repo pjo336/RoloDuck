@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
                 user.setCompanyId(companyId);
                 userDAO.insertUser(user);
                 // Create and add the matching user role entry
+                // TODO hardcoded role
                 UserRole role = new UserRole(user.getId(), Authority.ROLE_USER);
                 userRoleDAO.insert(role);
             } catch(DAOException nfe) {

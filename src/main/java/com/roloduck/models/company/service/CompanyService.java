@@ -37,4 +37,12 @@ public interface CompanyService {
      * @throws com.roloduck.exception.ServiceLogicException
      */
     public Company restoreCompanyByUser(User user) throws ServiceLogicException;
+
+    /**
+     * Find the comapny with the given name
+     * @param name the name to search on
+     * @return the company with this name
+     * @throws com.roloduck.exception.ServiceLogicException
+     */
+    public Company restoreCompanyByName(String name) throws ServiceLogicException;
 }
