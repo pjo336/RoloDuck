@@ -3,6 +3,8 @@ package com.roloduck.models.company.dao;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.company.model.Company;
 
+import java.util.List;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -41,4 +43,10 @@ public interface CompanyDAO {
      * @throws com.roloduck.exception.DAOException
      */
     public Company restoreCompanyByIdentifier(String identifier) throws DAOException;
+
+    /**
+     * Find all companies listed in the database
+     * @return the list of companies
+     */
+    public List<Company> find();
 }

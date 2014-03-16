@@ -27,7 +27,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     private static final String TABLE_NAME = "RD_USER";
 
     @Override
-    public void insert(User user) {
+    public void insertUser(User user) {
         super.insert(user);
     }
 
@@ -53,7 +53,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     }
 
     @Override
-    public void updateOrStore(User user) {
+    public void update(User user) {
         final String SQL = "UPDATE " + TABLE_NAME + " SET user_name = ?, user_email = ?," +
                 "user_password = ? where id = ?";
         jdbcTemplateObject.update(SQL,user.getName(), user.getEmail(),
@@ -61,7 +61,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     }
 
     @Override
-    public void remove(User user) {
+    public void removeUser(User user) {
         super.remove(user);
     }
 }

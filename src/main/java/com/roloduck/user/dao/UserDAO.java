@@ -18,7 +18,7 @@ public interface UserDAO {
      * Insert a user into the database
      * @param user a roloduck user
      */
-    public void insert(User user);
+    public void insertUser(User user);
 
     /**
      * Find the user with the given id
@@ -44,14 +44,14 @@ public interface UserDAO {
 
     /**
      * If the user exists, update the record to reflect any changes,
-     * otherwise insert the user
+     * otherwise do nothing
      * @param user the user to be updated
      */
-    public void updateOrStore(User user);
+    public void update(User user);
 
     /**
      * If the user exists, delete the user, otherwise nothing happens.
      * @param user the user to be removed from the database
      */
-    public void remove(User user);
+    public void removeUser(User user);
 }

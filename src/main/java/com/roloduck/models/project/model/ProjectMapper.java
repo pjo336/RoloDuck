@@ -16,12 +16,12 @@ public class ProjectMapper implements RowMapper<Project> {
 
     @Override
     public Project mapRow(ResultSet resultSet, int i) throws SQLException {
-        Project contact = new Project();
-        contact.setId(resultSet.getLong("id"));
-        contact.setProjectName(resultSet.getString("project_name"));
-        contact.setProjectDescription(resultSet.getString("partner_description"));
-        contact.setCreatedByUser(resultSet.getLong("created_by_user"));
-        contact.setCompanyId(resultSet.getLong("company_id"));
-        return contact;
+        Project project = new Project();
+        project.setId(resultSet.getLong("id"));
+        project.setProjectName(resultSet.getString("project_name"));
+        project.setProjectDescription(resultSet.getString("project_description"));
+        project.setCreatedByUser(resultSet.getLong("created_by_user"));
+        project.setCompanyId(resultSet.getLong("company_id"));
+        return project;
     }
 }

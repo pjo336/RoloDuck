@@ -1,13 +1,14 @@
 package com.roloduck.models.project.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.project.model.Project;
 import com.roloduck.models.project.model.ProjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -30,25 +31,25 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
     }
 
     @Override
-    public Project restoreById(long id) throws NotFoundException {
-        return super.findById(id, new Project());
+    public Project restoreById(long id) throws DAOException {
+        return super.restoreById(id, new Project());
     }
 
     @Override
-    public Project findProjectByName(String name) {
-        try {
-            final String SQL = "SELECT * FROM " + TABLE_NAME + " where  project_name = ?";
-            return jdbcTemplateObject.queryForObject(SQL,
-                    new Object[]{name}, new ProjectMapper());
-        } catch(EmptyResultDataAccessException emptyException) {
-            // We don't want an exception for getting no result here, so just return null
-            return null;
-        }
+    public List<Project> findProjectsByName(String name) {
+        final String SQL = "SELECT * FROM " + TABLE_NAME + " where project_name = ?";
+        return jdbcTemplateObject.query(SQL, new Object[]{name}, new ProjectMapper());
+    }
+
+    @Override
+    public List<Project> findProjectsByCompanyId(long companyId) {
+        final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_id = ?";
+        return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ProjectMapper());
     }
 
     @Override
     public void updateOrStoreProject(Project project) {
-
+        // TODO
     }
 
     @Override

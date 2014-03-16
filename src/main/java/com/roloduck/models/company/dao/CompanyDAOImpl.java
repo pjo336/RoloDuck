@@ -9,6 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -54,5 +56,10 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
         } catch(EmptyResultDataAccessException e) {
             throw new DAOException("Company " + identifier + " was not found.", e);
         }
+    }
+
+    @Override
+    public List<Company> find() {
+        return super.find(new Company());
     }
 }

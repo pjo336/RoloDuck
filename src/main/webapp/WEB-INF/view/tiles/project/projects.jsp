@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <ol class="breadcrumb">
-        <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${company.companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Projects</li>
     </ol>
 
@@ -14,13 +15,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                {% for each_project in projects %}
+                <c:forEach var="project" items="${projects}">
                 <li>
-                    <a href="/project/" onclick="location.href=this.href+ '{{each_project._id}}';return false;">
-                        {{each_project.project_name}}
+                    <a href="/project/" onclick="location.href=this.href + ${project.id} ;return false;">
+                        ${project.projectName}
                     </a>
                 </li>
-                {% endfor %}
+                </c:forEach>
             </ul>
         </div>
         <a href="/projects/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Project</button></a>
@@ -36,20 +37,19 @@
         </tr>
         </thead>
         <tbody>
-        {% for each_project in projects %}
+        <c:forEach var="project" items="${projects}">
         <tr>
             <td>
-                <a href="/project/" onclick="location.href=this.href+ '{{each_project._id}}';return false;">
-                    {{each_project.project_name}}
+                <a href="/project/" onclick="location.href=this.href + ${project.id};return false;">
+                    ${project.projectName}
                 </a>
             </td>
             <td><a href="#">4 Partners</a></td>
             <td><a href="#">10 Contacts</a></td>
             <td>1 day ago</td>
         </tr>
-        {% endfor %}
+        </c:forEach>
     </table>
-    page: {% print page %}
     <div>
         <ul class="pagination pull-right">
             <li class="disabled"><a href="#">&laquo;</a></li>

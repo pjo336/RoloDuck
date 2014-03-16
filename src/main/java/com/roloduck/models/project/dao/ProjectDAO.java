@@ -1,7 +1,9 @@
 package com.roloduck.models.project.dao;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.project.model.Project;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -22,17 +24,23 @@ public interface ProjectDAO {
      * Find the project with the given id. If none exists, throw an exception.
      * @param id the id of the project to be found
      * @return the project with the given id
-     * @exception com.roloduck.exception.NotFoundException
+     * @exception com.roloduck.exception.DAOException
      */
-    public Project restoreById(long id) throws NotFoundException;
+    public Project restoreById(long id) throws DAOException;
 
     /**
-     * Find the project with the given name.
-     * @param name the name of the project to be found
-     * @return the project with the given name
-     * @throws com.roloduck.exception.NotFoundException
+     * Find the projects with the given name.
+     * @param name the name of the projects to be found
+     * @return the list of projects with the given name
      */
-    public Project findProjectByName(String name) throws NotFoundException;
+    public List<Project> findProjectsByName(String name);
+
+    /**
+     * Find the projects with the given company id
+     * @param companyId the id of the company
+     * @return the list of projects with this company id
+     */
+    public List<Project> findProjectsByCompanyId(long companyId);
 
     /**
      * If the project exists, update the record to reflect any changes,

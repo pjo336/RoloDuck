@@ -1,4 +1,4 @@
-package com.roloduck.web.project;
+package com.roloduck.models.project.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
- * @since 3/13/14
+ * @since 3/16/14
  * RoloDuck
  */
 
@@ -18,8 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:/config/applicationContext-security.xml",
         "classpath:/config/applicationContext-JPA.xml"})
 @Transactional
-public class ProjectControllerTest {
+public class ProjectServiceImplTest {
 
     @Test
     public void test(){}
+
 }

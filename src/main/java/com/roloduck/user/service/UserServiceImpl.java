@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
                 // Hash the users password
                 user.setPassword(encoder.encode(user.getPassword()));
                 user.setCompanyId(companyId);
-                userDAO.insert(user);
+                userDAO.insertUser(user);
                 // Create and add the matching user role entry
                 UserRole role = new UserRole(user.getId(), Authority.ROLE_USER);
                 userRoleDAO.insert(role);
@@ -93,14 +93,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         if(user != null) {
-            userDAO.updateOrStore(user);
+            userDAO.update(user);
         }
     }
 
     @Override
     public void removeUser(User user) {
         if(user != null) {
-            userDAO.remove(user);
+            userDAO.removeUser(user);
         }
     }
 }
