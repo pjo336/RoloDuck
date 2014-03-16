@@ -10,26 +10,14 @@
             <sec:authorize var="loggedIn" access="isAuthenticated()" />
             <core:choose>
                 <core:when test="${loggedIn}">
-                <ul class="nav navbar-nav navbar-right">
-                    <li
-                    <core:if test="${page.equals('projects')}">
-                        class="active"
-                    </core:if>
-                            >
+                <ul id="rolo-main-nav" class="nav navbar-nav navbar-right">
+                    <li>
                         <a href="/projects">Projects</a>
                         </li>
-                    <li
-                    <core:if test="${page.equals('partners')}">
-                        class="active"
-                    </core:if>
-                            >
+                    <li>
                         <a href="/partners">Partners</a>
                         </li>
-                    <li
-                    <core:if test="${page.equals('contacts')}">
-                        class="active"
-                    </core:if>
-                            >
+                    <li>
                     <a href="/contacts">Contacts</a>
                         </li>
                     <li class="dropdown">
