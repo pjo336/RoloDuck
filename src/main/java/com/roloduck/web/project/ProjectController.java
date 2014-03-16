@@ -1,6 +1,5 @@
 package com.roloduck.web.project;
 
-import com.roloduck.exception.NotFoundException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.model.Company;
 import com.roloduck.models.company.service.CompanyService;
@@ -50,7 +49,7 @@ public class ProjectController {
         Company company = null;
         try {
             user = SecurityUtils.getCurrentUser();
-        } catch(NotFoundException nfe) {
+        } catch(ServiceLogicException e) {
             // TODO propogate this to the front end?
             logger.warn("An anonymous user attempted to access /projects/create.");
             return "redirect:/";

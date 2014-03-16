@@ -1,11 +1,10 @@
 package com.roloduck.utils;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.model.User;
 import com.roloduck.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -19,26 +18,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityUtils {
 
-    @Autowired
-    private UserService userService;
-
     static UserService userServiceStatic;
 
     @Autowired
     public void setUserServiceStatic(UserService userService) {
         SecurityUtils.userServiceStatic = userService;
     }
+
     /**
      * Returns the currently logged in user, or returns anonymousUser if not logged in
      * @return user
      */
-    public static User getCurrentUser() throws NotFoundException {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication auth = context.getAuthentication();
+    public static User getCurrentUser() throws ServiceLogicException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null) {
             return null;
         } else {
-            return userServiceStatic.findUserByEmail(auth.getName());
+            return userServiceStatic.restoreUserByEmail(auth.getName());
         }
     }
 
@@ -47,8 +43,7 @@ public class SecurityUtils {
      * @return users name
      */
     public static String getCurrentUserEmail() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication auth = context.getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null) {
             return null;
         } else {

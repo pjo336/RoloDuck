@@ -1,6 +1,6 @@
 package com.roloduck.security;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.user.dao.UserDAO;
 import com.roloduck.user.dao.UserRoleDAO;
 import com.roloduck.user.model.User;
@@ -47,9 +47,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = null;
         UserRole role = null;
         try {
-            user = userDAO.findByEmail(login);
+            user = userDAO.restoreByEmail(login);
             role = userRoleDAO.restoreByUserId(user.getId());
-        } catch (NotFoundException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
         if(user != null) {

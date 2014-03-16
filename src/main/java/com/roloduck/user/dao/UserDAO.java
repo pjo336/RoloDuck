@@ -1,6 +1,6 @@
 package com.roloduck.user.dao;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.user.model.User;
 
 import java.util.List;
@@ -24,33 +24,34 @@ public interface UserDAO {
      * Find the user with the given id
      * @param id the id of the user to be found
      * @return the user with the given id
-     * @exception com.roloduck.exception.NotFoundException
+     * @throws com.roloduck.exception.DAOException
      */
-    public User restoreById(Object id) throws NotFoundException;
+    public User restoreById(Object id) throws DAOException;
 
     /**
      * Find the user with the given email. Note these should be unique, so only 1 should return
      * @param email the email of the user to be found
      * @return the user with the given email
+     * @throws com.roloduck.exception.DAOException
      */
-    public User findByEmail(String email) throws NotFoundException;
+    public User restoreByEmail(String email) throws DAOException;
 
     /**
      * Find all users
      * @return A list of all users
      */
-    public List<User> findAllUsers();
+    public List<User> find();
 
     /**
      * If the user exists, update the record to reflect any changes,
      * otherwise insert the user
      * @param user the user to be updated
      */
-    public void updateUser(User user);
+    public void updateOrStore(User user);
 
     /**
      * If the user exists, delete the user, otherwise nothing happens.
      * @param user the user to be removed from the database
      */
-    public void removeUser(User user);
+    public void remove(User user);
 }

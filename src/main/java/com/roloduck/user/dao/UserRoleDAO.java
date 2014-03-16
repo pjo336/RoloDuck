@@ -1,6 +1,6 @@
 package com.roloduck.user.dao;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.user.model.UserRole;
 
 /**
@@ -22,7 +22,7 @@ public interface UserRoleDAO {
      * Find the user role(s?) connected to the user with the given id
      * @param userId the id of the user whos role we are looking to find
      * @return the UserRole corresponding to the user
-     * @exception com.roloduck.exception.NotFoundException
+     * @exception com.roloduck.exception.DAOException
      */
-    public UserRole restoreByUserId(long userId) throws NotFoundException;
+    public UserRole restoreByUserId(long userId) throws DAOException;
 }

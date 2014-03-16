@@ -1,10 +1,11 @@
 package com.roloduck.user.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.user.model.UserRole;
 import com.roloduck.user.model.UserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,9 +30,13 @@ public class UserRoleDAOImpl extends RoloDuckEntityDAOImpl<UserRole> implements 
     }
 
     @Override
-    public UserRole restoreByUserId(long userId) throws NotFoundException {
+    public UserRole restoreByUserId(long userId) throws DAOException {
         final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_id = ?";
-        return jdbcTemplateObject.queryForObject(SQL,
-                new Object[]{userId}, new UserRoleMapper());
+        try {
+            return jdbcTemplateObject.queryForObject(SQL,
+                    new Object[]{userId}, new UserRoleMapper());
+        } catch(EmptyResultDataAccessException e) {
+            throw new DAOException("User with ID:  " + userId + " did not have a role found.", e);
+        }
     }
 }

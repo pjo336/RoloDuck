@@ -1,13 +1,15 @@
 package com.roloduck.user.service;
 
-import com.roloduck.exception.BusinessLogicException;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.dao.CompanyDAO;
 import com.roloduck.security.Authority;
 import com.roloduck.user.dao.UserDAO;
 import com.roloduck.user.dao.UserRoleDAO;
 import com.roloduck.user.model.User;
 import com.roloduck.user.model.UserRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserDAO userDAO;
     @Autowired
@@ -34,7 +38,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder encoder; // Used to hash new users passwords
 
     @Override
-    public void signUpUser(User user, String companyIdentifier) throws BusinessLogicException {
+    public void signUpUser(User user, String companyIdentifier) throws ServiceLogicException {
         if(user != null) {
             // Make sure the company exists
             try {
@@ -42,50 +46,61 @@ public class UserServiceImpl implements UserService {
                 // Hash the users password
                 user.setPassword(encoder.encode(user.getPassword()));
                 user.setCompanyId(companyId);
-                // TODO connect user roles into the user object
                 userDAO.insert(user);
                 // Create and add the matching user role entry
                 UserRole role = new UserRole(user.getId(), Authority.ROLE_USER);
                 userRoleDAO.insert(role);
-            } catch(NotFoundException nfe) {
-                throw new BusinessLogicException("Invalid company identifier: " + companyIdentifier + " given.");
+            } catch(DAOException nfe) {
+                logger.warn("The company identifier provided: " + companyIdentifier + " in signUpUser does not exist.");
+                throw new ServiceLogicException("Invalid company identifier: " + companyIdentifier + " given.");
             } catch(Exception e) {
-                e.printStackTrace();
-                throw new BusinessLogicException("There was a problem signing up the user: " + user + ".");
+                logger.warn("There was a problem signing up the user: " + user + ". MESSAGE: " + e.getMessage());
+                throw new ServiceLogicException("There was a problem signing up the user: " + user + ".");
             }
         }
     }
 
     @Override
-    public User restoreUserById(long id) throws NotFoundException {
-        User user = userDAO.restoreById(id);
-        if(user != null) {
-            return user;
+    public User restoreUserById(long id) throws ServiceLogicException{
+        try {
+            User user = userDAO.restoreById(id);
+            if(user != null) {
+                return user;
+            }
+        } catch(DAOException e) {
+            logger.warn("User with ID: " + id + " not found.");
+            throw new ServiceLogicException(e);
         }
-        return null;
+        logger.warn("There was a problem restoring a user by ID: " + id);
+        throw new ServiceLogicException("There was a problem restoring a user by ID: " + id);
     }
 
     @Override
     public List<User> findAllUsers() {
-        return userDAO.findAllUsers();
+        return userDAO.find();
     }
 
     @Override
-    public User findUserByEmail(String email) throws NotFoundException {
-        return userDAO.findByEmail(email);
+    public User restoreUserByEmail(String email) throws ServiceLogicException {
+        try{
+            return userDAO.restoreByEmail(email);
+        } catch(DAOException e) {
+            logger.warn("User with EMAIL: " + email + " not found.");
+            throw new ServiceLogicException(e);
+        }
     }
 
     @Override
     public void updateUser(User user) {
         if(user != null) {
-            userDAO.updateUser(user);
+            userDAO.updateOrStore(user);
         }
     }
 
     @Override
     public void removeUser(User user) {
         if(user != null) {
-            userDAO.removeUser(user);
+            userDAO.remove(user);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.roloduck.user.service;
 
-import com.roloduck.exception.BusinessLogicException;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.model.User;
 
 import java.util.List;
@@ -21,16 +20,17 @@ public interface UserService {
      * @param user the user to be added
      * @param companyIdentifier a generated identifier of a company, if this doesnt exist, the user
      * cannot be added
+     * @throws com.roloduck.exception.ServiceLogicException
      */
-    public void signUpUser(User user, String companyIdentifier) throws BusinessLogicException;
+    public void signUpUser(User user, String companyIdentifier) throws ServiceLogicException;
 
     /**
      * Return the user with the given id. Throw exception if no user is found
      * @param id a user id
      * @return the user with the given id
-     * @exception NotFoundException
+     * @throws com.roloduck.exception.ServiceLogicException
      */
-    public User restoreUserById(long id) throws NotFoundException;
+    public User restoreUserById(long id) throws ServiceLogicException;
 
     /**
      * Return all users in the database
@@ -42,9 +42,9 @@ public interface UserService {
      * Return a user with the given email address. Throw exception if no user is found.
      * @param email the users email address
      * @return the user with the given email
-     * @exception com.roloduck.exception.NotFoundException
+     * @throws com.roloduck.exception.ServiceLogicException
      */
-    public User findUserByEmail(String email) throws NotFoundException;
+    public User restoreUserByEmail(String email) throws ServiceLogicException;
 
     /**
      * If the user exists, update them to whatever is set in the user parameter, otherwise add the user to the database

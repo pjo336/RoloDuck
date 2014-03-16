@@ -1,7 +1,7 @@
 package com.roloduck.user.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.user.model.User;
 import com.roloduck.user.model.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,33 +32,28 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     }
 
     @Override
-    public User restoreById(Object id) throws NotFoundException {
+    public User restoreById(Object id) throws DAOException {
         return super.restoreById(id, new User());
     }
 
     @Override
-    public User findByEmail(String email) throws NotFoundException {
+    public User restoreByEmail(String email) throws DAOException {
         try {
             final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_email = ?";
-            User user = jdbcTemplateObject.queryForObject(SQL,
+            return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{email}, new UserMapper());
-            if(user != null) {
-                return user;
-            } else {
-                return null;
-            }
-        } catch(EmptyResultDataAccessException emptyException) {
-            throw new NotFoundException("A user with the email: " + email + " was not found.");
+        } catch(EmptyResultDataAccessException e) {
+            throw new DAOException("User with EMAIL:  " + email + " was not found.", e);
         }
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return super.findAll(new User());
+    public List<User> find() {
+        return super.find(new User());
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateOrStore(User user) {
         final String SQL = "UPDATE " + TABLE_NAME + " SET user_name = ?, user_email = ?," +
                 "user_password = ? where id = ?";
         jdbcTemplateObject.update(SQL,user.getName(), user.getEmail(),
@@ -66,7 +61,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     }
 
     @Override
-    public void removeUser(User user) {
+    public void remove(User user) {
         super.remove(user);
     }
 }

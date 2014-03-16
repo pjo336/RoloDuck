@@ -1,6 +1,6 @@
 package com.roloduck.web.index;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.model.User;
 import com.roloduck.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class IndexController {
             User currentUser = SecurityUtils.getCurrentUser();
             model.addAttribute("LoggedInUser", currentUser);
             logger.info("Current user is: " + currentUser.getEmail());
-        } catch(NotFoundException nfe) {
+        } catch(ServiceLogicException e) {
             // A logged in user wasnt found, swallow this
             logger.info("An anonymousUser accessed the index page.");
         }
