@@ -1,6 +1,6 @@
 package com.roloduck.web.registration;
 
-import com.roloduck.exception.BusinessLogicException;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.converter.UserConverter;
 import com.roloduck.user.model.User;
 import com.roloduck.user.service.UserService;
@@ -34,7 +34,7 @@ public class RegistrationController {
         User newUser = new User(userConverter.getName(), userConverter.getEmail(), userConverter.getPassword());
         try {
             userService.signUpUser(newUser, userConverter.getCompanyIdentifier());
-        } catch(BusinessLogicException ble) {
+        } catch(ServiceLogicException ble) {
             // TODO figure out how to present exceptions
             ble.printStackTrace();
         }
