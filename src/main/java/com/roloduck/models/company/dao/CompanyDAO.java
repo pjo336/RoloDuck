@@ -1,6 +1,6 @@
 package com.roloduck.models.company.dao;
 
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.company.model.Company;
 
 /**
@@ -22,21 +22,23 @@ public interface CompanyDAO {
      * Find the company with the given id. If none exists, throw an exception.
      * @param id the id of the company to be found
      * @return the company with the given id
-     * @exception com.roloduck.exception.NotFoundException
+     * @throws com.roloduck.exception.DAOException
      */
-    public Company restoreById(long id) throws NotFoundException;
+    public Company restoreById(long id) throws DAOException;
 
     /**
      * Find the company with the given name. If none exists, throw an exception.
      * @param name the name of the company to be found
      * @return the company with the given name
-     * @throws com.roloduck.exception.NotFoundException
+     * @throws com.roloduck.exception.DAOException
      */
-    public Company restoreCompanyByName(String name) throws NotFoundException;
+    public Company restoreCompanyByName(String name) throws DAOException;
 
     /**
      * Find the company that has the given identifier
      * @param identifier the identifying string of the company
+     * @return the compan with the given identifier
+     * @throws com.roloduck.exception.DAOException
      */
-    public Company restoreCompanyByIdentifier(String identifier) throws NotFoundException;
+    public Company restoreCompanyByIdentifier(String identifier) throws DAOException;
 }

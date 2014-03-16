@@ -1,11 +1,11 @@
 package com.roloduck.models.company.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.company.model.Company;
 import com.roloduck.models.company.model.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -30,29 +30,29 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
     }
 
     @Override
-    public Company restoreById(long id) throws NotFoundException {
+    public Company restoreById(long id) throws DAOException {
         return super.restoreById(id, new Company());
     }
 
     @Override
-    public Company restoreCompanyByName(String name) throws NotFoundException {
+    public Company restoreCompanyByName(String name) throws DAOException {
         final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_name = ?";
         try {
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{name}, new CompanyMapper());
-        } catch(IncorrectResultSizeDataAccessException e) {
-            throw new NotFoundException("Company " + name + " was not found.");
+        } catch(EmptyResultDataAccessException e) {
+            throw new DAOException("Company " + name + " was not found.", e);
         }
     }
 
     @Override
-    public Company restoreCompanyByIdentifier(String identifier) throws NotFoundException {
+    public Company restoreCompanyByIdentifier(String identifier) throws DAOException {
         final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_identifying_string = ?";
         try {
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{identifier}, new CompanyMapper());
-        } catch(IncorrectResultSizeDataAccessException e) {
-            throw new NotFoundException("Company " + identifier + " was not found.");
+        } catch(EmptyResultDataAccessException e) {
+            throw new DAOException("Company " + identifier + " was not found.", e);
         }
     }
 }
