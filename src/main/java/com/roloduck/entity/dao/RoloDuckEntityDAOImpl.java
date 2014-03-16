@@ -1,8 +1,9 @@
 package com.roloduck.entity.dao;
 
 import com.roloduck.entity.RoloDuckEntity;
-import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.DAOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -42,20 +43,23 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
 
     @SuppressWarnings("unchecked")
     @Override
-    public E restoreById(Object id, E entity) throws NotFoundException {
+    public E restoreById(Object id, E entity) throws DAOException {
         final String SQL = "SELECT * FROM " + entity.getTableName() + " WHERE id = ?";
-        E ret = (E) jdbcTemplateObject.queryForObject(SQL,
-                new Object[]{id}, entity.getEntityMapper());
-        if(ret != null) {
-            return ret;
-        } else {
-            throw new NotFoundException("No " + entity.getClass().getName() + " with " + id + " id found");
+        try {
+            return (E) jdbcTemplateObject.queryForObject(SQL,
+                    new Object[]{id}, entity.getEntityMapper());
+        } catch(EmptyResultDataAccessException e) {
+            // When we add the class name to the exception, we only want the name of the class, not the path to it
+            String fullClassPathName = entity.getClass().getName();
+            int period = fullClassPathName.lastIndexOf(".") + 1;
+            String className = fullClassPathName.substring(period);
+            throw new DAOException(className + " with ID: " + id + " was not found.", e);
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<E> findAll(E entity) {
+    public List<E> find(E entity) {
         final String SQL = "SELECT * FROM " + entity.getTableName();
         return jdbcTemplateObject.query(SQL, entity.getEntityMapper());
     }
