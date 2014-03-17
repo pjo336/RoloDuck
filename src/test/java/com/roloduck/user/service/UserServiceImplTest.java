@@ -38,9 +38,9 @@ public class UserServiceImplTest {
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
-    private static String userName = "admin";
-    private static String email = "admin@roloduck.com";
-    private static String password = "admin";
+    private static String userName = "wharrrbllllll";
+    private static String email = "wharrrbllllll";
+    private static String password = "wharrrbllllll";
 
     /**
      * This is an integration test involving interaction with the real db.

@@ -55,8 +55,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ROLODUCK`.`RD_USER_ROLES` ;
 
 CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_USER_ROLES` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL,
   `authority` VARCHAR(45) NOT NULL,
   `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -119,15 +119,36 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_PARTNER` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `partner_name` VARCHAR(45) NOT NULL,
   `partner_description` VARCHAR(200) NULL,
+  `date_created` TIMESTAMP NOT NULL,
+  `date_modified` TIMESTAMP NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
+  )
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `ROLODUCK`.`RD_PARTNER`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ROLODUCK`.`RD_PROJECT_PARTNER_ASSOC` ;
+
+CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_PROJECT_PARTNER_ASSOC` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `project_id` BIGINT NOT NULL,
+  `partner_id` BIGINT NOT NULL,
   `date_created` TIMESTAMP NOT NULL,
   `date_modified` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `FK_project_id_idx` (`project_id` ASC),
-  CONSTRAINT `FK_project_id`
+  INDEX `FK_project_id_project_idx` (`project_id` ASC),
+  INDEX `FK_partner_id_partner_idx` (`partner_id` ASC),
+  CONSTRAINT `FK_project_id_assoc`
     FOREIGN KEY (`project_id`)
     REFERENCES `ROLODUCK`.`RD_PROJECT` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_partner_id_assoc`
+    FOREIGN KEY (`partner_id`)
+    REFERENCES `ROLODUCK`.`RD_PARTNER` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

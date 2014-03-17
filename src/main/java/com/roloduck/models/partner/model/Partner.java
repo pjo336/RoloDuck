@@ -1,12 +1,14 @@
 package com.roloduck.models.partner.model;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.models.project.model.Project;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -23,6 +25,8 @@ public class Partner implements RoloDuckEntity {
     private String partnerName;
     private String partnerDescription;
     private long projectId;
+
+    private List<Project> projectAssocs;
 
     @Override
     public String getTableName() {
@@ -83,5 +87,13 @@ public class Partner implements RoloDuckEntity {
 
     public void setProjectId(long projectId) {
         this.projectId = projectId;
+    }
+
+    public List<Project> getProjectAssocs() {
+        return projectAssocs;
+    }
+
+    public void setProjectAssocs(List<Project> projectAssocs) {
+        this.projectAssocs = projectAssocs;
     }
 }
