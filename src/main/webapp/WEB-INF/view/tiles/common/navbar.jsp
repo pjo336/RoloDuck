@@ -10,26 +10,32 @@
             <sec:authorize var="loggedIn" access="isAuthenticated()" />
             <c:choose>
                 <c:when test="${loggedIn}">
-                <ul id="rolo-main-nav" class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/projects">Projects</a>
+
+                    <ul id="rolo-main-nav" class="nav navbar-nav navbar-right">
+                        <li>
+                            <form class="navbar-search form-inline navbar-right navbar-form" action="/search">
+                                <input type="text" class="search-query" placeholder="Search">
+                            </form>
                         </li>
-                    <li>
-                        <a href="/partners">Partners</a>
+                        <li>
+                            <a href="/projects">Projects</a>
+                            </li>
+                        <li>
+                            <a href="/partners">Partners</a>
+                            </li>
+                        <li>
+                        <a href="/contacts">Contacts</a>
+                            </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="j_spring_security_logout">Log out</a></li>
+                            </ul>
                         </li>
-                    <li>
-                    <a href="/contacts">Contacts</a>
-                        </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="j_spring_security_logout">Log out</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                    </ul>
                 </c:when>
                 <c:otherwise>
                 <form class="form-inline navbar-right navbar-form" action="<s:url value='j_spring_security_check' />" method="POST" role="form">>
