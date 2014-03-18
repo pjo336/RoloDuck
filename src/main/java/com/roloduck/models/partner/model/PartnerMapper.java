@@ -20,7 +20,6 @@ public class PartnerMapper implements RowMapper<Partner> {
         partner.setId(resultSet.getLong("id"));
         partner.setPartnerName(resultSet.getString("partner_name"));
         partner.setPartnerDescription(resultSet.getString("partner_description"));
-        partner.setProjectId(resultSet.getLong("project_id"));
         return partner;
     }
 }

@@ -33,7 +33,7 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
         String columnPortion = generateColumnNamesString(cols);
         String questionMarks = generatePlaceholderString(cols);
         // Build the SQL query
-        final String SQL = "insert into " + table + columnPortion + "values" + questionMarks;
+        final String SQL = "INSERT INTO " + table + columnPortion + "VALUES" + questionMarks;
         // This keyholder will be filled with the generated id
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);

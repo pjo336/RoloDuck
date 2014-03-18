@@ -15,10 +15,11 @@ import java.util.List;
 public interface PartnerService {
 
     /**
-     * Create a partner
+     * Create a partner and add the partner and associated project to the association table
      * @param partner the partner to be created
+     * @param projectId the id of the project to match in the assoc table
      */
-    public void createPartner(Partner partner) throws ServiceLogicException;
+    public void createPartner(Partner partner, long projectId) throws ServiceLogicException;
 
     /**
      * Find a list of all the partners that belong to the given project

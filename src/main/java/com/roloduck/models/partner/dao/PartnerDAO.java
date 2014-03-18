@@ -21,6 +21,13 @@ public interface PartnerDAO {
     public void insertPartner(Partner partner);
 
     /**
+     * Inserts a partner and its associated project to the ProjectPartnerAssoc table
+     * @param partner the partner to be added to the assoc
+     * @param projectId the id of the project to be added to the assoc
+     */
+    public void insertPartnerProjectAssoc(Partner partner, long projectId);
+
+    /**
      * Find the partner with the given id. If none exists, throw an exception.
      * @param id the id of the partner to be found
      * @return the partner with the given id

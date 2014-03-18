@@ -5,6 +5,7 @@ import com.roloduck.models.partner.dao.PartnerDAO;
 import com.roloduck.models.partner.model.Partner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,9 +23,11 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerDAO partnerDAO;
 
     @Override
-    public void createPartner(Partner partner) throws ServiceLogicException {
+    @Transactional
+    public void createPartner(Partner partner, long projectId) throws ServiceLogicException {
         if(partner != null) {
             partnerDAO.insertPartner(partner);
+            partnerDAO.insertPartnerProjectAssoc(partner, projectId);
         }
     }
 

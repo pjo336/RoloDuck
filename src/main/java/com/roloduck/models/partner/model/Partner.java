@@ -35,7 +35,7 @@ public class Partner implements RoloDuckEntity {
 
     @Override
     public String[] getColumnNames() {
-        return new String[]{"partner_name", "partner_description", "project_id"};
+        return new String[]{"partner_name", "partner_description"};
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Partner implements RoloDuckEntity {
                 PreparedStatement ps = connection.prepareStatement(SQL, new String[]{"id"});
                 ps.setString(1, partner.getPartnerName());
                 ps.setString(2, partner.getPartnerDescription());
-                ps.setLong(3, partner.getProjectId());
                 return ps;
             }
         };
