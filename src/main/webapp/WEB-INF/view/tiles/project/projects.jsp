@@ -61,4 +61,5 @@
         </ul>
         <div style="clear:both;"></div>
     </div>
-</div>
+<!-- do not end container div or body div - those close tags are in the footer -->
+
