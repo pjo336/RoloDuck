@@ -5,6 +5,7 @@
         <li><a href="#">Terms</a></li>
         <li><a href="#">Help</a></li>
         <li><a href="#">Contact</a></li>
+        <%--derp--%>
     </ul>
 </footer>
 </div>
