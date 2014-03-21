@@ -9,6 +9,8 @@
 </footer>
 </div>
 
+<!-- A pointless comment to cause a merge conflict -->
+
 <!-- Less -->
 <script type="text/javascript" src="/static/js/less.js"></script>
 
