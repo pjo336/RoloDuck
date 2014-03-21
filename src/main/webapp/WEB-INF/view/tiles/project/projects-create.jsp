@@ -19,4 +19,4 @@
         <!-- only enabled after the user enters a Project Name -->
         <button type="submit" class="btn btn-primary btn-lg signin-button">Submit</button>
     </form>
-</div>
+<!-- do not end container div or body div - those close tags are in the footer -->

@@ -8,6 +8,7 @@
         <%--derp--%>
     </ul>
 </footer>
+</div>
 
 <!-- Less -->
 <script type="text/javascript" src="/static/js/less.js"></script>
