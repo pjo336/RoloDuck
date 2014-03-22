@@ -20,6 +20,7 @@
         <put-attribute name="body" value="/WEB-INF/view/tiles/index.jsp" />
     </definition>
 
+    <!--Signup and Login-->
     <definition name="login" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Login" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/login.jsp" />
@@ -30,6 +31,7 @@
         <put-attribute name="body" value="/WEB-INF/view/tiles/signup.jsp" />
     </definition>
 
+    <!--Projects-->
     <definition name="projects" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Projects" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
@@ -40,4 +42,15 @@
         <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects-create.jsp" />
     </definition>
 
+    <!--Partners-->
+    <definition name="partners" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Partners" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
+    </definition>
+
+    <!--Contacts-->
+    <definition name="contacts" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Contacts" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
+    </definition>
 </tiles-definitions>

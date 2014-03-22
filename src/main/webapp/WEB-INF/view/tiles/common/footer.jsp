@@ -5,12 +5,9 @@
         <li><a href="#">Terms</a></li>
         <li><a href="#">Help</a></li>
         <li><a href="#">Contact</a></li>
-        <%--derp--%>
     </ul>
 </footer>
 </div>
-
-<!-- A pointless commkjksjdsent to cause a merge conflict -->
 
 <!-- Less -->
 <script type="text/javascript" src="/static/js/less.js"></script>

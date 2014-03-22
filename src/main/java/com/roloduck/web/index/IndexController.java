@@ -21,7 +21,7 @@ public class IndexController {
 
     static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    @RequestMapping(value="/")
+    @RequestMapping(value = "/")
     public String serveIndex(ModelMap model) {
         try {
             User currentUser = SecurityUtils.getCurrentUser();

@@ -24,12 +24,12 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String serveSignup(ModelMap model) {
         return "signup";
     }
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUpUser(@ModelAttribute("user") UserConverter userConverter, ModelMap model) {
         User newUser = new User(userConverter.getName(), userConverter.getEmail(), userConverter.getPassword());
         try {

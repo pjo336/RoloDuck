@@ -36,7 +36,7 @@ public class ProjectController {
 
     private static final String URI_PREFIX = "/projects";
 
-    @RequestMapping(value=URI_PREFIX)
+    @RequestMapping(value = URI_PREFIX)
     public String serveProjects(ModelMap model) {
         User user = null;
         try {
@@ -51,7 +51,7 @@ public class ProjectController {
         return "projects";
     }
 
-    @RequestMapping(value=URI_PREFIX + "/create", method = RequestMethod.GET)
+    @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.GET)
     public String serveProjectsCreate(ModelMap model) {
         User user = null;
         Company company = null;
@@ -72,7 +72,7 @@ public class ProjectController {
         }
     }
 
-    @RequestMapping(value=URI_PREFIX + "/create", method = RequestMethod.POST)
+    @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.POST)
     public String postProjectsCreate(@ModelAttribute("project") Project project, ModelMap model) {
         User user = null;
         try {
