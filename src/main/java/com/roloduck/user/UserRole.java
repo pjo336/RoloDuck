@@ -1,4 +1,4 @@
-package com.roloduck.user.model;
+package com.roloduck.user;
 
 import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.security.Authority;

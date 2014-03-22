@@ -1,7 +1,7 @@
 package com.roloduck.user.dao;
 
 import com.roloduck.exception.DAOException;
-import com.roloduck.user.model.UserRole;
+import com.roloduck.user.UserRole;
 
 /**
  * @author Andrew Ertell

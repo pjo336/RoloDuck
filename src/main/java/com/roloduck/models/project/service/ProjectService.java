@@ -1,8 +1,8 @@
 package com.roloduck.models.project.service;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.project.model.Project;
-import com.roloduck.user.model.User;
+import com.roloduck.models.project.Project;
+import com.roloduck.user.User;
 
 import java.util.List;
 

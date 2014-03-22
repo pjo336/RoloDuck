@@ -1,11 +1,11 @@
 package com.roloduck.web.project;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.company.model.Company;
+import com.roloduck.models.company.Company;
 import com.roloduck.models.company.service.CompanyService;
-import com.roloduck.models.project.model.Project;
+import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

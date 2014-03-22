@@ -1,7 +1,7 @@
 package com.roloduck.web.index;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.roloduck.user.model;
+package com.roloduck.user;
 
 import com.roloduck.entity.RoloDuckEntity;
 import org.springframework.jdbc.core.PreparedStatementCreator;

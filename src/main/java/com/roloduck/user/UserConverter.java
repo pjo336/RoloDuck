@@ -1,4 +1,4 @@
-package com.roloduck.user.converter;
+package com.roloduck.user;
 
 /**
  * @author Andrew Ertell

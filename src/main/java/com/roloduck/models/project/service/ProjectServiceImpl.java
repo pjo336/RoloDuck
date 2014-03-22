@@ -1,9 +1,9 @@
 package com.roloduck.models.project.service;
 
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.project.Project;
 import com.roloduck.models.project.dao.ProjectDAO;
-import com.roloduck.models.project.model.Project;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

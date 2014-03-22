@@ -2,12 +2,12 @@ package com.roloduck.user.service;
 
 import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.company.model.Company;
-import com.roloduck.models.company.model.SubscriptionType;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.SubscriptionType;
 import com.roloduck.models.company.service.CompanyService;
+import com.roloduck.user.User;
+import com.roloduck.user.UserRole;
 import com.roloduck.user.dao.UserRoleDAO;
-import com.roloduck.user.model.User;
-import com.roloduck.user.model.UserRole;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

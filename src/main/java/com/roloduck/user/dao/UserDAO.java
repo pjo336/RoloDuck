@@ -1,7 +1,7 @@
 package com.roloduck.user.dao;
 
 import com.roloduck.exception.DAOException;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 
 import java.util.List;
 

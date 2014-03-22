@@ -1,10 +1,10 @@
 package com.roloduck.jpa;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.company.model.Company;
-import com.roloduck.models.company.model.SubscriptionType;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.SubscriptionType;
 import com.roloduck.models.company.service.CompanyService;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 import com.roloduck.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

@@ -2,8 +2,8 @@ package com.roloduck.models.company.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
-import com.roloduck.models.company.model.Company;
-import com.roloduck.models.company.model.CompanyMapper;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

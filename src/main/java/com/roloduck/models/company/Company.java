@@ -1,4 +1,4 @@
-package com.roloduck.models.company.model;
+package com.roloduck.models.company;
 
 import com.roloduck.entity.RoloDuckEntity;
 import org.springframework.jdbc.core.PreparedStatementCreator;

@@ -1,7 +1,7 @@
 package com.roloduck.utils;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.user.model.User;
+import com.roloduck.user.User;
 import com.roloduck.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
-package com.roloduck.models.partner.model;
+package com.roloduck.models.partner;
 
 import com.roloduck.entity.RoloDuckEntity;
-import com.roloduck.models.project.model.Project;
+import com.roloduck.models.project.Project;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 

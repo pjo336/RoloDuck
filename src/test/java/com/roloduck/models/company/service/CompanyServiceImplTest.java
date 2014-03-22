@@ -1,9 +1,9 @@
 package com.roloduck.models.company.service;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.company.model.Company;
-import com.roloduck.models.company.model.SubscriptionType;
-import com.roloduck.user.model.User;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.SubscriptionType;
+import com.roloduck.user.User;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

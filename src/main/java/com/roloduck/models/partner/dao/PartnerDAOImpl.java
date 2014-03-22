@@ -2,8 +2,8 @@ package com.roloduck.models.partner.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
-import com.roloduck.models.partner.model.Partner;
-import com.roloduck.models.project.model.Project;
+import com.roloduck.models.partner.Partner;
+import com.roloduck.models.project.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;

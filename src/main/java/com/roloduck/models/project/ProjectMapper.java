@@ -1,4 +1,4 @@
-package com.roloduck.models.project.model;
+package com.roloduck.models.project;
 
 import org.springframework.jdbc.core.RowMapper;
 

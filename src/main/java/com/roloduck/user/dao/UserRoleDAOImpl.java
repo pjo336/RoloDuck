@@ -2,8 +2,8 @@ package com.roloduck.user.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
-import com.roloduck.user.model.UserRole;
-import com.roloduck.user.model.UserRoleMapper;
+import com.roloduck.user.UserRole;
+import com.roloduck.user.UserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

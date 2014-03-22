@@ -1,7 +1,7 @@
 package com.roloduck.models.partner.service;
 
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.partner.model.Partner;
+import com.roloduck.models.partner.Partner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

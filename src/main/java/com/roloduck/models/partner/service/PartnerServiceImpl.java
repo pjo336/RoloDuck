@@ -1,8 +1,8 @@
 package com.roloduck.models.partner.service;
 
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.dao.PartnerDAO;
-import com.roloduck.models.partner.model.Partner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

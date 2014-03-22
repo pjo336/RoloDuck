@@ -1,7 +1,7 @@
 package com.roloduck.models.company.dao;
 
 import com.roloduck.exception.DAOException;
-import com.roloduck.models.company.model.Company;
+import com.roloduck.models.company.Company;
 
 import java.util.List;
 

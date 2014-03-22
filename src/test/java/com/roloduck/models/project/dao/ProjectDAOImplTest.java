@@ -1,12 +1,12 @@
 package com.roloduck.models.project.dao;
 
 import com.roloduck.exception.DAOException;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.SubscriptionType;
 import com.roloduck.models.company.dao.CompanyDAO;
-import com.roloduck.models.company.model.Company;
-import com.roloduck.models.company.model.SubscriptionType;
-import com.roloduck.models.project.model.Project;
+import com.roloduck.models.project.Project;
+import com.roloduck.user.User;
 import com.roloduck.user.dao.UserDAO;
-import com.roloduck.user.model.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

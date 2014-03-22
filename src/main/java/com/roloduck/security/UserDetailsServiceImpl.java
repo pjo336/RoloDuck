@@ -1,10 +1,10 @@
 package com.roloduck.security;
 
 import com.roloduck.exception.DAOException;
+import com.roloduck.user.User;
+import com.roloduck.user.UserRole;
 import com.roloduck.user.dao.UserDAO;
 import com.roloduck.user.dao.UserRoleDAO;
-import com.roloduck.user.model.User;
-import com.roloduck.user.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
