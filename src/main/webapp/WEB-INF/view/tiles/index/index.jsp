@@ -19,5 +19,4 @@
             <a href="/signup" type="button" class="btn btn-success btn-lg">Get Started</a>
         </div>
     </div>
-<!-- do not end container div or body div - those close tags are in the footer -->
-
+</div>

@@ -29,8 +29,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="/profile">Profile</a></li>
+                                <li><a href="/settings">Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a href="j_spring_security_logout">Log out</a></li>
                             </ul>

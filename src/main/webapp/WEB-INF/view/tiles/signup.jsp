@@ -19,4 +19,4 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">
             Sign up</button>
     </form>
-<!-- do not end container div or body div - those close tags are in the footer -->
+</div>
