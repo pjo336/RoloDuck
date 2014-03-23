@@ -34,6 +34,16 @@
         <put-attribute name="body" value="/WEB-INF/view/tiles/signup.jsp" />
     </definition>
 
+    <!--Account Pages-->
+    <definition name="profile" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Profile" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/account/profile.jsp" />
+    </definition>
+
+    <definition name="settings" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Settings" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/account/settings.jsp" />
+    </definition>
     <!--Projects-->
     <definition name="projects" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Projects" />
