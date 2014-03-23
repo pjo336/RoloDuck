@@ -11,13 +11,16 @@
         <put-attribute name="top-navbar" value="/WEB-INF/view/tiles/common/navbar.jsp" />
         <!-- header -->
         <!-- body -->
+        <!--custom-styles-->
         <put-attribute name="footer" value="/WEB-INF/view/tiles/common/footer.jsp" />
+        <!--custom-scripts-->
     </definition>
 
     <!-- Views -->
     <definition name="index" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck" />
-        <put-attribute name="body" value="/WEB-INF/view/tiles/index.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/index/index.jsp" />
+        <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/index/index-scripts.jsp" />
     </definition>
 
     <!--Signup and Login-->
@@ -35,6 +38,7 @@
     <definition name="projects" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Projects" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
+        <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/project/projects-scripts.jsp" />
     </definition>
 
     <definition name="projects-create" extends="roloduck.common">

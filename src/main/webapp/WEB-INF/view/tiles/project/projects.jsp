@@ -38,8 +38,12 @@
         </thead>
         <tbody>
         <c:forEach var="project" items="${projects}">
-        <tr>
+        <tr id="projectrow-${project.id}">
             <td>
+                <button id="${project.id}" class="delete-project btn btn-sm btn-danger" type="button"
+                        data-toggle="tooltip"
+                        data-original-title="Remove this project">
+                </button>
                 <a href="/project/" onclick="location.href=this.href + ${project.id};return false;">
                     ${project.projectName}
                 </a>
