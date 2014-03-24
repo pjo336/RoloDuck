@@ -59,12 +59,23 @@
     <!--Partners-->
     <definition name="partners" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Partners" />
-        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/partner/partners.jsp" />
+    </definition>
+
+    <definition name="partners-create" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Partners - Add New" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/partner/partners-create.jsp" />
     </definition>
 
     <!--Contacts-->
     <definition name="contacts" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Contacts" />
-        <put-attribute name="body" value="/WEB-INF/view/tiles/project/projects.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/contact/contacts.jsp" />
+    </definition>
+
+
+    <definition name="contacts-create" extends="roloduck.common">
+        <put-attribute name="title" value="RoloDuck | Contacts - Add New" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/contact/contacts-create.jsp" />
     </definition>
 </tiles-definitions>

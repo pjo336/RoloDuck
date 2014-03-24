@@ -1,0 +1,41 @@
+<div class="container">
+    {% include 'common/flash_messages.html' %}
+
+    <ol class="breadcrumb">
+        <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
+        <li class="active">Partners</li>
+    </ol>
+
+    <h1 style="margin-bottom:20px"> All Partners </h1>
+
+    <nav class="navbar navbar-default">
+        <span class="navbar-jump">Jump to:</span>
+        <div class="btn-group jump-dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Select Partner
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                {% for each_partner in partners %}
+                <li>
+                    <a href="/partner/" onclick="location.href=this.href+ '{{each_partner._id}}';return false;">
+                        {{each_partner.partner_name}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="/partners/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Partner</button></a>
+    </nav>
+
+    {% for each_partner in partners %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="/project/partner/" onclick="location.href=this.href+'Fandango';return false;">{{each_partner.partner_name}}</a>
+            </h3>
+        </div>
+        <div class="panel-body">
+        </div>
+    </div>
+    {% endfor %}
