@@ -36,6 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> findAllCompanyProjects(long companyId) {
+        // TODO Make sure company is active
+        // Maybe use company instead of company ID?
         return projectDAO.findProjectsByCompanyId(companyId);
     }
 }

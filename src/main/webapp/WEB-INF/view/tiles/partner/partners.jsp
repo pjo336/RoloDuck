@@ -1,8 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    {% include 'common/flash_messages.html' %}
 
     <ol class="breadcrumb">
-        <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${company.companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Partners</li>
     </ol>
 
@@ -28,11 +28,12 @@
         <a href="/partners/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Partner</button></a>
     </nav>
 
-    {<c:forEach var="partner" items="${partners}">
+    <c:forEach var="partner" items="${partners}">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <a href="/project/partner/" onclick="location.href=this.href+'Fandango';return false;">${partner.partnerName}</a>
+                <a href="/project/partner/" onclick="location.href=this.href+ ${partner.id}; return false;">
+                    ${partner.partnerName}</a>
             </h3>
         </div>
         <div class="panel-body">

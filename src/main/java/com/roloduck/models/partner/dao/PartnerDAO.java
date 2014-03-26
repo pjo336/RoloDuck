@@ -33,7 +33,7 @@ public interface PartnerDAO {
      * @param companyId the id of the company
      * @return a list of all partners belonging to the given company
      */
-    public List<Partner> findPartnerByCompanyId(long companyId);
+    public List<Partner> findPartnersByCompanyId(long companyId);
 
     /**
      * If the given partner exists, remove it from the database, else do nothing

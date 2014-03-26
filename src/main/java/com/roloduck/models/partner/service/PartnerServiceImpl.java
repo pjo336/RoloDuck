@@ -1,6 +1,8 @@
 package com.roloduck.models.partner.service;
 
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.dao.PartnerDAO;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
@@ -26,6 +28,9 @@ public class PartnerServiceImpl implements PartnerService {
     @Autowired
     private ProjPartAssocDAO assocDAO;
 
+    @Autowired
+    private CompanyService companyService;
+
     @Override
     public void createPartner(Partner partner, User user) throws ServiceLogicException {
         if(partner != null) {
@@ -45,8 +50,13 @@ public class PartnerServiceImpl implements PartnerService {
     }
 
     @Override
-    public List<Partner> findAllPartners() {
-        return null;
+    public List<Partner> findAllCompanyPartners(long companyId) throws ServiceLogicException {
+        Company company = companyService.restoreCompanyById(companyId);
+        if(company != null) {
+            return partnerDAO.findPartnersByCompanyId(companyId);
+        } else {
+            throw new ServiceLogicException("Company with id: " + companyId + " does not exist");
+        }
     }
 
     @Override

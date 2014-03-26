@@ -37,7 +37,7 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
     }
 
     @Override
-    public List<Partner> findPartnerByCompanyId(long companyId) {
+    public List<Partner> findPartnersByCompanyId(long companyId) {
         Partner partner = new Partner();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(partner.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";

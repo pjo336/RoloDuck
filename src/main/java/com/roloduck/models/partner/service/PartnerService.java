@@ -31,10 +31,11 @@ public interface PartnerService {
     public void assignPartnerToProject(Partner partner, long projectId) throws ServiceLogicException;
 
     /**
-     * Return a list of all partners in the database for the active company
-     * @return
+     * Return a list of all partners in the database for the *ACTIVE* company
+     * @param companyId the id of the company
+     * @return a list of all partners belonging to this company
      */
-    public List<Partner> findAllPartners();
+    public List<Partner> findAllCompanyPartners(long companyId) throws ServiceLogicException;
 
     /**
      * Find a list of all the partners that belong to the given project
