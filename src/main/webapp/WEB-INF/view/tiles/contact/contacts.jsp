@@ -1,8 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    {% include 'common/flash_messages.html' %}
 
     <ol class="breadcrumb">
-        <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${company.companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Contacts</li>
     </ol>
 
@@ -16,13 +16,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                {% for each_contact in contacts %}
+                <c:forEach var="contact" items="${contacts}">
                 <li>
-                    <a href="/project/" onclick="location.href=this.href+ '{{each_contact._id}}';return false;">
-                        {{each_contact.contact_firstName}}
+                    <a href="/contact/" onclick="location.href=this.href + ${contact.id}; return false;">
+                        ${contact.contactFirstName} ${contact.contactLastName}
                     </a>
                 </li>
-                {% endfor %}
+                </c:forEach>
             </ul>
         </div>
         <a href="/contacts/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Contact</button></a>
@@ -41,17 +41,17 @@
         </tr>
         </thead>
         <tbody>
-        {% for each_contact in contacts %}
+        <c:forEach var="contact" items="${contacts}">
         <tr>
-            <td>{{each_contact.contact_firstName}}</td>
-            <td>{{each_contact.contact_lastName}}</td>
-            <td>{WIP}</td>
-            <td>{{each_contact.contact_role}}</td>
-            <td>{{each_contact.contact_title}}</td>
-            <td>{{each_contact.contact_email}}</td>
-            <td>{{each_contact.contact_phone}}</td>
+            <td>${contact.contactFirstName}</td>
+            <td>${contact.contactLastName}</td>
+            <td>${company.companyName}</td>
+            <td>ROLE?</td>
+            <td>${contact.contactTitle}</td>
+            <td>${contact.contactEmail}</td>
+            <td>${contact.contactPhone}</td>
         </tr>
-        {% endfor %}
+        </c:forEach>
     </table>
 
     <div>

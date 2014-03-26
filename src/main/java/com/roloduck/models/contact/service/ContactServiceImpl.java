@@ -29,6 +29,8 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void createContact(Contact contact, User user) throws ServiceLogicException {
         if(contact != null) {
+            // TODO hardcoded partner
+            contact.setPartnerId(1);
             contact.setCompanyId(user.getCompanyId());
             contactDAO.insertContact(contact);
         }
