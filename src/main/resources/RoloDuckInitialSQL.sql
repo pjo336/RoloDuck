@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_CONTACT` (
   `contact_phone` VARCHAR(45) NULL,
   `partner_id` BIGINT NOT NULL,
   `company_id` BIGINT NOT NULL,
-  `date_added` TIMESTAMP NOT NULL,
+  `date_created` TIMESTAMP NOT NULL,
   `date_modified` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),

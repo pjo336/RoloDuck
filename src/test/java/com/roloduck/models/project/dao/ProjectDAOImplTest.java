@@ -56,6 +56,11 @@ public class ProjectDAOImplTest {
         impl.findProjectsByName("derp");
     }
 
+    @Test
+    public void testFindProjectsByCompanyIdNotFound() throws DAOException {
+        impl.findProjectsByCompanyId(-999);
+    }
+
     /**
      * Quickly create a project to be used in testing
      * @param name the name given to the project

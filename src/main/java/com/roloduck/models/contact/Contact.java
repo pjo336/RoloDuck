@@ -26,6 +26,7 @@ public class Contact implements RoloDuckEntity {
     private String contactEmail;
     private String contactPhone;
     private long partnerId;
+    private long companyId;
 
     public Contact(){}
 
@@ -37,13 +38,13 @@ public class Contact implements RoloDuckEntity {
     @Override
     public String[] getDistinctColumnNames() {
         return new String[]{"contact_first_name", "contact_last_name", "contact_title",
-                "contact_email", "contact_phone", "partner_id"};
+                "contact_email", "contact_phone", "partner_id", "company_id"};
     }
 
     @Override
     public String[] getAllColumnNames() {
         return new String[]{"id", "contact_first_name", "contact_last_name", "contact_title",
-                "contact_email", "contact_phone", "partner_id", "date_created",
+                "contact_email", "contact_phone", "partner_id", "company_id", "date_created",
                 "date_modified"};
     }
 
@@ -59,6 +60,7 @@ public class Contact implements RoloDuckEntity {
                 ps.setString(4, newContact.getContactEmail());
                 ps.setString(5, newContact.getContactPhone());
                 ps.setLong(6, newContact.getPartnerId());
+                ps.setLong(7, newContact.getCompanyId());
                 return ps;
             }
         };
@@ -126,4 +128,8 @@ public class Contact implements RoloDuckEntity {
     public void setPartnerId(long partnerId) {
         this.partnerId = partnerId;
     }
+
+    public long getCompanyId() { return companyId; }
+
+    public void setCompanyId(long companyId) { this.companyId = companyId; }
 }
