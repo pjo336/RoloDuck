@@ -37,8 +37,13 @@ public class UserRole implements RoloDuckEntity {
     }
 
     @Override
-    public String[] getColumnNames() {
+    public String[] getDistinctColumnNames() {
         return new String[]{"user_id", "authority"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "user_id", "authority", "date_created", "date_modified"};
     }
 
     @Override

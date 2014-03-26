@@ -28,7 +28,7 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     public void insert(E entity) {
         // Retrieve the table name, and names of all the applicable columns
         final String table = entity.getTableName();
-        final String[] cols = entity.getColumnNames();
+        final String[] cols = entity.getDistinctColumnNames();
         // Build the column and ? strings needed for the insert query
         String columnPortion = generateColumnNamesString(cols);
         String questionMarks = generatePlaceholderString(cols);

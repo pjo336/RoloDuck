@@ -3,9 +3,12 @@ package com.roloduck.models.partner.dao;
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.partner.Partner;
+import com.roloduck.models.partner.PartnerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -30,5 +33,16 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
     @Override
     public Partner restoreById(long id) throws DAOException {
         return super.restoreById(id, new Partner());
+    }
+
+    @Override
+    public List<Partner> findPartnerByCompanyId(long companyId) {
+        final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_id = ?";
+        return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
+    }
+
+    @Override
+    public void removePartner(Partner partner) {
+        super.remove(partner);
     }
 }

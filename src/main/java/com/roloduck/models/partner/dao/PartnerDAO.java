@@ -3,6 +3,8 @@ package com.roloduck.models.partner.dao;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.partner.Partner;
 
+import java.util.List;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -26,4 +28,16 @@ public interface PartnerDAO {
      */
     public Partner restoreById(long id) throws DAOException;
 
+    /**
+     * Find all the partners belonging to the given company
+     * @param companyId the id of the company
+     * @return a list of all partners belonging to the given company
+     */
+    public List<Partner> findPartnerByCompanyId(long companyId);
+
+    /**
+     * If the given partner exists, remove it from the database, else do nothing
+     * @param partner the partner to remove
+     */
+    public void removePartner(Partner partner);
 }

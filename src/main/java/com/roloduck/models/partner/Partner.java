@@ -24,7 +24,7 @@ public class Partner implements RoloDuckEntity {
     private long id;
     private String partnerName;
     private String partnerDescription;
-    private long projectId;
+    private Long companyId;
 
     private List<Project> projectAssocs;
 
@@ -34,8 +34,14 @@ public class Partner implements RoloDuckEntity {
     }
 
     @Override
-    public String[] getColumnNames() {
-        return new String[]{"partner_name", "partner_description"};
+    public String[] getDistinctColumnNames() {
+        return new String[]{"partner_name", "partner_description", "company_id"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "partner_name", "partner_description", "company_id", "date_created",
+                "date_modified"};
     }
 
     @Override
@@ -46,6 +52,7 @@ public class Partner implements RoloDuckEntity {
                 PreparedStatement ps = connection.prepareStatement(SQL, new String[]{"id"});
                 ps.setString(1, partner.getPartnerName());
                 ps.setString(2, partner.getPartnerDescription());
+                ps.setLong(3, partner.getCompanyId());
                 return ps;
             }
         };
@@ -80,12 +87,12 @@ public class Partner implements RoloDuckEntity {
         this.partnerDescription = partnerDescription;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public long getCompanyId() {
+        return companyId;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 
     public List<Project> getProjectAssocs() {

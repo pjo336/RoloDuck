@@ -1,5 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    {% include 'common/flash_messages.html' %}
 
     <ol class="breadcrumb">
         <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
@@ -16,26 +16,27 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                {% for each_partner in partners %}
+                <c:forEach var="partner" items="${partners}">
                 <li>
-                    <a href="/partner/" onclick="location.href=this.href+ '{{each_partner._id}}';return false;">
-                        {{each_partner.partner_name}}
+                    <a href="/partner/" onclick="location.href=this.href+ ${partner.id}; return false;">
+                        ${partner.partnerName}
                     </a>
                 </li>
-                {% endfor %}
+                </c:forEach>
             </ul>
         </div>
         <a href="/partners/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Partner</button></a>
     </nav>
 
-    {% for each_partner in partners %}
+    {<c:forEach var="partner" items="${partners}">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <a href="/project/partner/" onclick="location.href=this.href+'Fandango';return false;">{{each_partner.partner_name}}</a>
+                <a href="/project/partner/" onclick="location.href=this.href+'Fandango';return false;">${partner.partnerName}</a>
             </h3>
         </div>
         <div class="panel-body">
         </div>
     </div>
-    {% endfor %}
+    </c:forEach>
+</div>

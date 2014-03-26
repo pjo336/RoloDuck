@@ -37,8 +37,14 @@ public class Project implements RoloDuckEntity{
     }
 
     @Override
-    public String[] getColumnNames() {
+    public String[] getDistinctColumnNames() {
         return new String[]{"project_name", "project_description", "created_by_user", "company_id"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "project_name", "project_description", "created_by_user", "company_id",
+                "date_created", "date_modified"};
     }
 
     @Override

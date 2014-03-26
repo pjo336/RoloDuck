@@ -38,7 +38,7 @@
                     </ul>
                 </c:when>
                 <c:otherwise>
-                <form class="form-inline navbar-right navbar-form" action="<s:url value='j_spring_security_check' />" method="POST" role="form">>
+                <form class="form-inline navbar-right navbar-form" action="<s:url value='j_spring_security_check' />" method="POST" role="form">
                     <div class="form-group" >
                         <label class="sr-only">Email address</label>
                         <input type="email" class="form-control" name='j_username' id="useremail" placeholder="Enter email">

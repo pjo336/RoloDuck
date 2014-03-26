@@ -17,7 +17,7 @@
             <ul class="dropdown-menu">
                 <c:forEach var="project" items="${projects}">
                 <li>
-                    <a href="/project/" onclick="location.href=this.href + ${project.id} ;return false;">
+                    <a href="/project/" onclick="location.href=this.href + ${project.id}; return false;">
                         ${project.projectName}
                     </a>
                 </li>

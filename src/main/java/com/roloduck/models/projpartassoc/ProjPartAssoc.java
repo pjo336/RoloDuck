@@ -28,8 +28,13 @@ public class ProjPartAssoc implements RoloDuckEntity {
     }
 
     @Override
-    public String[] getColumnNames() {
+    public String[] getDistinctColumnNames() {
         return new String[]{"project_id", "partner_id"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "project_id", "partner_id", "date_created", "date_modified"};
     }
 
     @Override

@@ -6,7 +6,7 @@
         <li class="active">Create</li>
     </ol>
 
-    <form id="projectForm" modelAttribute="project" action="create" method="post" class="form" role="form">
+    <form:form id="projectForm" modelAttribute="project" action="create" method="post" class="form" role="form">
         <div class="form-group" >
             <label for="projectName">Project Name</label>
             <input type="text" class="form-control" name="projectName" id="projectName" placeholder="Project Name">
@@ -18,5 +18,5 @@
         </div>
         <!-- only enabled after the user enters a Project Name -->
         <button type="submit" class="btn btn-primary btn-lg signin-button">Submit</button>
-    </form>
+    </form:form>
 </div>

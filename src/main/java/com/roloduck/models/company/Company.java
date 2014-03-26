@@ -37,8 +37,14 @@ public class Company implements RoloDuckEntity {
     }
 
     @Override
-    public String[] getColumnNames() {
+    public String[] getDistinctColumnNames() {
         return new String[]{"company_name", "subscription_type", "company_identifying_string"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "company_name", "subscription_type", "company_identifying_string", "date_created",
+                "date_modified"};
     }
 
     @Override

@@ -35,9 +35,16 @@ public class Contact implements RoloDuckEntity {
     }
 
     @Override
-    public String[] getColumnNames() {
+    public String[] getDistinctColumnNames() {
         return new String[]{"contact_first_name", "contact_last_name", "contact_title",
                 "contact_email", "contact_phone", "partner_id"};
+    }
+
+    @Override
+    public String[] getAllColumnNames() {
+        return new String[]{"id", "contact_first_name", "contact_last_name", "contact_title",
+                "contact_email", "contact_phone", "partner_id", "date_created",
+                "date_modified"};
     }
 
     @Override
