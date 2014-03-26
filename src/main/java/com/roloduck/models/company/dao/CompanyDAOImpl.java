@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.company.Company;
 import com.roloduck.models.company.CompanyMapper;
+import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,7 +39,9 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
 
     @Override
     public Company restoreCompanyByName(String name) throws DAOException {
-        final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_name = ?";
+        Company company = new Company();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(company.getAllColumnNames()) + " FROM " +
+                TABLE_NAME + " where company_name = ?";
         try {
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{name}, new CompanyMapper());
@@ -49,7 +52,9 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
 
     @Override
     public Company restoreCompanyByIdentifier(String identifier) throws DAOException {
-        final String SQL = "SELECT * FROM " + TABLE_NAME + " where company_identifying_string = ?";
+        Company company = new Company();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(company.getAllColumnNames()) + " FROM " +
+                TABLE_NAME + " where company_identifying_string = ?";
         try {
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{identifier}, new CompanyMapper());
