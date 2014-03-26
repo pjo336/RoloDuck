@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.user.User;
 import com.roloduck.user.UserMapper;
+import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,7 +40,9 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     @Override
     public User restoreByEmail(String email) throws DAOException {
         try {
-            final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_email = ?";
+            User user = new User();
+            final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(user.getAllColumnNames()) + " FROM "
+                    + TABLE_NAME + " where user_email = ?";
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{email}, new UserMapper());
         } catch(EmptyResultDataAccessException e) {

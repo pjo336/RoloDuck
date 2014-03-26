@@ -8,6 +8,7 @@ import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.user.User;
 import com.roloduck.user.UserRole;
 import com.roloduck.user.dao.UserRoleDAO;
+import com.roloduck.utils.StringUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -173,5 +174,12 @@ public class UserServiceImplTest {
                     size + 1, impl.findAllUsers().size());
         impl.removeUser(newUser);
         Assert.assertEquals(size, impl.findAllUsers().size());
+    }
+
+    @Test
+    public void testStringUtils() {
+        User blah = new User();
+        String SQL = StringUtils.convertStrArrToSQLColStr(blah.getAllColumnNames());
+        System.out.println(SQL);
     }
 }

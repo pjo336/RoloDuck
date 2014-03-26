@@ -2,6 +2,7 @@ package com.roloduck.entity.dao;
 
 import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.exception.DAOException;
+import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,7 +45,8 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     @SuppressWarnings("unchecked")
     @Override
     public E restoreById(Object id, E entity) throws DAOException {
-        final String SQL = "SELECT * FROM " + entity.getTableName() + " WHERE id = ?";
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
+                entity.getTableName() + " WHERE id = ?";
         try {
             return (E) jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{id}, entity.getEntityMapper());
@@ -60,7 +62,8 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     @SuppressWarnings("unchecked")
     @Override
     public List<E> find(E entity) {
-        final String SQL = "SELECT * FROM " + entity.getTableName();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
+                entity.getTableName();
         return jdbcTemplateObject.query(SQL, entity.getEntityMapper());
     }
 
