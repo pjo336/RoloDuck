@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
+    {% include 'common/flash_messages.html' %}
 
     <ol class="breadcrumb">
         <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>

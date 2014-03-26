@@ -16,15 +16,15 @@
                 <label for="contactlastname">Last Name</label>
                 <input type="text" class="form-control" name="contactlastname" id="contactlastname" placeholder="Contact Last Name">
             </div>
-
-            <div class="form-group" >
-                <label for="contactcompany">Company</label>
-                <select class="form-control" name="contactcompany" id="contactcompany">
-                    <option value="0">Select Company</option>
-                    <option value="1">Fandango</option>
-                    <option value="2">Add new</option>
+            <div class="form-group">
+                <label for="contactcompany">Company</label><br />
+                <select class="selectpicker" name="contactcompany" id="contactcompany">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 1</option>
+                    <option value="3">Option 1</option>
                 </select>
             </div>
+
             <div class="form-group" >
                 <label for="contactrole">Role</label>
                 <input type="text" class="form-control" name="contactrole" id="contactrole" placeholder="Contact Role">
@@ -78,3 +78,5 @@
             </div>
 
         </form>
+    </div>
+</div>
