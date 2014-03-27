@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.PartnerMapper;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +42,7 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
         Partner partner = new Partner();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(partner.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
+        SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
     }
 

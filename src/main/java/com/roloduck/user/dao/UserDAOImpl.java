@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.user.User;
 import com.roloduck.user.UserMapper;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,6 +44,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
             User user = new User();
             final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(user.getAllColumnNames()) + " FROM "
                     + TABLE_NAME + " where user_email = ?";
+            SQLUtils.printSQL(SQL);
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{email}, new UserMapper());
         } catch(EmptyResultDataAccessException e) {
@@ -59,6 +61,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
     public void update(User user) {
         final String SQL = "UPDATE " + TABLE_NAME + " SET user_name = ?, user_email = ?," +
                 "user_password = ? where id = ?";
+        SQLUtils.printSQL(SQL);
         jdbcTemplateObject.update(SQL,user.getName(), user.getEmail(),
                 user.getPassword(), user.getId());
     }

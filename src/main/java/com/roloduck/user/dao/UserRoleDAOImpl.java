@@ -4,6 +4,8 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.user.UserRole;
 import com.roloduck.user.UserRoleMapper;
+import com.roloduck.utils.SQLUtils;
+import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,7 +33,10 @@ public class UserRoleDAOImpl extends RoloDuckEntityDAOImpl<UserRole> implements 
 
     @Override
     public UserRole restoreByUserId(long userId) throws DAOException {
-        final String SQL = "SELECT * FROM " + TABLE_NAME + " where user_id = ?";
+        UserRole role = new UserRole();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(role.getAllColumnNames()) + " FROM " +
+                TABLE_NAME + " where user_id = ?";
+        SQLUtils.printSQL(SQL);
         try {
             return jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{userId}, new UserRoleMapper());

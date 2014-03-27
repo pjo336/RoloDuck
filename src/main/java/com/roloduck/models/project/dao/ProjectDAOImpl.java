@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.ProjectMapper;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +42,7 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
         Project project = new Project();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where project_name = ?";
+        SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, new Object[]{name}, new ProjectMapper());
     }
 
@@ -49,6 +51,7 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
         Project project = new Project();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
+        SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ProjectMapper());
     }
 

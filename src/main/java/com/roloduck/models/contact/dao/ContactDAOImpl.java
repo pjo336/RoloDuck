@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.contact.Contact;
 import com.roloduck.models.contact.ContactMapper;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +42,7 @@ public class ContactDAOImpl extends RoloDuckEntityDAOImpl<Contact> implements Co
         Contact contact = new Contact();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(contact.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
+        SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ContactMapper());
     }
 

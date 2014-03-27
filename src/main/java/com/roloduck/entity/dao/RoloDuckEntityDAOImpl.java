@@ -2,6 +2,7 @@ package com.roloduck.entity.dao;
 
 import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.exception.DAOException;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -35,6 +36,7 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
         String questionMarks = generatePlaceholderString(cols);
         // Build the SQL query
         final String SQL = "INSERT INTO " + table + columnPortion + "VALUES" + questionMarks;
+        SQLUtils.printSQL(SQL);
         // This keyholder will be filled with the generated id
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);
@@ -47,7 +49,9 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     public E restoreById(Object id, E entity) throws DAOException {
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
                 entity.getTableName() + " WHERE id = ?";
+        SQLUtils.printSQL(SQL);
         try {
+
             return (E) jdbcTemplateObject.queryForObject(SQL,
                     new Object[]{id}, entity.getEntityMapper());
         } catch(EmptyResultDataAccessException e) {
@@ -64,6 +68,7 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     public List<E> find(E entity) {
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
                 entity.getTableName();
+        SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, entity.getEntityMapper());
     }
 

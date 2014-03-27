@@ -4,6 +4,7 @@ import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
+import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,6 +38,7 @@ public class ProjPartAssocDAOImpl extends RoloDuckEntityDAOImpl<ProjPartAssoc>
         ProjPartAssoc assoc = new ProjPartAssoc();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(assoc.getAllColumnNames()) + " FROM " +
                 assoc.getTableName() + " where project_id = ?";
+        SQLUtils.printSQL(SQL);
         Partner partner = new Partner();
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL, new Object[]{projectId});
         for (Map row : rows) {
