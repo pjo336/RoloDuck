@@ -1,5 +1,6 @@
 package com.roloduck.models.project.service;
 
+import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.dao.ProjectDAO;
@@ -39,5 +40,14 @@ public class ProjectServiceImpl implements ProjectService {
         // TODO Make sure company is active
         // Maybe use company instead of company ID?
         return projectDAO.findProjectsByCompanyId(companyId);
+    }
+
+    @Override
+    public Project restoreProjectById(long projectId) throws ServiceLogicException {
+        try {
+            return projectDAO.restoreById(projectId);
+        } catch (DAOException de) {
+            throw new ServiceLogicException("The project with id: " + projectId + " could not be found.");
+        }
     }
 }

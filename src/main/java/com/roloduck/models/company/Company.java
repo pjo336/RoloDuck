@@ -1,6 +1,7 @@
 package com.roloduck.models.company;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.NotFoundException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -96,7 +97,7 @@ public class Company implements RoloDuckEntity {
      * Setter using an int value
      * @param subscriptionType the int value of subscription type
      */
-    public void setSubscriptionType(int subscriptionType) {
+    public void setSubscriptionType(int subscriptionType) throws NotFoundException {
         this.subscriptionType = SubscriptionType.getTypeByValue(subscriptionType);
     }
 

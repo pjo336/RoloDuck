@@ -1,5 +1,7 @@
 package com.roloduck.models.company;
 
+import com.roloduck.exception.NotFoundException;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -23,13 +25,12 @@ public enum SubscriptionType {
         return this.subscriptionTypeValue;
     }
 
-    public static SubscriptionType getTypeByValue(int value) {
+    public static SubscriptionType getTypeByValue(int value) throws NotFoundException {
         for(SubscriptionType type: SubscriptionType.values()) {
             if(type.value() == value) {
                 return type;
             }
         }
-        // TODO return null?
-        return null;
+        throw new NotFoundException("The value: " + value + " does not correspond to a Subscription Type.");
     }
 }

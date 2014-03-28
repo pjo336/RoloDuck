@@ -30,4 +30,12 @@ public interface ProjectService {
      * @return a list of projects that belong to the company
      */
     public List<Project> findAllCompanyProjects(long companyId);
+
+    /**
+     * Find the project with the given Id
+     * @param projectId the id to search for
+     * @return the project with this id
+     * @throws ServiceLogicException
+     */
+    public Project restoreProjectById(long projectId) throws ServiceLogicException;
 }
