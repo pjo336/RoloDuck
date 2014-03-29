@@ -1,9 +1,11 @@
-package com.roloduck.web.registration;
+package com.roloduck.web.controller.registration;
 
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.User;
-import com.roloduck.user.UserConverter;
 import com.roloduck.user.service.UserService;
+import com.roloduck.web.converter.UserConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class RegistrationController {
+
+    static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
     private UserService userService;

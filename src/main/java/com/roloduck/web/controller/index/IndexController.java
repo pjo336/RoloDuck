@@ -1,4 +1,4 @@
-package com.roloduck.web.index;
+package com.roloduck.web.controller.index;
 
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.User;

@@ -1,4 +1,4 @@
-package com.roloduck.web.project;
+package com.roloduck.web.controller.project;
 
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.Company;
@@ -15,6 +15,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  * @author Andrew Ertell
@@ -85,5 +88,19 @@ public class ProjectController {
             logger.error("There was a problem creating the project named: " + project.getProjectName());
         }
         return "redirect:/projects";
+    }
+
+    @RequestMapping(value = "/deleteProjects")
+    public void deleteprojects(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper result) {
+        String[] deletedProjectIds = request.getParameter("deleted").split(",");
+        for(String s: deletedProjectIds) {
+            long projectId = Long.valueOf(s);
+            try {
+                Project project = projectService.restoreProjectById(projectId);
+                System.out.println(project.getProjectName());
+            } catch (ServiceLogicException sle) {
+                sle.printStackTrace();
+            }
+        }
     }
 }

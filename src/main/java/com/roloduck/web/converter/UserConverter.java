@@ -1,4 +1,4 @@
-package com.roloduck.user;
+package com.roloduck.web.converter;
 
 /**
  * @author Andrew Ertell
