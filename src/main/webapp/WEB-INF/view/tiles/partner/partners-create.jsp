@@ -1,8 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container">
-    {% include 'common/flash_messages.html' %}
+
     <ol class="breadcrumb">
-        <span> <strong>{{ user.company.companyName }}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${companyName}</strong> <span class="spacer40"></span></span>
         <li><a href="/partners">Partners</a></li>
         <li class="active">Create</li>
     </ol>

@@ -1,8 +1,5 @@
 package com.roloduck.web.controller.index;
 
-import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.user.User;
-import com.roloduck.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,22 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
+@RequestMapping(value = "/")
 public class IndexController {
 
     static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    @RequestMapping(value = "/")
+    @RequestMapping
     public String serveIndex(ModelMap model) {
-        try {
-            User currentUser = SecurityUtils.getCurrentUser();
-            model.addAttribute("LoggedInUser", currentUser);
-            logger.info("Current user is: " + currentUser.getEmail());
-        } catch(ServiceLogicException e) {
-            // A logged in user wasnt found, swallow this
-            logger.info("An anonymousUser accessed the index page.");
-        }
-        model.addAttribute("page", "projects");
+        logger.info("Fetching index.");
         return "index";
     }
-
 }

@@ -9,6 +9,7 @@
         <!-- title -->
         <put-attribute name="html-header" value="/WEB-INF/view/tiles/common/header.jsp" />
         <put-attribute name="top-navbar" value="/WEB-INF/view/tiles/common/navbar.jsp" />
+        <put-attribute name="exception" value="/WEB-INF/view/tiles/common/exception.jsp" />
         <!-- header -->
         <!-- body -->
         <!--custom-styles-->

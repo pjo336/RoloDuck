@@ -1,6 +1,7 @@
 package com.roloduck.models.partner;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.project.Project;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -61,6 +62,19 @@ public class Partner implements RoloDuckEntity {
     @Override
     public RowMapper getEntityMapper() {
         return new PartnerMapper();
+    }
+
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getPartnerName() == null || getPartnerName().equalsIgnoreCase("")) {
+            errors.append("Please enter a Partner Name.\n");
+        }
+        if(getPartnerDescription() == null || getPartnerDescription().equalsIgnoreCase("")) {
+            errors.append("Please enter a Partner Description.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     public long getId() {

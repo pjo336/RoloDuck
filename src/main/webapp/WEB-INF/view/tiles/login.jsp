@@ -1,15 +1,15 @@
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
     <div class="form-container">
-        <core:if test="${not empty error}">
+        <c:if test="${not empty error}">
             <div class="errorblock">
                 Your login attempt was not successful, try again.<br /> Caused :
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             </div>
-        </core:if>
+        </c:if>
         <h3>Please log in to continue</h3>
-        <form name='f' action="<c:url value='j_spring_security_check' />"
+        <form name='f' action="<s:url value='j_spring_security_check' />"
               method='POST'>
             <div class="form-group" >
                 <label class="sr-only">Email address</label>

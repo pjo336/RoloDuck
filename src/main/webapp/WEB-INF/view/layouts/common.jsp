@@ -10,6 +10,7 @@
 </head>
 <body>
 <tiles:insertAttribute name="top-navbar" />
+<tiles:insertAttribute name="exception" />
 <tiles:insertAttribute name="header" defaultValue=""/>
 <tiles:insertAttribute name="body" />
 <tiles:insertAttribute name="custom-styles " defaultValue=""/>

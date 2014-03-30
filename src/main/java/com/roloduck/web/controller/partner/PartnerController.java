@@ -7,6 +7,7 @@ import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
+import com.roloduck.web.exception.ProcessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * @author Andrew Ertell
@@ -24,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class PartnerController {
+@RequestMapping("/partners")
+@SessionAttributes("companyName")
+public class PartnerController extends ProcessException {
 
     static final Logger logger = LoggerFactory.getLogger(PartnerController.class);
 
@@ -35,54 +39,48 @@ public class PartnerController {
 
     private static final String URI_PREFIX = "/partners";
 
-    @RequestMapping(value = URI_PREFIX)
+    @RequestMapping
     public String servePartners(ModelMap model) {
         User user = null;
         try {
             user = SecurityUtils.getCurrentUser();
             // Add the current user, his company, and the list of his company's partners to the model
-            model.addAttribute("user", user);
-            model.addAttribute("company", companyService.restoreCompanyById(user.getCompanyId()));
+            //model.addAttribute("user", user);
+            model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
             model.addAttribute("partners", partnerService.findAllCompanyPartners(user.getCompanyId()));
         } catch(ServiceLogicException e) {
             logger.error("There was a problem trying to serve Partners");
+            processRDException(model, e);
         }
         return "partners";
     }
 
-    @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String servePartnerCreate(ModelMap model) {
         User user = null;
         Company company = null;
+        long companyId = -999;
         try {
             user = SecurityUtils.getCurrentUser();
-        } catch(ServiceLogicException e) {
-            // TODO propogate this to the front end?
-            logger.warn("An anonymous user attempted to access /partners/create.");
-            return "redirect:/";
-        }
-        try {
-            company = companyService.restoreCompanyByUser(user);
+            companyId = user.getCompanyId();
+            company = companyService.restoreCompanyById(companyId);
             model.addAttribute("companyName", company.getCompanyName());
-            return "partners-create";
         } catch(ServiceLogicException ble) {
-            logger.error("The user: " + user.getEmail() + " does not belong to a company. Rerouting to index.");
-            return "redirect:/";
+            logger.error("Company with id: " + companyId + " was not found in create partner");
+            processRDException(model, ble);
         }
+        return "partners-create";
     }
 
-    @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String postPartnerCreate(@ModelAttribute("partner") Partner partner, ModelMap model) {
-        User user = null;
         try {
-            user = SecurityUtils.getCurrentUser();
-        } catch(ServiceLogicException e) {
-            logger.error("An anonymous user attempted to create a partner.");
-        }
-        try {
+            User user = SecurityUtils.getCurrentUser();
             partnerService.createPartner(partner, user);
         } catch(ServiceLogicException e) {
-            logger.error("There was a problem creating the partner named: " + partner.getPartnerName());
+            logger.error(e.getMessage());
+            processRDException(model, e);
+            return "partners-create";
         }
         return "redirect:/partners";
     }

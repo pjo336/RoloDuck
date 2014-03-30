@@ -7,7 +7,7 @@ package com.roloduck.exception;
  * RoloDuck
  */
 
-public class ServiceLogicException extends Exception {
+public class ServiceLogicException extends Exception implements RoloDuckException {
 
     public ServiceLogicException(){};
 

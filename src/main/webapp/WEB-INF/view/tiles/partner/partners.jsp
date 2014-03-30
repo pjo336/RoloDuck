@@ -2,7 +2,7 @@
 <div class="container">
 
     <ol class="breadcrumb">
-        <span> <strong>${company.companyName}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Partners</li>
     </ol>
 

@@ -10,7 +10,7 @@ package com.roloduck.exception;
 /**
  * This is the exception type that will be wrapped around any exception thrown inside a DAO layer
  */
-public class DAOException extends Exception {
+public class DAOException extends Exception implements RoloDuckException {
 
     public DAOException() {}
 

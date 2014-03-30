@@ -7,7 +7,7 @@ package com.roloduck.exception;
  * RoloDuck
  */
 
-public class NotFoundException extends Exception {
+public class NotFoundException extends Exception implements RoloDuckException {
 
     public NotFoundException() {}
 
