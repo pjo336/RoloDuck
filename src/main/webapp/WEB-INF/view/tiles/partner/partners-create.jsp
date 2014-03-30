@@ -11,7 +11,8 @@
         <form:form action="/partners/create" modelAttribute="partner" method="POST" role="form">
             <div class="form-group" >
                 <label for="partnername">Partner Name</label>
-                <input type="text" class="form-control" name="partnerName" id="partnerName" placeholder="Partner Name">
+                <input type="text" class="form-control" name="partnerName" id="partnerName"
+                       placeholder="Partner Name" required>
                 <span class="help-block">Choose a descriptive name for the partner.</span>
             </div>
             <div class="form-group">
