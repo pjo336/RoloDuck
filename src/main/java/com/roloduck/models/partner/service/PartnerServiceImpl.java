@@ -65,9 +65,23 @@ public class PartnerServiceImpl implements PartnerService {
             assoc.setPartnerId(partner.getId());
             assocDAO.insertAssoc(assoc);
         } else {
-            logger.error("Partner with id: " + partner.getId() + " being assigned does not exist.");
+            logger.error("Partner being assigned does not exist or is null.");
             throw new ServiceLogicException("The partner being assigned does not exist.");
         }
+    }
+
+    @Override
+    public void unassignPartnerFromProject(Partner partner, long projectId) throws ServiceLogicException {
+        // Ensure the project exists, exception will be thrown if not
+        projectService.restoreProjectById(projectId);
+
+        if(partner != null) {
+            // TODO find all associate partners and remove them
+        } else {
+            logger.error("Partner being unassigned does not exist or is null.");
+            throw new ServiceLogicException(("The partner being unassigned does not exist."));
+        }
+
     }
 
     @Override

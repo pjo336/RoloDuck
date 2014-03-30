@@ -75,7 +75,16 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     @Override
     public void remove(E entity) {
         String SQL = "DELETE FROM " + entity.getTableName() + " WHERE id = ?";
+        SQLUtils.printSQL(SQL);
         jdbcTemplateObject.update(SQL, entity.getId());
+    }
+
+    @Override
+    public Long count(E entity) {
+        // TODO is this safe to print id?
+        String SQL = "SELECT COUNT(id) FROM " + entity.getTableName();
+        SQLUtils.printSQL(SQL);
+        return jdbcTemplateObject.queryForObject(SQL, Long.class);
     }
 
     /**

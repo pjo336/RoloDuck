@@ -40,4 +40,10 @@ public interface RoloDuckEntityDAO<E extends RoloDuckEntity> {
      * @param entity the entity to be removed
      */
     public void remove(E entity);
+
+    /**
+     * Return a count of the total amount of entities in a table. Based on the entity id
+     * @param entity the entity to get a count of
+     */
+    public Long count(E entity);
 }

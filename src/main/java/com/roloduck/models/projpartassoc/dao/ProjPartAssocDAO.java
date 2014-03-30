@@ -1,6 +1,5 @@
 package com.roloduck.models.projpartassoc.dao;
 
-import com.roloduck.models.partner.Partner;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
 
 import java.util.List;
@@ -23,7 +22,19 @@ public interface ProjPartAssocDAO {
     /**
      * Find the partners in the assoc table  with the given project id
      * @param projectId the id of the project
-     * @return the list of partners associated to this project id
+     * @return the list of partner IDs associated to this project id
      */
-    public List<Partner> findPartnersByProjectId(long projectId);
+    public List<Long> findPartnersByProjectId(long projectId);
+
+    /**
+     * Remove the given association from the database
+     * @param assoc the association to be removed
+     */
+    public void removeAssoc(ProjPartAssoc assoc);
+
+    /**
+     * Returns a count of all elements in the table
+     * @return the int count of all elements
+     */
+    public long count();
 }
