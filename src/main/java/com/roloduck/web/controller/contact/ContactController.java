@@ -42,7 +42,7 @@ public class ContactController {
             user = SecurityUtils.getCurrentUser();
             // Add the current user, his company, and the list of his company's partners to the model
             model.addAttribute("user", user);
-            model.addAttribute("company", companyService.restoreCompanyById(user.getCompanyId()));
+            model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
             model.addAttribute("contacts", contactService.findAllCompanyContacts(user.getCompanyId()));
         } catch(ServiceLogicException e) {
             logger.error("There was a problem trying to serve contacts.");
