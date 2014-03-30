@@ -7,8 +7,7 @@ import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,9 +26,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 
 @Controller
-public class ProjectController {
-
-    static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+public class ProjectController extends ProcessException {
 
     @Autowired
     private ProjectService projectService;
@@ -48,7 +45,7 @@ public class ProjectController {
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
             model.addAttribute("projects", projectService.findAllCompanyProjects(user.getCompanyId()));
         } catch(ServiceLogicException e) {
-            logger.error("There was a problem trying to serve Projects");
+            processRDException(model, e);
         }
         return "projects";
     }
@@ -60,16 +57,15 @@ public class ProjectController {
         try {
             user = SecurityUtils.getCurrentUser();
         } catch(ServiceLogicException e) {
-            // TODO propogate this to the front end?
-            logger.warn("An anonymous user attempted to access /projects/create.");
+            processRDException(model, e);
             return "redirect:/";
         }
         try {
             company = companyService.restoreCompanyByUser(user);
             model.addAttribute("companyName", company.getCompanyName());
             return "projects-create";
-        } catch(ServiceLogicException ble) {
-            logger.error("The user: " + user.getEmail() + " does not belong to a company. Rerouting to index.");
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
             return "redirect:/";
         }
     }
@@ -80,12 +76,12 @@ public class ProjectController {
         try {
             user = SecurityUtils.getCurrentUser();
         } catch(ServiceLogicException e) {
-            logger.error("An anonymous user attempted to create a project.");
+            // TODO
         }
         try {
             projectService.createProject(project, user);
         } catch(ServiceLogicException e) {
-            logger.error("There was a problem creating the project named: " + project.getProjectName());
+            // TODO
         }
         return "redirect:/projects";
     }
@@ -97,9 +93,8 @@ public class ProjectController {
             long projectId = Long.valueOf(s);
             try {
                 Project project = projectService.restoreProjectById(projectId);
-                System.out.println(project.getProjectName());
             } catch (ServiceLogicException sle) {
-                sle.printStackTrace();
+                processRDException(model, sle);
             }
         }
     }
