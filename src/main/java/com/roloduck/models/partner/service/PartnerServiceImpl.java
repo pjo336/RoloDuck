@@ -47,7 +47,7 @@ public class PartnerServiceImpl implements PartnerService {
             if(partner == null) {
                 logger.error("The partner being created was null");
                 throw new ServiceLogicException("The partner being created was null");
-            } else if(user ==  null) {
+            } else {
                 logger.error("The current user is not valid to create a partner");
                 throw new ServiceLogicException("The current user is not valid to create a partner");
             }
@@ -65,7 +65,7 @@ public class PartnerServiceImpl implements PartnerService {
             assoc.setPartnerId(partner.getId());
             assocDAO.insertAssoc(assoc);
         } else {
-            logger.error("The partner being assigned does not exist.");
+            logger.error("Partner with id: " + partner.getId() + " being assigned does not exist.");
             throw new ServiceLogicException("The partner being assigned does not exist.");
         }
     }

@@ -8,8 +8,6 @@ import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.exception.ProcessException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,44 +28,32 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("companyName")
 public class PartnerController extends ProcessException {
 
-    static final Logger logger = LoggerFactory.getLogger(PartnerController.class);
-
     @Autowired
     private CompanyService companyService;
     @Autowired
     private PartnerService partnerService;
 
-    private static final String URI_PREFIX = "/partners";
-
     @RequestMapping
     public String servePartners(ModelMap model) {
-        User user = null;
         try {
-            user = SecurityUtils.getCurrentUser();
-            // Add the current user, his company, and the list of his company's partners to the model
-            //model.addAttribute("user", user);
+            User user = SecurityUtils.getCurrentUser();
+            // Add the current company, and the list of company's partners to the model
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
             model.addAttribute("partners", partnerService.findAllCompanyPartners(user.getCompanyId()));
-        } catch(ServiceLogicException e) {
-            logger.error("There was a problem trying to serve Partners");
-            processRDException(model, e);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
         }
         return "partners";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String servePartnerCreate(ModelMap model) {
-        User user = null;
-        Company company = null;
-        long companyId = -999;
         try {
-            user = SecurityUtils.getCurrentUser();
-            companyId = user.getCompanyId();
-            company = companyService.restoreCompanyById(companyId);
+            User user = SecurityUtils.getCurrentUser();
+            Company company = companyService.restoreCompanyById(user.getCompanyId());
             model.addAttribute("companyName", company.getCompanyName());
-        } catch(ServiceLogicException ble) {
-            logger.error("Company with id: " + companyId + " was not found in create partner");
-            processRDException(model, ble);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
         }
         return "partners-create";
     }
@@ -77,9 +63,9 @@ public class PartnerController extends ProcessException {
         try {
             User user = SecurityUtils.getCurrentUser();
             partnerService.createPartner(partner, user);
-        } catch(ServiceLogicException e) {
-            logger.error(e.getMessage());
-            processRDException(model, e);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            // Return back to the create page with the error message
             return "partners-create";
         }
         return "redirect:/partners";
