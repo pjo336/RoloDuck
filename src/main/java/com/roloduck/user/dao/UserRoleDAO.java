@@ -25,4 +25,9 @@ public interface UserRoleDAO {
      * @exception com.roloduck.exception.DAOException
      */
     public UserRole restoreByUserId(long userId) throws DAOException;
+
+    /**
+     * @return a long count of all roles in the database
+     */
+    public long count();
 }

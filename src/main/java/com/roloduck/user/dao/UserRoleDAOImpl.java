@@ -44,4 +44,9 @@ public class UserRoleDAOImpl extends RoloDuckEntityDAOImpl<UserRole> implements 
             throw new DAOException("User with ID:  " + userId + " did not have a role found.", e);
         }
     }
+
+    @Override
+    public long count() {
+        return super.count(new UserRole());
+    }
 }

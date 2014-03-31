@@ -29,19 +29,21 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     @Override
     public void insert(E entity) {
         // Retrieve the table name, and names of all the applicable columns
-        final String table = entity.getTableName();
-        final String[] cols = entity.getDistinctColumnNames();
-        // Build the column and ? strings needed for the insert query
-        String columnPortion = generateColumnNamesString(cols);
-        String questionMarks = generatePlaceholderString(cols);
-        // Build the SQL query
-        final String SQL = "INSERT INTO " + table + columnPortion + "VALUES" + questionMarks;
-        SQLUtils.printSQL(SQL);
-        // This keyholder will be filled with the generated id
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);
-        // Set the objects id to the value that was generated
-        entity.setId(keyHolder.getKey().longValue());
+        if(entity != null) {
+            final String table = entity.getTableName();
+            final String[] cols = entity.getDistinctColumnNames();
+            // Build the column and ? strings needed for the insert query
+            String columnPortion = generateColumnNamesString(cols);
+            String questionMarks = generatePlaceholderString(cols);
+            // Build the SQL query
+            final String SQL = "INSERT INTO " + table + columnPortion + "VALUES" + questionMarks;
+            SQLUtils.printSQL(SQL);
+            // This keyholder will be filled with the generated id
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);
+            // Set the objects id to the value that was generated
+            entity.setId(keyHolder.getKey().longValue());
+        }
     }
 
     @SuppressWarnings("unchecked")
