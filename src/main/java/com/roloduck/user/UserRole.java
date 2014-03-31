@@ -1,6 +1,7 @@
 package com.roloduck.user;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.security.Authority;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -64,6 +65,19 @@ public class UserRole implements RoloDuckEntity {
         return null;
     }
 
+    @Override
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getUserId() < 1) {
+            errors.append("User Role needs a valid User attached.\n");
+        }
+        if(getAuthority() == null) {
+            errors.append("User Role needs a valid Authority.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
+    }
 
     public long getId() {
         return id;
