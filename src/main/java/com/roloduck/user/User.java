@@ -1,6 +1,7 @@
 package com.roloduck.user;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -77,6 +78,25 @@ public class User implements RoloDuckEntity {
     @Override
     public RowMapper<User> getEntityMapper() {
         return new UserMapper();
+    }
+
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getName() == null || getName().equalsIgnoreCase("")) {
+            errors.append("Please enter a User Name.\n");
+        }
+        if(getEmail() == null || getEmail().equalsIgnoreCase("")) {
+            errors.append("Please enter a User Email.\n");
+        }
+        if(getPassword() == null || getPassword().equalsIgnoreCase("")) {
+            errors.append("Please enter a User Password.\n");
+        }
+        if(getCompanyId() == 0) {
+            errors.append("User needs a valid Company attached.");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     @Override
