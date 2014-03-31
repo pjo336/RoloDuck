@@ -1,6 +1,7 @@
 package com.roloduck.models.projpartassoc;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -53,6 +54,20 @@ public class ProjPartAssoc implements RoloDuckEntity {
     @Override
     public RowMapper getEntityMapper() {
         return new ProjPartAssocMapper();
+    }
+
+    @Override
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getProjectId() < 1) {
+            errors.append("Project Partner Association must have a valid Project attached.\n");
+        }
+        if(getPartnerId() < 1) {
+            errors.append("Project Partner Association must have a valid Partner attached.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     @Override

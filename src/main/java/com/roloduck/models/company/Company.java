@@ -2,6 +2,7 @@ package com.roloduck.models.company;
 
 import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.exception.NotFoundException;
+import com.roloduck.exception.ServiceLogicException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -65,6 +66,23 @@ public class Company implements RoloDuckEntity {
     @Override
     public RowMapper getEntityMapper() {
         return new CompanyMapper();
+    }
+
+    @Override
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getCompanyName() == null || getCompanyName().equalsIgnoreCase("")) {
+            errors.append("Please enter a Company Name.\n");
+        }
+        if(getSubscriptionType() == null) {
+            errors.append("Company needs a valid Subscription Type.\n");
+        }
+        if(getCompanyIdentifyingString() == null || getCompanyIdentifyingString().equalsIgnoreCase("")) {
+            errors.append("Company needs a valid Identifying String.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     @Override

@@ -63,14 +63,14 @@ public class Partner implements RoloDuckEntity {
         return new PartnerMapper();
     }
 
-    /**
-     * Validate constraints on each neccessary field
-     * @throws ServiceLogicException
-     */
+    @Override
     public void validate() throws ServiceLogicException {
         StringBuilder errors = new StringBuilder();
         if(getPartnerName() == null || getPartnerName().equalsIgnoreCase("")) {
             errors.append("Please enter a Partner Name.\n");
+        }
+        if(getCompanyId() < 1) {
+            errors.append("Partner must have a valid Company attached.\n");
         }
         if(errors.length() > 0) {
             throw new ServiceLogicException(errors.toString());

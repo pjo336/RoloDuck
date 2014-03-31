@@ -1,6 +1,7 @@
 package com.roloduck.models.project;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.partner.Partner;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -65,6 +66,23 @@ public class Project implements RoloDuckEntity{
     @Override
     public RowMapper getEntityMapper() {
         return new ProjectMapper();
+    }
+
+    @Override
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getProjectName() == null || getProjectName().equalsIgnoreCase("")) {
+            errors.append("Project needs a valid Project Name.\n");
+        }
+        if(getCreatedByUser() < 1) {
+            errors.append("Project must have a valid User attached.\n");
+        }
+        if(getCompanyId() < 1) {
+            errors.append("Project must have a valid Company attached.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     public long getId() {

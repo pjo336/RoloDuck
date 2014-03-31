@@ -1,5 +1,6 @@
 package com.roloduck.entity;
 
+import com.roloduck.exception.ServiceLogicException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -42,6 +43,13 @@ public interface RoloDuckEntity {
      * @return The entity's specific RowMapper impl
      */
     public RowMapper getEntityMapper();
+
+    /**
+     * This method will ensure that any data about to be used in the database meet all the neccessary constraints
+     * placed on that entity
+     * @throws ServiceLogicException
+     */
+    public void validate() throws ServiceLogicException;
 
     /**
      * @return the entity's id

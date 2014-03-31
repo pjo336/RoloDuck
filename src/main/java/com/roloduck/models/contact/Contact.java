@@ -1,6 +1,7 @@
 package com.roloduck.models.contact;
 
 import com.roloduck.entity.RoloDuckEntity;
+import com.roloduck.exception.ServiceLogicException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -69,6 +70,31 @@ public class Contact implements RoloDuckEntity {
     @Override
     public RowMapper getEntityMapper() {
         return new ContactMapper();
+    }
+
+    @Override
+    public void validate() throws ServiceLogicException {
+        StringBuilder errors = new StringBuilder();
+        if(getContactFirstName() == null || getContactFirstName().equalsIgnoreCase("")) {
+            errors.append("Contact needs a valid First Name.\n");
+        }
+        if(getContactLastName() == null || getContactLastName().equalsIgnoreCase("")) {
+            errors.append("Contact needs a valid Last Name.\n");
+        }
+        // TODO validate email string?
+        if(getContactEmail() == null || getContactEmail().equalsIgnoreCase("")) {
+            errors.append("Contact needs a valid Email Address.\n");
+        }
+        // TODO contact doesnt need company ID?
+        if(getCompanyId() < 1) {
+            errors.append("Contact needs a valid Company attached.\n");
+        }
+        if(getPartnerId() < 1) {
+            errors.append("Contact needs a valid Partner attached.\n");
+        }
+        if(errors.length() > 0) {
+            throw new ServiceLogicException(errors.toString());
+        }
     }
 
     @Override

@@ -80,19 +80,21 @@ public class User implements RoloDuckEntity {
         return new UserMapper();
     }
 
+    @Override
     public void validate() throws ServiceLogicException {
         StringBuilder errors = new StringBuilder();
         if(getName() == null || getName().equalsIgnoreCase("")) {
             errors.append("Please enter a User Name.\n");
         }
+        // TODO validate email string?
         if(getEmail() == null || getEmail().equalsIgnoreCase("")) {
             errors.append("Please enter a User Email.\n");
         }
         if(getPassword() == null || getPassword().equalsIgnoreCase("")) {
             errors.append("Please enter a User Password.\n");
         }
-        if(getCompanyId() == 0) {
-            errors.append("User needs a valid Company attached.");
+        if(getCompanyId() < 1) {
+            errors.append("User needs a valid Company attached.\n");
         }
         if(errors.length() > 0) {
             throw new ServiceLogicException(errors.toString());
