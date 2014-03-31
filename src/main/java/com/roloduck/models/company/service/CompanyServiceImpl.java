@@ -41,6 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
                 if(de.getMessage().contains("not found") && de.getCause() instanceof EmptyResultDataAccessException) {
                     // No company with this name exists, so we can create it
                     company.setCompanyIdentifyingString(UUID.randomUUID().toString());
+                    company.validate();
                     companyDAO.insertCompany(company);
                 } else {
                     // The exception was not because no company was found, log and throw the error

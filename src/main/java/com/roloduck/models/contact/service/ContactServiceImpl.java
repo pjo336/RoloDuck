@@ -32,6 +32,7 @@ public class ContactServiceImpl implements ContactService {
             // TODO hardcoded partner
             contact.setPartnerId(1);
             contact.setCompanyId(user.getCompanyId());
+            contact.validate();
             contactDAO.insertContact(contact);
         }
     }

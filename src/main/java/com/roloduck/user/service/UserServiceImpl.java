@@ -45,20 +45,25 @@ public class UserServiceImpl implements UserService {
             // Make sure the company exists
             try {
                 long companyId = companyDAO.restoreCompanyByIdentifier(companyIdentifier).getId();
-                // Hash the users password
-                user.setPassword(encoder.encode(user.getPassword()));
                 user.setCompanyId(companyId);
+                // Hash the users password
+                if(user.getPassword() == null || user.getPassword().equalsIgnoreCase("")) {
+                    throw new ServiceLogicException("Please enter a password.");
+                }
+                user.setPassword(encoder.encode(user.getPassword()));
+                user.validate();
                 userDAO.insertUser(user);
                 // Create and add the matching user role entry
                 // TODO hardcoded role
                 UserRole role = new UserRole(user.getId(), Authority.ROLE_USER);
+                role.validate();
                 userRoleDAO.insert(role);
             } catch(DAOException nfe) {
                 logger.warn("The company identifier provided: " + companyIdentifier + " in signUpUser does not exist.");
                 throw new ServiceLogicException("Invalid company identifier: " + companyIdentifier + " given.");
-            } catch(Exception e) {
-                logger.warn("There was a problem signing up the user: " + user + ". MESSAGE: " + e.getMessage());
-                throw new ServiceLogicException("There was a problem signing up the user: " + user + ".");
+            } catch(ServiceLogicException sle) {
+                logger.warn("There was a problem signing up the user: " + user + ". MESSAGE: " + sle.getMessage());
+                throw sle;
             }
         }
     }

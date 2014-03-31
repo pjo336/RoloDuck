@@ -4,6 +4,7 @@ import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.user.User;
 import com.roloduck.user.service.UserService;
 import com.roloduck.web.converter.UserConverter;
+import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class RegistrationController {
+public class RegistrationController extends ProcessException {
 
     @Autowired
     private UserService userService;
@@ -34,9 +35,9 @@ public class RegistrationController {
         User newUser = new User(userConverter.getName(), userConverter.getEmail(), userConverter.getPassword());
         try {
             userService.signUpUser(newUser, userConverter.getCompanyIdentifier());
-        } catch(ServiceLogicException ble) {
-            // TODO figure out how to present exceptions
-            ble.printStackTrace();
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            return "signup";
         }
         model.put("user", newUser);
         return "index";

@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 
 @Controller
+@SessionAttributes("companyName")
 public class ProjectController extends ProcessException {
 
     @Autowired
@@ -75,13 +77,10 @@ public class ProjectController extends ProcessException {
         User user = null;
         try {
             user = SecurityUtils.getCurrentUser();
-        } catch(ServiceLogicException e) {
-            // TODO
-        }
-        try {
             projectService.createProject(project, user);
-        } catch(ServiceLogicException e) {
-            // TODO
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            return "projects-create";
         }
         return "redirect:/projects";
     }

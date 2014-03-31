@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * @author Andrew Ertell
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
+@SessionAttributes("companyName")
 public class ContactController extends ProcessException {
 
     @Autowired
@@ -80,6 +82,7 @@ public class ContactController extends ProcessException {
             contactService.createContact(contact, user);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
+            return "contacts-create";
         }
         return "redirect:/contacts";
     }

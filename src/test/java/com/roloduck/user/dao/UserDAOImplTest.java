@@ -92,6 +92,15 @@ public class UserDAOImplTest {
     }
 
     /**
+     * Tests that when restoreById is called on a null object, a correct exception is thrown
+     * @throws DAOException
+     */
+    @Test(expected = DAOException.class)
+    public void testRestoreByIdNull() throws DAOException {
+        impl.restoreById(null);
+    }
+
+    /**
      * Tests that restoreByEmail returns the User with all the correct information.
      * NOTE: this test assumes the RoloDuck company is in the database
      * @throws DAOException
@@ -200,6 +209,14 @@ public class UserDAOImplTest {
         impl.removeUser(user);
         long countAfterRemoval = impl.count();
         assertEquals(countBeforeRemoval - 1, countAfterRemoval);
+    }
+
+    /**
+     * Tests that nothing occurs when a removeUser is called on a null user
+     */
+    @Test
+    public void testRemoveUserNull() {
+        impl.removeUser(null);
     }
 
 }

@@ -40,8 +40,8 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public void createPartner(Partner partner, User user) throws ServiceLogicException {
         if(partner != null && user != null) {
-            partner.validate();
             partner.setCompanyId(user.getCompanyId());
+            partner.validate();
             partnerDAO.insertPartner(partner);
         } else {
             if(partner == null) {
@@ -63,6 +63,12 @@ public class PartnerServiceImpl implements PartnerService {
             ProjPartAssoc assoc = new ProjPartAssoc();
             assoc.setProjectId(projectId);
             assoc.setPartnerId(partner.getId());
+            try {
+                assoc.validate();
+            } catch (ServiceLogicException sle) {
+                logger.error(sle.getMessage());
+                throw sle;
+            }
             assocDAO.insertAssoc(assoc);
         } else {
             logger.error("Partner being assigned does not exist or is null.");

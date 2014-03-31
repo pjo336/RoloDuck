@@ -24,7 +24,7 @@ public class Partner implements RoloDuckEntity {
     private long id;
     private String partnerName;
     private String partnerDescription;
-    private Long companyId;
+    private long companyId;
 
     private List<Long> projectAssocsId;
 
@@ -101,9 +101,7 @@ public class Partner implements RoloDuckEntity {
         this.partnerDescription = partnerDescription;
     }
 
-    public long getCompanyId() {
-        return companyId;
-    }
+    public long getCompanyId() { return companyId; }
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;

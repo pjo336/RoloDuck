@@ -4,6 +4,8 @@ import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.exception.DAOException;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,11 +25,13 @@ import java.util.List;
 @Repository
 public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuckEntityDAO<E> {
 
+    static final Logger logger = LoggerFactory.getLogger(RoloDuckEntityDAOImpl.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplateObject;
 
     @Override
-    public void insert(E entity) {
+    public void insert(E entity){
         // Retrieve the table name, and names of all the applicable columns
         if(entity != null) {
             final String table = entity.getTableName();
@@ -43,25 +47,32 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
             jdbcTemplateObject.update(entity.getPreparedStatementCreator(SQL), keyHolder);
             // Set the objects id to the value that was generated
             entity.setId(keyHolder.getKey().longValue());
+        } else {
+            logger.warn("Insert was called with a null entity.");
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public E restoreById(Object id, E entity) throws DAOException {
-        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
-                entity.getTableName() + " WHERE id = ?";
-        SQLUtils.printSQL(SQL);
-        try {
+        if(id != null && entity != null) {
+            final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
+                    entity.getTableName() + " WHERE id = ?";
+            SQLUtils.printSQL(SQL);
+            try {
 
-            return (E) jdbcTemplateObject.queryForObject(SQL,
-                    new Object[]{id}, entity.getEntityMapper());
-        } catch(EmptyResultDataAccessException e) {
-            // When we add the class name to the exception, we only want the name of the class, not the path to it
-            String fullClassPathName = entity.getClass().getName();
-            int period = fullClassPathName.lastIndexOf(".") + 1;
-            String className = fullClassPathName.substring(period);
-            throw new DAOException(className + " with ID: " + id + " was not found.", e);
+                return (E) jdbcTemplateObject.queryForObject(SQL,
+                        new Object[]{id}, entity.getEntityMapper());
+            } catch(EmptyResultDataAccessException e) {
+                // When we add the class name to the exception, we only want the name of the class, not the path to it
+                String fullClassPathName = entity.getClass().getName();
+                int period = fullClassPathName.lastIndexOf(".") + 1;
+                String className = fullClassPathName.substring(period);
+                throw new DAOException(className + " with ID: " + id + " was not found.", e);
+            }
+        } else {
+            logger.warn("RestoreById was called with a null id or null entity.");
+            throw new DAOException("RestoreById was called with invalid data.");
         }
     }
 
@@ -76,9 +87,13 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
 
     @Override
     public void remove(E entity) {
-        String SQL = "DELETE FROM " + entity.getTableName() + " WHERE id = ?";
-        SQLUtils.printSQL(SQL);
-        jdbcTemplateObject.update(SQL, entity.getId());
+        if(entity != null) {
+            String SQL = "DELETE FROM " + entity.getTableName() + " WHERE id = ?";
+            SQLUtils.printSQL(SQL);
+            jdbcTemplateObject.update(SQL, entity.getId());
+        } else {
+            logger.warn("Remove was called on a null entity.");
+        }
     }
 
     @Override

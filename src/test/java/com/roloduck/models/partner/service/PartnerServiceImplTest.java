@@ -100,15 +100,22 @@ public class PartnerServiceImplTest {
     @Test
     public void testAssignPartnerToProject() throws ServiceLogicException {
         Partner partner = new Partner();
-        long projectId = 123;
-        when(projectService.restoreProjectById(projectId)).thenReturn(any(Project.class));
-        impl.assignPartnerToProject(partner, projectId);
+        partner.setId(123);
+        Project project = new Project();
+        project.setId(123);
+        when(projectService.restoreProjectById(project.getId())).thenReturn(project);
+        impl.assignPartnerToProject(partner, project.getId());
         verify(assocDAO, times(1)).insertAssoc(any(ProjPartAssoc.class));
     }
 
-    @Test
+    /**
+     * Since the attached project is not valid, this should throw a ServiceLogicException
+     * @throws ServiceLogicException
+     */
+    @Test(expected = ServiceLogicException.class)
     public void testAssignPartnerToProjectNonExistentProject() throws ServiceLogicException {
         Partner partner = new Partner();
+        partner.setId(123);
         long projectId = -999;
         //when(projectService.restoreProjectById(projectId)).thenThrow(ServiceLogicException.class);
         impl.assignPartnerToProject(partner, projectId);

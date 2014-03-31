@@ -30,6 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
             if(createdByUser != null) {
                 project.setCreatedByUser(createdByUser.getId());
                 project.setCompanyId(createdByUser.getCompanyId());
+                project.validate();
                 projectDAO.insertProject(project);
             }
         }
