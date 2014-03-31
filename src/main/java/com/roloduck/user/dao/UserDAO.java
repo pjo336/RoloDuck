@@ -54,4 +54,9 @@ public interface UserDAO {
      * @param user the user to be removed from the database
      */
     public void removeUser(User user);
+
+    /**
+     * @return a count of all elements in the User table
+     */
+    public long count();
 }

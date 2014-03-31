@@ -45,8 +45,7 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
             final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(user.getAllColumnNames()) + " FROM "
                     + TABLE_NAME + " where user_email = ?";
             SQLUtils.printSQL(SQL);
-            return jdbcTemplateObject.queryForObject(SQL,
-                    new Object[]{email}, new UserMapper());
+            return jdbcTemplateObject.queryForObject(SQL, new Object[]{email}, new UserMapper());
         } catch(EmptyResultDataAccessException e) {
             throw new DAOException("User with EMAIL:  " + email + " was not found.", e);
         }
@@ -62,12 +61,16 @@ public class UserDAOImpl extends RoloDuckEntityDAOImpl<User> implements UserDAO 
         final String SQL = "UPDATE " + TABLE_NAME + " SET user_name = ?, user_email = ?," +
                 "user_password = ? where id = ?";
         SQLUtils.printSQL(SQL);
-        jdbcTemplateObject.update(SQL,user.getName(), user.getEmail(),
-                user.getPassword(), user.getId());
+        jdbcTemplateObject.update(SQL,user.getName(), user.getEmail(), user.getPassword(), user.getId());
     }
 
     @Override
     public void removeUser(User user) {
         super.remove(user);
+    }
+
+    @Override
+    public long count() {
+        return super.count(new User());
     }
 }
