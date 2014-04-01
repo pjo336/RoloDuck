@@ -50,3 +50,12 @@ function addnumber() {
       insert += "<input type='text' class='form-control' name='contactphone["+x+"].type' id='contactphone["+x+"].type' placeholder='landline'>";
   document.getElementById("extra").innerHTML += insert;
 }
+
+$(document).ready(function() {
+    $("#partnerForm").hide();
+    $("#partnerFormLink").click(function(){
+        $("#partnerId").val(0);
+        $("#partnerId").hide(200);
+        $("#partnerForm").show(200);
+    });
+});
