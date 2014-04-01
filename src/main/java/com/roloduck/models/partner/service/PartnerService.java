@@ -23,6 +23,13 @@ public interface PartnerService {
     public void createPartner(Partner partner, User user) throws ServiceLogicException;
 
     /**
+     * Return the partner with the given id
+     * @param partnerId the id of the partner
+     * @return the correct partner
+     */
+    public Partner restoreById(long partnerId) throws ServiceLogicException;
+
+    /**
      * Assign the given partner to the project with the given id, into the ProjPartAssoc table
      * @param partner The partner to assign
      * @param projectId The project the partner is assigned to

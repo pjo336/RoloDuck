@@ -1,5 +1,6 @@
 package com.roloduck.models.partner.service;
 
+import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.partner.Partner;
@@ -52,6 +53,21 @@ public class PartnerServiceImpl implements PartnerService {
                 throw new ServiceLogicException("The current user is not valid to create a partner");
             }
         }
+    }
+
+    @Override
+    public Partner restoreById(long partnerId) throws ServiceLogicException {
+        try {
+            Partner partner = partnerDAO.restoreById(partnerId);
+            if(partner != null) {
+                return partner;
+            }
+        } catch (DAOException de) {
+            logger.error("Partner with ID: " + partnerId + " not found.");
+            throw new ServiceLogicException(de);
+        }
+        logger.error("There was a problem restoring a partner by ID: " + partnerId);
+        throw new ServiceLogicException("There was a problem restoring a partner by ID: " + partnerId);
     }
 
     @Override
