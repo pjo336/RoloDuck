@@ -17,11 +17,11 @@
             </button>
             <ul class="dropdown-menu">
                 <c:forEach var="partner" items="${partners}">
-                <li>
-                    <a href="/partners/${partner.id}">
-                        ${partner.partnerName}
-                    </a>
-                </li>
+                    <li>
+                        <a href="/partner/${partner.id}">
+                                ${partner.partnerName}
+                        </a>
+                    </li>
                 </c:forEach>
             </ul>
         </div>
@@ -29,15 +29,15 @@
     </nav>
 
     <c:forEach var="partner" items="${partners}">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <a href="/partners/${partner.id}">
-                    ${partner.partnerName}</a>
-            </h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="/partner/${partner.id}">
+                            ${partner.partnerName}</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+            </div>
         </div>
-        <div class="panel-body">
-        </div>
-    </div>
     </c:forEach>
 </div>

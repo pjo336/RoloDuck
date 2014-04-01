@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container">
 
@@ -8,44 +9,66 @@
     </ol>
     <h1>Add a Contact</h1>
     <div style="width:700px">
-        <form:form action="/contacts/create" modelAttribute="contact" method="POST" role="form">
+        <form:form action="/contacts/create" modelAttribute="converter" method="POST" role="form">
             <div class="form-group" >
-                <label for="contactfirstname">First Name</label>
+                <label for="contactFirstName">First Name</label>
                 <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
                        placeholder="Contact First Name">
             </div>
             <div class="form-group" >
-                <label for="contactlastname">Last Name</label>
+                <label for="contactLastName">Last Name</label>
                 <input type="text" class="form-control" name="contactLastName" id="contactLastName"
                        placeholder="Contact Last Name">
             </div>
-            <%--<div class="form-group">--%>
-                <%--<label for="contactcompany">Company</label><br />--%>
-                <%--<select class="selectpicker" name="contactcompany" id="contactcompany">--%>
-                    <%--<option value="1">Option 1</option>--%>
-                    <%--<option value="2">Option 1</option>--%>
-                    <%--<option value="3">Option 1</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
+            <div class="form-group">
+                <label for="partnerId">Partner</label><br />
+                <%--<form:select path="partnerId">--%>
+                    <%--<c:forEach var="partner" items="${partners}">--%>
+                        <%--<form:option value="${partner.id}">--%>
+                            <%--${partner.partnerName}--%>
+                        <%--</form:option>--%>
+                    <%--</c:forEach>--%>
+                <%--</form:select>--%>
+                <select class="selectpicker" name="partnerId" id="partnerId">
+                    <c:forEach var="partner" items="${partners}">
+                        <option value="${partner.id}">
+                            ${partner.partnerName}
+                        </option>
+                    </c:forEach>
+                </select><br />
+
+                <div id="partnerForm" style="display: hidden; padding: 5px 10px 5px 40px; border:1px solid black">
+                    <div class="form-group" >
+                        <label for="partnerName">Partner Name</label>
+                        <input type="text" class="form-control" name="partnerName" id="partnername"
+                               placeholder="Partner Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerDescription">Partner Description (optional)</label>
+                        <textarea class="form-control" name="partnerDescription" id="partnerDescription"
+                                  placeholder="Add a description to explain more about the partner" rows="3"></textarea>
+                    </div>
+                </div>
+                <a id="partnerFormLink">Add a new partner</a>
+            </div>
 
             <%--<div class="form-group" >--%>
-                <%--<label for="contactrole">Role</label>--%>
+                <%--<label for="contactRole">Role</label>--%>
                 <%--<input type="text" class="form-control" name="contactrole" id="contactrole" placeholder="Contact Role">--%>
                 <%--<span class="help-block">Job type - i.e. Sales, Operations, etc.</span>--%>
             <%--</div>--%>
 
             <div class="form-group" >
-                <label for="contacttitle">Title</label>
+                <label for="contactTitle">Title</label>
                 <input type="text" class="form-control" name="contactTitle" id="contactTitle"
                        placeholder="Contact Title">
                 <span class="help-block">Job title - i.e. Account Manager, Director of Sales, etc.</span>
             </div>
             <div class="form-group" >
-                <label for="contactemail">Email</label>
+                <label for="contactEmail">Email</label>
                 <input type="text" class="form-control" name="contactEmail" id="contactEmail"
                        placeholder="Contact Email">
             </div>
-
             <%--<label for="contactphone">Phone</label><br />--%>
             <%--<div class="input-group">--%>
                 <%--<div class="input-group-btn">--%>

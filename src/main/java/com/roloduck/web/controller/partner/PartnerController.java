@@ -11,10 +11,7 @@ import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Andrew Ertell
@@ -69,5 +66,11 @@ public class PartnerController extends ProcessException {
             return "partners-create";
         }
         return "redirect:/partners";
+    }
+
+    @RequestMapping(value = "/{partnerId}", method = RequestMethod.GET)
+    public String servePartnerSingle(@PathVariable long partnerId, ModelMap model) {
+        System.out.println(partnerId);
+        return "partners-single";
     }
 }
