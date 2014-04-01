@@ -5,6 +5,8 @@ import com.roloduck.models.company.Company;
 import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.contact.Contact;
 import com.roloduck.models.contact.service.ContactService;
+import com.roloduck.models.partner.Partner;
+import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.exception.ProcessException;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -31,6 +35,8 @@ public class ContactController extends ProcessException {
     private ContactService contactService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private PartnerService partnerService;
 
     private static final String URI_PREFIX = "/contacts";
 
@@ -63,6 +69,8 @@ public class ContactController extends ProcessException {
         try {
             company = companyService.restoreCompanyByUser(user);
             model.addAttribute("companyName", company.getCompanyName());
+            List<Partner> companyPartners = partnerService.findAllCompanyPartners(company.getId());
+            model.addAttribute("parters", companyPartners);
             return "contacts-create";
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
