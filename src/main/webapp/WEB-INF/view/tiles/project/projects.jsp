@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <ol class="breadcrumb">
-        <span> <strong>${company.companyName}</strong> <span class="spacer40"></span></span>
+        <span> <strong>${companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Projects</li>
     </ol>
 
@@ -65,4 +65,7 @@
         </ul>
         <div style="clear:both;"></div>
     </div>
+    <button id="saveProjectChanges" type="button">
+        Save Changes
+    </button>
 </div>
