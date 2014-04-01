@@ -70,7 +70,20 @@ public class PartnerController extends ProcessException {
 
     @RequestMapping(value = "/{partnerId}", method = RequestMethod.GET)
     public String servePartnerSingle(@PathVariable long partnerId, ModelMap model) {
-        System.out.println(partnerId);
+        try {
+            User user = SecurityUtils.getCurrentUser();
+            Company company = companyService.restoreCompanyById(user.getCompanyId());
+            model.addAttribute("companyName", company.getCompanyName());
+            Partner partner = partnerService.restoreById(partnerId);
+            model.addAttribute("partner", partner);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+        }
         return "partners-single";
+    }
+
+    @RequestMapping(value = "/assign", method = RequestMethod.GET)
+    public String servePartnerAssignProject(ModelMap model) {
+        return "partners-assign";
     }
 }

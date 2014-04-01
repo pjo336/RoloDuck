@@ -46,7 +46,7 @@
         <tr>
             <td>${contact.contactFirstName}</td>
             <td>${contact.contactLastName}</td>
-            <td>${companyName}</td>
+            <td>${contact.partnerId}</td>
             <td>ROLE?</td>
             <td>${contact.contactTitle}</td>
             <td>${contact.contactEmail}</td>
