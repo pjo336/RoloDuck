@@ -9,6 +9,7 @@ import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
+import com.roloduck.web.converter.ContactPartnerConverter;
 import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,7 @@ public class ContactController extends ProcessException {
     }
 
     @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.POST)
-    public String postContactCreate(@ModelAttribute("contact") Contact contact, ModelMap model) {
+    public String postContactCreate(@ModelAttribute("converter") ContactPartnerConverter converter, ModelMap model) {
         User user = null;
         try {
             user = SecurityUtils.getCurrentUser();
@@ -87,6 +88,18 @@ public class ContactController extends ProcessException {
             processRDException(model, sle);
         }
         try {
+            Contact contact = new Contact();
+            // TODO make constructor for this
+            contact.setContactFirstName(converter.getContactFirstName());
+            contact.setContactLastName(converter.getContactLastName());
+            contact.setContactTitle(converter.getContactTitle());
+            contact.setContactEmail(converter.getContactEmail());
+            Partner partner = new Partner();
+            if(converter.getPartnerName() != null && !converter.getPartnerName().equalsIgnoreCase("")) {
+                partner.setPartnerName(converter.getPartnerName());
+                partner.setPartnerDescription(converter.getPartnerDescription());
+                partnerService.createPartner(partner, user);
+            }
             contactService.createContact(contact, user);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
