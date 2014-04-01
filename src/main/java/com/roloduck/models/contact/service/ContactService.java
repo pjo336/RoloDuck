@@ -19,8 +19,9 @@ public interface ContactService {
      * Create a contact and set the appropriate company Id
      * @param contact the contact to be created
      * @param user the user who created the contact, use this to get the companyId
+     * @param partnerId the id of the related partner
      */
-    public void createContact(Contact contact, User user) throws ServiceLogicException;
+    public void createContact(Contact contact, User user, long partnerId) throws ServiceLogicException;
 
     /**
      * Find all contacts that belong to the given company. Make sure the company is *ACTIVE*

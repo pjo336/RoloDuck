@@ -16,6 +16,7 @@ public class ContactPartnerConverter {
     private String contactPhone;
     private String partnerName;
     private String partnerDescription;
+    private long partnerId;
 
     public String getContactFirstName() {
         return contactFirstName;
@@ -71,5 +72,13 @@ public class ContactPartnerConverter {
 
     public void setPartnerDescription(String partnerDescription) {
         this.partnerDescription = partnerDescription;
+    }
+
+    public long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(long partnerId) {
+        this.partnerId = partnerId;
     }
 }

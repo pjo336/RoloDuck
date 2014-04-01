@@ -71,7 +71,7 @@ public class ContactController extends ProcessException {
             company = companyService.restoreCompanyByUser(user);
             model.addAttribute("companyName", company.getCompanyName());
             List<Partner> companyPartners = partnerService.findAllCompanyPartners(company.getId());
-            model.addAttribute("parters", companyPartners);
+            model.addAttribute("partners", companyPartners);
             return "contacts-create";
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
@@ -95,12 +95,16 @@ public class ContactController extends ProcessException {
             contact.setContactTitle(converter.getContactTitle());
             contact.setContactEmail(converter.getContactEmail());
             Partner partner = new Partner();
-            if(converter.getPartnerName() != null && !converter.getPartnerName().equalsIgnoreCase("")) {
-                partner.setPartnerName(converter.getPartnerName());
-                partner.setPartnerDescription(converter.getPartnerDescription());
-                partnerService.createPartner(partner, user);
+            if(converter.getPartnerId() > 0) {
+                contactService.createContact(contact, user, converter.getPartnerId());
+            } else {
+                if(converter.getPartnerName() != null && !converter.getPartnerName().equalsIgnoreCase("")) {
+                    partner.setPartnerName(converter.getPartnerName());
+                    partner.setPartnerDescription(converter.getPartnerDescription());
+                    partnerService.createPartner(partner, user);
+                    contactService.createContact(contact, user, partner.getId());
+                }
             }
-            contactService.createContact(contact, user);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
             return "contacts-create";

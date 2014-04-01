@@ -27,10 +27,10 @@ public class ContactServiceImpl implements ContactService {
     private CompanyService companyService;
 
     @Override
-    public void createContact(Contact contact, User user) throws ServiceLogicException {
+    public void createContact(Contact contact, User user, long partnerId) throws ServiceLogicException {
         if(contact != null) {
             // TODO hardcoded partner
-            contact.setPartnerId(1);
+            contact.setPartnerId(partnerId);
             contact.setCompanyId(user.getCompanyId());
             contact.validate();
             contactDAO.insertContact(contact);
