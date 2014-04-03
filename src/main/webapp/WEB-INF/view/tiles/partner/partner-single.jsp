@@ -10,7 +10,7 @@
     <h1 style="margin-bottom:20px"> ${partner.partnerName} </h1>
 
     <h3>Projects assigned</h3>
-    <a href="/partners/assign"><button class="btn btn-primary navbar-btn navbar-right add-button">Add to Project</button></a>
+    <a href="/partners/assign=${partner.id}"><button class="btn btn-primary navbar-btn navbar-right add-button">Add to Project</button></a>
     <%--<nav class="navbar navbar-default">--%>
         <%--<span class="navbar-jump">Jump to:</span>--%>
         <%--<div class="btn-group jump-dropdown">--%>

@@ -78,6 +78,7 @@
     <definition name="partners-assign" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Partner - Assign to Project" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/partner/partners-assign.jsp" />
+        <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/partner/partners-scripts.jsp" />
     </definition>
 
     <!--Contacts-->

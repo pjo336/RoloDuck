@@ -22,4 +22,11 @@ $(document).ready(function() {
             }
         };
     }
+
+    $("#projectForm").hide();
+    $("#projectFormLink").click(function(){
+        $("#projectId").val(0);
+        $("#projectId").hide(200);
+        $("#projectForm").show(200);
+    });
 });
