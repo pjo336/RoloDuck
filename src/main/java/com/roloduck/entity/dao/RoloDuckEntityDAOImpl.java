@@ -79,10 +79,15 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
     @SuppressWarnings("unchecked")
     @Override
     public List<E> find(E entity) {
-        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
-                entity.getTableName();
-        SQLUtils.printSQL(SQL);
-        return jdbcTemplateObject.query(SQL, entity.getEntityMapper());
+        if(entity != null) {
+            final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(entity.getAllColumnNames()) + " FROM " +
+                    entity.getTableName();
+            SQLUtils.printSQL(SQL);
+            return jdbcTemplateObject.query(SQL, entity.getEntityMapper());
+        } else {
+            logger.warn("Find was called on a null entity.");
+            return null;
+        }
     }
 
     @Override
@@ -98,10 +103,16 @@ public class RoloDuckEntityDAOImpl <E extends RoloDuckEntity> implements RoloDuc
 
     @Override
     public Long count(E entity) {
-        // TODO is this safe to print id?
-        String SQL = "SELECT COUNT(id) FROM " + entity.getTableName();
-        SQLUtils.printSQL(SQL);
-        return jdbcTemplateObject.queryForObject(SQL, Long.class);
+        if(entity != null) {
+            // TODO is this safe to print id?
+            String SQL = "SELECT COUNT(id) FROM " + entity.getTableName();
+            SQLUtils.printSQL(SQL);
+            return jdbcTemplateObject.queryForObject(SQL, Long.class);
+        } else {
+            logger.warn("Count was called on a null entity");
+            // TODO return 0?
+            return 0L;
+        }
     }
 
     /**
