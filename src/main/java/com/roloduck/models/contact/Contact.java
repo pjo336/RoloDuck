@@ -31,6 +31,14 @@ public class Contact implements RoloDuckEntity {
 
     public Contact(){}
 
+    public Contact(String firstName, String lastName, String email, long partnerId, long companyId) {
+        this.contactFirstName = firstName;
+        this.contactLastName = lastName;
+        this.contactEmail = email;
+        this.partnerId = partnerId;
+        this.companyId = companyId;
+    }
+
     @Override
     public String getTableName() {
         return TABLE_NAME;

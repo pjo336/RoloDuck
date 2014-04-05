@@ -40,4 +40,10 @@ public interface ContactDAO {
      * @param contact the contact to be removed
      */
     public void removeContact(Contact contact);
+
+    /**
+     * @return a count of all elements in the Contact table
+     */
+    public long count();
+
 }

@@ -50,4 +50,9 @@ public class ContactDAOImpl extends RoloDuckEntityDAOImpl<Contact> implements Co
     public void removeContact(Contact contact) {
         super.remove(contact);
     }
+
+    @Override
+    public long count() {
+        return super.count(new Contact());
+    }
 }
