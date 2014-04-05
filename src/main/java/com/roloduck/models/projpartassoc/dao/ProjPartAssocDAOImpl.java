@@ -1,10 +1,12 @@
 package com.roloduck.models.projpartassoc.dao;
 
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -32,15 +34,19 @@ public class ProjPartAssocDAOImpl extends RoloDuckEntityDAOImpl<ProjPartAssoc>
     }
 
     @Override
-    public List<Long> findPartnersByProjectId(long projectId) {
+    public List<Long> findPartnersByProjectId(long projectId) throws DAOException {
         ProjPartAssoc assoc = new ProjPartAssoc();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(assoc.getAllColumnNames()) + " FROM " +
                 assoc.getTableName() + " where project_id = ?";
         SQLUtils.printSQL(SQL);
         List<Long> partnerIds = new ArrayList<>();
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL, new Object[]{projectId});
-        for (Map row : rows) {
-            partnerIds.add((Long) row.get("PARTNER_ID"));
+        try {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL, projectId);
+            for (Map row : rows) {
+                partnerIds.add((Long) row.get("PARTNER_ID"));
+            }
+        } catch(DataAccessException DAE) {
+            throw new DAOException("There was a problem finding the partners by projects.");
         }
 
         return partnerIds;

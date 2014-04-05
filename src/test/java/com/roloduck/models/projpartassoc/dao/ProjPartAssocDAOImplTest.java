@@ -1,6 +1,7 @@
 package com.roloduck.models.projpartassoc.dao;
 
 import com.roloduck.IntegrationTest;
+import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.partner.Partner;
@@ -18,7 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * @author Andrew Ertell
@@ -77,12 +79,21 @@ public class ProjPartAssocDAOImplTest {
      * @throws ServiceLogicException
      */
     @Test
-    public void testFindPartnersByProjectId() throws ServiceLogicException {
+    public void testFindPartnersByProjectId() throws ServiceLogicException, DAOException {
         ProjPartAssoc assoc = insertTestProjPartAssoc("This is totes a test project", "This is totes a test partner");
         long projectId = assoc.getProjectId();
         List<Long> partnerIds = impl.findPartnersByProjectId(projectId);
         long partnerId = partnerIds.get(0);
         assertEquals(assoc.getPartnerId(), partnerId);
+    }
+
+    /**
+     * Test that there is no exception when an association is not found
+     * @throws ServiceLogicException
+     */
+    @Test
+    public void testFindPartnersByProjectIdNotFound() throws ServiceLogicException, DAOException {
+        impl.findPartnersByProjectId(-999);
     }
 
     /**

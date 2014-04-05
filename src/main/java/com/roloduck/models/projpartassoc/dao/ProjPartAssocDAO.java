@@ -1,5 +1,6 @@
 package com.roloduck.models.projpartassoc.dao;
 
+import com.roloduck.exception.DAOException;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface ProjPartAssocDAO {
      * @param projectId the id of the project
      * @return the list of partner IDs associated to this project id
      */
-    public List<Long> findPartnersByProjectId(long projectId);
+    public List<Long> findPartnersByProjectId(long projectId) throws DAOException;
 
     /**
      * Remove the given association from the database
