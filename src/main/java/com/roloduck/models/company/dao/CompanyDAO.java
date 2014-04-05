@@ -49,4 +49,9 @@ public interface CompanyDAO {
      * @return the list of companies
      */
     public List<Company> find();
+
+    /**
+     * @return a count of all elements in the Company table
+     */
+    public long count();
 }

@@ -40,6 +40,9 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
 
     @Override
     public Company restoreCompanyByName(String name) throws DAOException {
+        if(name == null) {
+            throw new DAOException("Restore by company name was called with a null name.");
+        }
         Company company = new Company();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(company.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_name = ?";
@@ -54,6 +57,9 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
 
     @Override
     public Company restoreCompanyByIdentifier(String identifier) throws DAOException {
+        if(identifier == null) {
+            throw new DAOException("Restore by company identifier was called with a null identifier.");
+        }
         Company company = new Company();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(company.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_identifying_string = ?";
@@ -69,5 +75,10 @@ public class CompanyDAOImpl extends RoloDuckEntityDAOImpl<Company> implements Co
     @Override
     public List<Company> find() {
         return super.find(new Company());
+    }
+
+    @Override
+    public long count() {
+        return super.count(new Company());
     }
 }
