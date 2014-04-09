@@ -13,6 +13,8 @@ function edit() {
 function trash(id) {
     var data = {contactId : id};
     ajaxCall("/deleteContact", data);
+    location.reload();
+
 }
 
 /**
@@ -20,7 +22,7 @@ function trash(id) {
  * @param url The url the request is routed to
  * @param dataToServer Contains any information you want to send to the server side
  */
-function ajaxCall(url, dataToServer) {
+function ajaxCall(url, dataToServer, callback) {
     $.ajax({
         url: url,
         type: 'POST',
@@ -29,8 +31,10 @@ function ajaxCall(url, dataToServer) {
         success: function(dataToServer){
             if(dataToServer.isValid) {
                 // Data is processed in controller, do nothing
+                return true;
             } else {
                 alert('There was a problem updating the data.');
+                return false;
             }
         }
     });
