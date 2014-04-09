@@ -70,7 +70,6 @@
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Role</th>
                     <th>Title</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -82,7 +81,6 @@
                 <tr>
                     <td>Carlos</td>
                     <td>Aparicio</td>
-                    <td>Planning</td>
                     <td>Supervisor, Digital Investment</td>
                     <td>Carlos.Aparicio@us.initiative.com</td>
                     <td>310-283-2324</td>
@@ -95,7 +93,6 @@
                 <tr>
                     <td>Mike</td>
                     <td>Harker</td>
-                    <td>Planning</td>
                     <td>Strategist, Digital Investment</td>
                     <td>Michael.Harker@us.initiative.com</td>
                     <td>310-283-2184</td>
@@ -108,7 +105,6 @@
                 <tr>
                     <td>Lydne</td>
                     <td>Moffat</td>
-                    <td>Ad Ops</td>
                     <td>Ad Operations Coordinator</td>
                     <td>Lynde.Moffat@us.initiative.com</td>
                     <td>310-283-5287</td>

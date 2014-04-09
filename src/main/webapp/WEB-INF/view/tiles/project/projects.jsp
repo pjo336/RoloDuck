@@ -49,7 +49,6 @@
             <td><a href="#">10 Contacts</a></td>
             <td>1 day ago</td>
             <td width="75px" style="padding-right: 0;">
-                <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon-star"></span></a>
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
             </td>

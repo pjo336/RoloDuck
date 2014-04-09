@@ -19,6 +19,8 @@ public class ContactPartnerConverter {
     private String partnerDescription;
     private long partnerId;
 
+    public ContactPartnerConverter(){}
+
     public ContactPartnerConverter(long partnerId, String partnerDescription, String partnerName, String contactPhone,
                                    String contactEmail, String contactTitle, String contactLastName,
                                    String contactFirstName, long contactId) {

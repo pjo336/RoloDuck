@@ -8,6 +8,8 @@ $(document).ready(function() {
 
     $('.well-button').tooltip();
 
+    $('.selectpicker').selectpicker();
+
     for (var i = 0; i < elements.length; i++) {
         // Only occurs on "required" inputs
         elements[i].oninvalid = function(e) {

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponseWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +109,7 @@ public class ContactController extends ProcessException {
             contact.setContactLastName(converter.getContactLastName());
             contact.setContactTitle(converter.getContactTitle());
             contact.setContactEmail(converter.getContactEmail());
+            contact.setContactPhone(converter.getContactPhone());
             Partner partner = new Partner();
             if(converter.getPartnerId() > 0) {
                 contactService.createContact(contact, user, converter.getPartnerId());
@@ -123,5 +126,11 @@ public class ContactController extends ProcessException {
             return "contacts-create";
         }
         return "redirect:/contacts";
+    }
+
+    @RequestMapping(value = "/deleteContact", method = RequestMethod.POST)
+    public String postDeleteContact(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper result) {
+        Contact contact = new Contact();
+        contact.setId();
     }
 }

@@ -18,7 +18,7 @@
             <ul class="dropdown-menu">
                 <c:forEach var="contact" items="${contacts}">
                 <li>
-                    <a href="/contact/" onclick="location.href=this.href + ${contact.id}; return false;">
+                    <a href="/contact/" onclick="location.href=this.href + ${contact.contactId}; return false;">
                         ${contact.contactFirstName} ${contact.contactLastName}
                     </a>
                 </li>
@@ -34,7 +34,6 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Company</th>
-            <th>Role</th>
             <th>Title</th>
             <th>Email</th>
             <th>Phone</th>
@@ -46,15 +45,13 @@
         <tr>
             <td>${contact.contactFirstName}</td>
             <td>${contact.contactLastName}</td>
-            <td>Fandango ${contact.partnerId}</td>
-            <td>Sales</td>
+            <td>${contact.partnerName}</td>
             <td>${contact.contactTitle}</td>
             <td>${contact.contactEmail}</td>
-            <td>(310) 295-1669 ${contact.contactPhone}</td>
+            <td>${contact.contactPhone}</td>
             <td width="75px" style="padding-right: 0;">
-                <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon"></span></a>
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="action-link trash-action" onclick="trash(${contact.contactId})"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         </c:forEach>

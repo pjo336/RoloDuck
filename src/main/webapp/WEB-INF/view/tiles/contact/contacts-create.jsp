@@ -52,22 +52,21 @@
                 or <a id="partnerFormLink">add a new partner</a>
             </div>
 
-            <%--<div class="form-group" >--%>
-                <%--<label for="contactRole">Role</label>--%>
-                <%--<input type="text" class="form-control" name="contactrole" id="contactrole" placeholder="Contact Role">--%>
-                <%--<span class="help-block">Job type - i.e. Sales, Operations, etc.</span>--%>
-            <%--</div>--%>
-
             <div class="form-group" >
-                <label for="contactTitle">Title</label>
+                <label for="contactTitle">Job Title</label>
                 <input type="text" class="form-control" name="contactTitle" id="contactTitle"
                        placeholder="Contact Title">
-                <span class="help-block">Job title - i.e. Account Manager, Director of Sales, etc.</span>
+                <span class="help-block">i.e. Account Manager, Director of Sales, etc.</span>
             </div>
             <div class="form-group" >
                 <label for="contactEmail">Email</label>
                 <input type="text" class="form-control" name="contactEmail" id="contactEmail"
                        placeholder="Contact Email">
+            </div>
+            <div class="form-group" >
+                <label for="contactPhone">Phone Number</label>
+                <input type="text" class="form-control" name="contactPhone" id="contactPhone"
+                       placeholder="Contact Phone Number">
             </div>
             <%--<label for="contactphone">Phone</label><br />--%>
             <%--<div class="input-group">--%>
