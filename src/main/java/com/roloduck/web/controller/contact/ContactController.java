@@ -57,7 +57,7 @@ public class ContactController extends ProcessException {
                 ContactPartnerConverter converter = new ContactPartnerConverter(
                         linkedPartner.getId(), linkedPartner.getPartnerDescription(), linkedPartner.getPartnerName(),
                         c.getContactPhone(), c.getContactEmail(), c.getContactTitle(), c.getContactLastName(),
-                        c.getContactFirstName()
+                        c.getContactFirstName(), c.getId()
                 );
                 contactPartnerConverters.add(converter);
             }

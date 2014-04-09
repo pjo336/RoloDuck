@@ -21,7 +21,7 @@ public class ContactPartnerConverter {
 
     public ContactPartnerConverter(long partnerId, String partnerDescription, String partnerName, String contactPhone,
                                    String contactEmail, String contactTitle, String contactLastName,
-                                   String contactFirstName) {
+                                   String contactFirstName, long contactId) {
         this.partnerId = partnerId;
         this.partnerDescription = partnerDescription;
         this.partnerName = partnerName;
@@ -30,6 +30,7 @@ public class ContactPartnerConverter {
         this.contactTitle = contactTitle;
         this.contactLastName = contactLastName;
         this.contactFirstName = contactFirstName;
+        this.contactId = contactId;
     }
 
     public long getContactId() {
