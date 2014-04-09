@@ -130,7 +130,15 @@ public class ContactController extends ProcessException {
 
     @RequestMapping(value = "/deleteContact", method = RequestMethod.POST)
     public String postDeleteContact(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper result) {
-        Contact contact = new Contact();
-        contact.setId();
+        System.out.println("hello!");
+        try {
+            Contact contact = contactService.restoreById(Long.valueOf(request.getParameter("contactId")));
+            contactService.removeContact(contact);
+            return "redirect:/contacts";
+        } catch (ServiceLogicException sle) {
+            processRDException(model, sle);
+            return "contacts";
+        }
+
     }
 }

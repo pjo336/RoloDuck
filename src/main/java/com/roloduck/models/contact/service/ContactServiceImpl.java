@@ -1,5 +1,6 @@
 package com.roloduck.models.contact.service;
 
+import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.contact.Contact;
@@ -43,6 +44,22 @@ public class ContactServiceImpl implements ContactService {
             return contactDAO.findContactsByCompanyId(companyId);
         } else {
             throw new ServiceLogicException("The company with id: " + companyId + " does not exist");
+        }
+    }
+
+    @Override
+    public Contact restoreById(long id) throws ServiceLogicException {
+        try {
+            return contactDAO.restoreById(id);
+        } catch(DAOException de) {
+            throw new ServiceLogicException("There was a problem retrieving the contact with id: " + id);
+        }
+    }
+
+    @Override
+    public void removeContact(Contact contact) {
+        if(contact != null) {
+            contactDAO.removeContact(contact);
         }
     }
 }

@@ -29,4 +29,8 @@ public interface ContactService {
      * @return a list of all contacts belonging to that company
      */
     public List<Contact> findAllCompanyContacts(long companyId) throws ServiceLogicException;
+
+    Contact restoreById(long id) throws ServiceLogicException;
+
+    void removeContact(Contact contact);
 }

@@ -11,7 +11,8 @@ function edit() {
 }
 
 function trash(id) {
-    ajaxCall("/deleteContact", id);
+    var data = {contactId : id};
+    ajaxCall("/deleteContact", data);
 }
 
 /**
