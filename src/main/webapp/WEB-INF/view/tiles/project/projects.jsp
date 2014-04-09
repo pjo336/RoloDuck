@@ -24,26 +24,23 @@
                 </c:forEach>
             </ul>
         </div>
-        <a href="/projects/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Project</button></a>
+        <a href="/projects/create"><button class="btn btn-primary navbar-btn navbar-right add-button"><span class="glyphicon glyphicon-plus"></span> Add New Project</button></a>
     </nav>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Project Name</th>
             <th>Partners</th>
             <th>Contacts</th>
             <th>Created <b class="caret"></b></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="project" items="${projects}">
         <tr id="projectrow-${project.id}">
             <td>
-                <button id="${project.id}" class="delete-project btn btn-sm btn-danger" type="button"
-                        data-toggle="tooltip"
-                        data-original-title="Remove this project">
-                </button>
                 <a href="/project/" onclick="location.href=this.href + ${project.id};return false;">
                     ${project.projectName}
                 </a>
@@ -51,6 +48,11 @@
             <td><a href="#">4 Partners</a></td>
             <td><a href="#">10 Contacts</a></td>
             <td>1 day ago</td>
+            <td width="75px" style="padding-right: 0;">
+                <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon-star"></span></a>
+                <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+            </td>
         </tr>
         </c:forEach>
     </table>

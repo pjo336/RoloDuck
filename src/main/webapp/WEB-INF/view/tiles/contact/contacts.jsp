@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
 
-    email: ${user.email}
     <ol class="breadcrumb">
         <span> <strong>${companyName}</strong> <span class="spacer40"></span></span>
         <li class="active">Contacts</li>
@@ -26,10 +25,10 @@
                 </c:forEach>
             </ul>
         </div>
-        <a href="/contacts/create"><button class="btn btn-primary navbar-btn navbar-right add-button">+ Add New Contact</button></a>
+        <a href="/contacts/create"><button class="btn btn-primary navbar-btn navbar-right add-button"><span class="glyphicon glyphicon-plus"></span> Add New Contact</button></a>
     </nav>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>First Name</th>
@@ -39,6 +38,7 @@
             <th>Title</th>
             <th>Email</th>
             <th>Phone</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -46,11 +46,16 @@
         <tr>
             <td>${contact.contactFirstName}</td>
             <td>${contact.contactLastName}</td>
-            <td>${contact.partnerId}</td>
-            <td>ROLE?</td>
+            <td>Fandango ${contact.partnerId}</td>
+            <td>Sales</td>
             <td>${contact.contactTitle}</td>
             <td>${contact.contactEmail}</td>
-            <td>${contact.contactPhone}</td>
+            <td>(310) 295-1669 ${contact.contactPhone}</td>
+            <td width="75px" style="padding-right: 0;">
+                <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon"></span></a>
+                <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+            </td>
         </tr>
         </c:forEach>
     </table>

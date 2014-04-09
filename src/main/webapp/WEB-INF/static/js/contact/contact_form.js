@@ -56,6 +56,7 @@ $(document).ready(function() {
     $("#partnerFormLink").click(function(){
         $("#partnerId").val(0);
         $("#partnerId").hide(200);
+        $(".bootstrap-select").hide(200);
         $("#partnerForm").show(200);
     });
 });

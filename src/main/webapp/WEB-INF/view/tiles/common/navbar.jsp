@@ -12,9 +12,11 @@
                 <c:when test="${loggedIn}">
 
                     <ul id="rolo-main-nav" class="nav navbar-nav navbar-right">
-                        <li>
+                        <li style="height: 50px;">
                             <form class="navbar-search form-inline navbar-right navbar-form" action="/search">
-                                <input type="text" class="search-query" placeholder="Search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search" width="260px">
+                                </div>
                             </form>
                         </li>
                         <li>

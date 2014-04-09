@@ -6,6 +6,8 @@ $(document).ready(function() {
     // Get each input
     var elements = document.getElementsByTagName("INPUT");
 
+    $('.well-button').tooltip();
+
     for (var i = 0; i < elements.length; i++) {
         // Only occurs on "required" inputs
         elements[i].oninvalid = function(e) {
@@ -30,3 +32,16 @@ $(document).ready(function() {
         $("#projectForm").show(200);
     });
 });
+
+
+function star() {
+    alert("star action");
+}
+
+function edit() {
+    alert("edit action");
+}
+
+function trash() {
+    alert("trash action");
+}

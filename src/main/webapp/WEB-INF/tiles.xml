@@ -61,6 +61,7 @@
     <definition name="partners" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Partners" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/partner/partners.jsp" />
+        <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/partner/partners-scripts.jsp" />
     </definition>
 
     <definition name="partners-single" extends="roloduck.common">
@@ -85,6 +86,7 @@
     <definition name="contacts" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Contacts" />
         <put-attribute name="body" value="/WEB-INF/view/tiles/contact/contacts.jsp" />
+        <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/contact/contacts-scripts.jsp" />
     </definition>
 
 

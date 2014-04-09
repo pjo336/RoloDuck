@@ -49,7 +49,7 @@
                                   placeholder="Add a description to explain more about the partner" rows="3"></textarea>
                     </div>
                 </div>
-                <a id="partnerFormLink">Add a new partner</a>
+                or <a id="partnerFormLink">add a new partner</a>
             </div>
 
             <%--<div class="form-group" >--%>
