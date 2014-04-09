@@ -9,6 +9,7 @@ package com.roloduck.web.converter;
 
 public class ContactPartnerConverter {
 
+    private long contactId;
     private String contactFirstName;
     private String contactLastName;
     private String contactTitle;
@@ -29,6 +30,14 @@ public class ContactPartnerConverter {
         this.contactTitle = contactTitle;
         this.contactLastName = contactLastName;
         this.contactFirstName = contactFirstName;
+    }
+
+    public long getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(long contactId) {
+        this.contactId = contactId;
     }
 
     public String getContactFirstName() {
