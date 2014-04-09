@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,19 @@ public class ContactController extends ProcessException {
             // Add the current user, his company, and the list of his company's partners to the model
             model.addAttribute("user", user);
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
-            model.addAttribute("contacts", contactService.findAllCompanyContacts(user.getCompanyId()));
+            List<Contact> contacts = contactService.findAllCompanyContacts(user.getCompanyId());
+            List<ContactPartnerConverter> contactPartnerConverters = new ArrayList<>();
+            for(Contact c: contacts) {
+                Partner linkedPartner = partnerService.restoreById(c.getPartnerId());
+                ContactPartnerConverter converter = new ContactPartnerConverter(
+                        linkedPartner.getId(), linkedPartner.getPartnerDescription(), linkedPartner.getPartnerName(),
+                        c.getContactPhone(), c.getContactEmail(), c.getContactTitle(), c.getContactLastName(),
+                        c.getContactFirstName()
+                );
+                contactPartnerConverters.add(converter);
+            }
+            model.addAttribute("contacts", contactPartnerConverters);
+
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
         }

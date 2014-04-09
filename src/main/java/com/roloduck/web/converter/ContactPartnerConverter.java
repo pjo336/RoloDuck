@@ -18,6 +18,19 @@ public class ContactPartnerConverter {
     private String partnerDescription;
     private long partnerId;
 
+    public ContactPartnerConverter(long partnerId, String partnerDescription, String partnerName, String contactPhone,
+                                   String contactEmail, String contactTitle, String contactLastName,
+                                   String contactFirstName) {
+        this.partnerId = partnerId;
+        this.partnerDescription = partnerDescription;
+        this.partnerName = partnerName;
+        this.contactPhone = contactPhone;
+        this.contactEmail = contactEmail;
+        this.contactTitle = contactTitle;
+        this.contactLastName = contactLastName;
+        this.contactFirstName = contactFirstName;
+    }
+
     public String getContactFirstName() {
         return contactFirstName;
     }
