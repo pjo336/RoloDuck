@@ -11,10 +11,7 @@ import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -83,6 +80,20 @@ public class ProjectController extends ProcessException {
             return "projects-create";
         }
         return "redirect:/projects";
+    }
+
+    @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
+    public String servePartnerSingle(@PathVariable long projectId, ModelMap model) {
+        try {
+            User user = SecurityUtils.getCurrentUser();
+            Company company = companyService.restoreCompanyById(user.getCompanyId());
+            model.addAttribute("companyName", company.getCompanyName());
+            Project project = projectService.restoreProjectById(projectId);
+            model.addAttribute("project", project);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+        }
+        return "project-single";
     }
 
     @RequestMapping(value = "/deleteProjects")
