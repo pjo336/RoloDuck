@@ -82,7 +82,7 @@ public class ProjectController extends ProcessException {
         return "redirect:/projects";
     }
 
-    @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
+    @RequestMapping(value = URI_PREFIX + "/{projectId}", method = RequestMethod.GET)
     public String servePartnerSingle(@PathVariable long projectId, ModelMap model) {
         try {
             User user = SecurityUtils.getCurrentUser();

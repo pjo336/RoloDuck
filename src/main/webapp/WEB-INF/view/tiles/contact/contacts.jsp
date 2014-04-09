@@ -49,7 +49,7 @@
             <td>${contact.contactTitle}</td>
             <td>${contact.contactEmail}</td>
             <td>${contact.contactPhone}</td>
-            <td width="75px" style="padding-right: 0;">
+            <td width="55px" style="padding-right: 0;">
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a class="action-link trash-action" onclick="trash(${contact.contactId})"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
@@ -57,15 +57,15 @@
         </c:forEach>
     </table>
 
-    <div>
-        <ul class="pagination pull-right">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2 <span class="sr-only">page 2</span></a></li>
-            <li><a href="#">3 <span class="sr-only">page 3</span></a></li>
-            <li><a href="#">4 <span class="sr-only">page 4</span></a></li>
-            <li><a href="#">&raquo;<span class="sr-only">next page</span></a></li>
-        </ul>
-        <div style="clear:both;"></div>
-    </div>
+    <%--<div>--%>
+        <%--<ul class="pagination pull-right">--%>
+            <%--<li class="disabled"><a href="#">&laquo;</a></li>--%>
+            <%--<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>--%>
+            <%--<li><a href="#">2 <span class="sr-only">page 2</span></a></li>--%>
+            <%--<li><a href="#">3 <span class="sr-only">page 3</span></a></li>--%>
+            <%--<li><a href="#">4 <span class="sr-only">page 4</span></a></li>--%>
+            <%--<li><a href="#">&raquo;<span class="sr-only">next page</span></a></li>--%>
+        <%--</ul>--%>
+        <%--<div style="clear:both;"></div>--%>
+    <%--</div>--%>
 </div>

@@ -5,8 +5,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title><tiles:insertAttribute name="title" defaultValue="RoloDuck"/></title>
-    <tiles:insertAttribute name="html-header"/>
+    <link rel="shortcut icon" href="/static/img/favicon.ico?v=4" />
+    <title><tiles:insertAttribute name="title" defaultValue="RoloDuck" /></title>
+    <tiles:insertAttribute name="html-header" />
 </head>
 <body>
 <tiles:insertAttribute name="top-navbar" />

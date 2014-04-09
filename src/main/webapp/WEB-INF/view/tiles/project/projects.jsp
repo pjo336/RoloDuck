@@ -17,7 +17,7 @@
             <ul class="dropdown-menu">
                 <c:forEach var="project" items="${projects}">
                 <li>
-                    <a href="/project/" onclick="location.href=this.href + ${project.id}; return false;">
+                    <a href="/projects/${project.id}">
                         ${project.projectName}
                     </a>
                 </li>
@@ -41,32 +41,29 @@
         <c:forEach var="project" items="${projects}">
         <tr id="projectrow-${project.id}">
             <td>
-                <a href="/project/" onclick="location.href=this.href + ${project.id};return false;">
+                <a href="/projects/${project.id}">
                     ${project.projectName}
                 </a>
             </td>
             <td><a href="#">4 Partners</a></td>
             <td><a href="#">10 Contacts</a></td>
             <td>1 day ago</td>
-            <td width="75px" style="padding-right: 0;">
+            <td width="55px" style="padding-right: 0;">
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         </c:forEach>
     </table>
-    <div>
-        <ul class="pagination pull-right">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2 <span class="sr-only">page 2</span></a></li>
-            <li><a href="#">3 <span class="sr-only">page 3</span></a></li>
-            <li><a href="#">4 <span class="sr-only">page 4</span></a></li>
-            <li><a href="#">&raquo;<span class="sr-only">next page</span></a></li>
-        </ul>
-        <div style="clear:both;"></div>
-    </div>
-    <button id="saveProjectChanges" type="button">
-        Save Changes
-    </button>
+    <%--<div>--%>
+        <%--<ul class="pagination pull-right">--%>
+            <%--<li class="disabled"><a href="#">&laquo;</a></li>--%>
+            <%--<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>--%>
+            <%--<li><a href="#">2 <span class="sr-only">page 2</span></a></li>--%>
+            <%--<li><a href="#">3 <span class="sr-only">page 3</span></a></li>--%>
+            <%--<li><a href="#">4 <span class="sr-only">page 4</span></a></li>--%>
+            <%--<li><a href="#">&raquo;<span class="sr-only">next page</span></a></li>--%>
+        <%--</ul>--%>
+        <%--<div style="clear:both;"></div>--%>
+    <%--</div>--%>
 </div>

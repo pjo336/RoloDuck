@@ -84,8 +84,7 @@
                     <td>Supervisor, Digital Investment</td>
                     <td>Carlos.Aparicio@us.initiative.com</td>
                     <td>310-283-2324</td>
-                    <td width="75px" style="padding-right: 0;">
-                        <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon-star"></span></a>
+                    <td width="55px" style="padding-right: 0;">
                         <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
@@ -96,8 +95,7 @@
                     <td>Strategist, Digital Investment</td>
                     <td>Michael.Harker@us.initiative.com</td>
                     <td>310-283-2184</td>
-                    <td width="75px" style="padding-right: 0;">
-                        <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon-star"></span></a>
+                    <td width="55px" style="padding-right: 0;">
                         <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
@@ -108,8 +106,7 @@
                     <td>Ad Operations Coordinator</td>
                     <td>Lynde.Moffat@us.initiative.com</td>
                     <td>310-283-5287</td>
-                    <td width="75px" style="padding-right: 0;">
-                        <a class="action-link star-action" onclick="star()"><span class="glyphicon glyphicon-star"></span></a>
+                    <td width="55px" style="padding-right: 0;">
                         <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>

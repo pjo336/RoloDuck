@@ -52,9 +52,9 @@
         <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/project/projects-scripts.jsp" />
     </definition>
 
-    <definition name="projects-single" extends="roloduck.common">
+    <definition name="project-single" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Project - Detail" />
-        <put-attribute name="body" value="/WEB-INF/view/tiles/partner/project-single.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/project/project-single.jsp" />
     </definition>
 
     <definition name="projects-create" extends="roloduck.common">
