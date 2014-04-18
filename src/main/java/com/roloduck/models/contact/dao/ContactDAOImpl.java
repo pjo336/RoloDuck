@@ -47,6 +47,14 @@ public class ContactDAOImpl extends RoloDuckEntityDAOImpl<Contact> implements Co
     }
 
     @Override
+    public List<Contact> findContactsByPartnerId(long partnerId) {
+        Contact contact = new Contact();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(contact.getAllColumnNames()) + " FROM " +
+                TABLE_NAME + " where partner_id = ?";
+        SQLUtils.printSQL(SQL);
+        return jdbcTemplateObject.query(SQL, new Object[]{partnerId}, new ContactMapper());    }
+
+    @Override
     public void removeContact(Contact contact) {
         super.remove(contact);
     }

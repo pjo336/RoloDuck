@@ -3,6 +3,8 @@ package com.roloduck.models.partner.service;
 import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.service.CompanyService;
+import com.roloduck.models.contact.Contact;
+import com.roloduck.models.contact.dao.ContactDAO;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.dao.PartnerDAO;
 import com.roloduck.models.project.Project;
@@ -34,6 +36,8 @@ public class PartnerServiceImpl implements PartnerService {
     private PartnerDAO partnerDAO;
     @Autowired
     private ProjPartAssocDAO assocDAO;
+    @Autowired
+    private ContactDAO contactDAO;
 
     @Autowired
     private CompanyService companyService;
@@ -133,9 +137,19 @@ public class PartnerServiceImpl implements PartnerService {
                     connectedProjects.add(projectService.restoreProjectById(l));
                 }
             } catch(DAOException de) {
-                throw new ServiceLogicException("The partner with id: " + partnerId + " could not be found.");
+                throw new ServiceLogicException("Associations of the partner with id: " + partnerId + " could not be " +
+                        "found.");
             }
         }
         return connectedProjects;
+    }
+
+    @Override
+    public List<Contact> findAllAssociatedContacts(long partnerId) throws ServiceLogicException {
+        List<Contact> associatedContacts = new ArrayList<>();
+        if(restoreById(partnerId) != null) {
+            associatedContacts = contactDAO.findContactsByPartnerId(partnerId);
+        }
+        return associatedContacts;
     }
 }

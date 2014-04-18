@@ -2,6 +2,7 @@ package com.roloduck.models.partner;
 
 import com.roloduck.entity.RoloDuckEntity;
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.contact.Contact;
 import com.roloduck.models.project.Project;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -28,6 +29,7 @@ public class Partner implements RoloDuckEntity {
     private long companyId;
 
     private List<Project> associatedProjects;
+    private List<Contact> associatedContacts;
 
     @Override
     public String getTableName() {
@@ -114,5 +116,13 @@ public class Partner implements RoloDuckEntity {
 
     public void setAssociatedProjects(List<Project> associatedProjects) {
         this.associatedProjects = associatedProjects;
+    }
+
+    public List<Contact> getAssociatedContacts() {
+        return associatedContacts;
+    }
+
+    public void setAssociatedContacts(List<Contact> associatedContacts) {
+        this.associatedContacts = associatedContacts;
     }
 }

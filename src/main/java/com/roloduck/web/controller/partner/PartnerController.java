@@ -47,6 +47,7 @@ public class PartnerController extends ProcessException {
             // For each partner, find its associated projects
             for(Partner p: partners) {
                 p.setAssociatedProjects(partnerService.findAllConnectedProjects(p.getId()));
+                p.setAssociatedContacts(partnerService.findAllAssociatedContacts(p.getId()));
             }
             model.addAttribute("partners", partners);
         } catch(ServiceLogicException sle) {

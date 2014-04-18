@@ -1,6 +1,7 @@
 package com.roloduck.models.partner.service;
 
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.contact.Contact;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.project.Project;
 import com.roloduck.user.User;
@@ -66,4 +67,12 @@ public interface PartnerService {
      * @return a list of projects
      */
     public List<Project> findAllConnectedProjects(long partnerId) throws ServiceLogicException;
+
+    /**
+     * Find all contacts that the given partner owns
+     * @param partnerId the owning partner
+     * @return A list of all contacts belonging to the owning partner
+     * @throws ServiceLogicException
+     */
+    List<Contact> findAllAssociatedContacts(long partnerId) throws ServiceLogicException;
 }

@@ -64,6 +64,28 @@ public class ContactDAOImplTest {
         assertTrue(contactFound);
     }
 
+    @Test
+    public void testFindContactsByPartnerId() {
+        Contact contact = createContact("Name", "lastname", "emailadresssss");
+        insertContact(contact);
+        long partnerId = contact.getPartnerId();
+
+        List<Contact> contacts = impl.findContactsByPartnerId(partnerId);
+        boolean contactFound = false;
+
+        for(Contact c: contacts) {
+            if(c.getContactFirstName().equals(contact.getContactFirstName()) &&
+                    c.getContactLastName().equals(contact.getContactLastName()) &&
+                    c.getContactEmail().equals(contact.getContactEmail()) &&
+                    c.getPartnerId() == contact.getPartnerId() &&
+                    c.getCompanyId() == contact.getCompanyId()) {
+                contactFound = true;
+            }
+        }
+
+        assertTrue(contactFound);
+    }
+
     /**
      * Tests that findContactsByCompanyId
      */

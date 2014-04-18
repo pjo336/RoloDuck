@@ -36,6 +36,13 @@ public interface ContactDAO {
     public List<Contact> findContactsByCompanyId(long companyId);
 
     /**
+     * Find a list of all contacts with the given partner id
+     * @param partnerId the id of the partner to search on
+     * @return a list of contacts
+     */
+    public List<Contact> findContactsByPartnerId(long partnerId);
+
+    /**
      * Remove this contact from the database
      * @param contact the contact to be removed
      */

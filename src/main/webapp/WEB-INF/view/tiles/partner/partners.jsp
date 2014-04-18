@@ -45,6 +45,9 @@
         <div class="panel-body">
             <h5>Projects Assigned <span class="small"><a class="pull-right" href="/partners/assign=${partner.id}"><span class="glyphicon glyphicon-plus"></span> add project</a></span></h5>
             <div class="well well-sm">
+                <c:if test="${empty partner.associatedProjects}"><h3>yo yo dog, please assign a project to
+                    dis
+                    mad ill partnuhhhh</h3></c:if>
                 <c:forEach var="associatedProject" items="${partner.associatedProjects}">
                 <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
                     ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
@@ -65,41 +68,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- forEach var="contact" items="partner.contacts"> -->
-                <tr>
-                    <td>Carlos</td>
-                    <td>Aparicio</td>
-                    <td>Supervisor, Digital Investment</td>
-                    <td>Carlos.Aparicio@us.initiative.com</td>
-                    <td>310-283-2324</td>
-                    <td width="55px" style="padding-right: 0;">
-                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mike</td>
-                    <td>Harker</td>
-                    <td>Strategist, Digital Investment</td>
-                    <td>Michael.Harker@us.initiative.com</td>
-                    <td>310-283-2184</td>
-                    <td width="55px" style="padding-right: 0;">
-                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lydne</td>
-                    <td>Moffat</td>
-                    <td>Ad Operations Coordinator</td>
-                    <td>Lynde.Moffat@us.initiative.com</td>
-                    <td>310-283-5287</td>
-                    <td width="55px" style="padding-right: 0;">
-                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
-                    </td>
-                </tr>
-                <!-- End forEach -->
+                    <c:if test="${empty partner.associatedContacts}">
+                        <tr><td>You need to assign some contacts to this partner you thilly gooth</td></tr>
+                    </c:if>
+                    <c:forEach var="contact" items="${partner.associatedContacts}">
+                        <tr>
+                            <td>${contact.contactFirstName}</td>
+                            <td>${contact.contactLastName}</td>
+                            <td>${contact.contactTitle}</td>
+                            <td>${contact.contactEmail}</td>
+                            <td>${contact.contactPhone}</td>
+                            <td width="55px" style="padding-right: 0;">
+                                <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
             </table>
         </div>
     </div>
