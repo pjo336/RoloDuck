@@ -97,6 +97,29 @@ public class ProjPartAssocDAOImplTest {
     }
 
     /**
+     * Test that findProjectsByPartnerId returns the correct associated project to a partner id
+     * @throws ServiceLogicException
+     * @throws DAOException
+     */
+    @Test
+    public void testFindProjectsByPartnerId() throws ServiceLogicException, DAOException {
+        ProjPartAssoc assoc = insertTestProjPartAssoc("This is totes a test project", "This is totes a test partner");
+        long partnerId = assoc.getPartnerId();
+        List<Long> projectIds = impl.findProjectsByPartnerId(partnerId);
+        long projectId = projectIds.get(0);
+        assertEquals(assoc.getProjectId(), projectId);
+    }
+
+    /**
+     * Test that there is no exception when an association is not found
+     * @throws ServiceLogicException
+     */
+    @Test
+    public void testFindProjectsByPartnerIdNotFound() throws ServiceLogicException, DAOException {
+        impl.findProjectsByPartnerId(-999);
+    }
+
+    /**
      * Test that the count is updated by 1 after an insert
      * @throws ServiceLogicException
      */

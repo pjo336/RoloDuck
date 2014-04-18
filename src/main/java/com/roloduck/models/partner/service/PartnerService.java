@@ -2,6 +2,7 @@ package com.roloduck.models.partner.service;
 
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.partner.Partner;
+import com.roloduck.models.project.Project;
 import com.roloduck.user.User;
 
 import java.util.List;
@@ -58,4 +59,11 @@ public interface PartnerService {
      * @return a list of partners that belong to the project
      */
     public List<Partner> findAllProjectPartners(long projectId);
+
+    /**
+     * Find a list of all the projects that belong to the given partner
+     * @param partnerId the partner being searched on
+     * @return a list of projects
+     */
+    public List<Project> findAllConnectedProjects(long partnerId) throws ServiceLogicException;
 }

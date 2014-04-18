@@ -42,7 +42,13 @@ public class PartnerController extends ProcessException {
             User user = SecurityUtils.getCurrentUser();
             // Add the current company, and the list of company's partners to the model
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
-            model.addAttribute("partners", partnerService.findAllCompanyPartners(user.getCompanyId()));
+            // Find all the partners
+            List<Partner> partners = partnerService.findAllCompanyPartners(user.getCompanyId());
+            // For each partner, find its associated projects
+            for(Partner p: partners) {
+                p.setAssociatedProjects(partnerService.findAllConnectedProjects(p.getId()));
+            }
+            model.addAttribute("partners", partners);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
         }

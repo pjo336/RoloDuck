@@ -53,6 +53,25 @@ public class ProjPartAssocDAOImpl extends RoloDuckEntityDAOImpl<ProjPartAssoc>
     }
 
     @Override
+    public List<Long> findProjectsByPartnerId(long partnerId) throws DAOException {
+        ProjPartAssoc assoc = new ProjPartAssoc();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(assoc.getAllColumnNames()) + " FROM " +
+                assoc.getTableName() + " where partner_id = ?";
+        SQLUtils.printSQL(SQL);
+        List<Long> projectIds = new ArrayList<>();
+        try {
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL, partnerId);
+            for (Map row : rows) {
+                projectIds.add((Long) row.get("PROJECT_ID"));
+            }
+        } catch(DataAccessException DAE) {
+            throw new DAOException("There was a problem finding the partners by projects.");
+        }
+
+        return projectIds;
+    }
+
+    @Override
     public void removeAssoc(ProjPartAssoc assoc) {
         super.remove(assoc);
     }

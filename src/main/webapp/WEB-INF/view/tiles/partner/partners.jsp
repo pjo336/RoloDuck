@@ -45,25 +45,13 @@
         <div class="panel-body">
             <h5>Projects Assigned <span class="small"><a class="pull-right" href="/partners/assign=${partner.id}"><span class="glyphicon glyphicon-plus"></span> add project</a></span></h5>
             <div class="well well-sm">
+                <c:forEach var="associatedProject" items="${partner.associatedProjects}">
                 <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    Frozen Theatrical (Pre-open)<span class="glyphicon glyphicon-remove"></span>
+                    ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    Pjo<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    Sunuvabitch!<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    Another Project<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    Some DVD Project<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
-                    La amo tanto<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                <a class="well-button" href="partners/assign=${partner.id}" data-toggle="tooltip" data-placement="top" title="click to view all projects">and 3 others...</a>
+                </c:forEach>
+                <%--TODO pagination for project bubbles here--%>
+                <%--<a class="well-button" href="partners/assign=${partner.id}" data-toggle="tooltip" data-placement="top" title="click to view all projects">and 3 others...</a>--%>
             </div>
             <table class="table table-striped table-hover">
                 <thead>

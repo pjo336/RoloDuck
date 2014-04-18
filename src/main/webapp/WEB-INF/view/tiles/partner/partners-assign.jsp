@@ -13,7 +13,7 @@
         <form:form action="/partners/assign=${partner.id}" modelAttribute="project" method="POST" role="form">
             <div class="form-group">
                 <label for="projectId">Project</label><br />
-                <select class="selectpicker" name="projectId" id="projectId" width="400px">
+                <select class="selectpicker" name="id" id="projectId" width="400px">
                     <c:forEach var="project" items="${projects}">
                         <option value="${project.id}">
                                 ${project.projectName}
