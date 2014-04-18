@@ -33,25 +33,30 @@ public interface ProjectDAO {
      * @param name the name of the projects to be found
      * @return the list of projects with the given name
      */
-    public List<Project> findProjectsByName(String name);
+    public List<Project> findProjectsByName(String name) throws DAOException;
 
     /**
      * Find the projects with the given company id
      * @param companyId the id of the company
      * @return the list of projects with this company id
      */
-    public List<Project> findProjectsByCompanyId(long companyId);
+    public List<Project> findProjectsByCompanyId(long companyId) throws DAOException;
 
     /**
      * If the project exists, update the record to reflect any changes,
-     * otherwise insert the project
+     * otherwise do nothing
      * @param project the project to be updated
      */
-    public void updateOrStoreProject(Project project);
+    public void updateProject(Project project);
 
     /**
      * If the project exists, delete the project, otherwise nothing happens.
      * @param project the project to be removed from the database
      */
     public void removeProject(Project project);
+
+    /**
+     * @return a count of all elements in the Project table
+     */
+    public long count();
 }

@@ -29,7 +29,7 @@ public interface ProjectService {
      * @param companyId the id of the company
      * @return a list of projects that belong to the company
      */
-    public List<Project> findAllCompanyProjects(long companyId);
+    public List<Project> findAllCompanyProjects(long companyId) throws ServiceLogicException;
 
     /**
      * Find the project with the given Id

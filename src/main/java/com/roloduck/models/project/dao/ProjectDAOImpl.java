@@ -7,6 +7,7 @@ import com.roloduck.models.project.ProjectMapper;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,30 +39,43 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
     }
 
     @Override
-    public List<Project> findProjectsByName(String name) {
+    public List<Project> findProjectsByName(String name) throws DAOException {
         Project project = new Project();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where project_name = ?";
         SQLUtils.printSQL(SQL);
-        return jdbcTemplateObject.query(SQL, new Object[]{name}, new ProjectMapper());
+        try {
+            return jdbcTemplateObject.query(SQL, new Object[]{name}, new ProjectMapper());
+        } catch (DataAccessException dae) {
+            throw new DAOException("There was an access exception while finding the project by name.");
+        }
     }
 
     @Override
-    public List<Project> findProjectsByCompanyId(long companyId) {
+    public List<Project> findProjectsByCompanyId(long companyId) throws DAOException {
         Project project = new Project();
         final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
         SQLUtils.printSQL(SQL);
-        return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ProjectMapper());
+        try {
+            return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ProjectMapper());
+        } catch (DataAccessException dae) {
+            throw new DAOException("There was an access exception while finding the project by Company id.");
+        }
     }
 
     @Override
-    public void updateOrStoreProject(Project project) {
+    public void updateProject(Project project) {
         // TODO
     }
 
     @Override
     public void removeProject(Project project) {
         super.remove(project);
+    }
+
+    @Override
+    public long count() {
+        return super.count(new Project());
     }
 }

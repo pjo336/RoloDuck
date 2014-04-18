@@ -53,7 +53,7 @@ public class ProjectDAOImplTest {
 
     @Test
     public void testFindProjectsByNameNotFound() throws DAOException {
-        impl.findProjectsByName("derp");
+        impl.findProjectsByName(UUID.randomUUID().toString().substring(20));
     }
 
     @Test

@@ -37,10 +37,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> findAllCompanyProjects(long companyId) {
+    public List<Project> findAllCompanyProjects(long companyId) throws ServiceLogicException {
         // TODO Make sure company is active
         // Maybe use company instead of company ID?
-        return projectDAO.findProjectsByCompanyId(companyId);
+        try {
+            return projectDAO.findProjectsByCompanyId(companyId);
+        } catch(DAOException de) {
+            throw new ServiceLogicException("There was a problem finding all Projects of this Company.");
+        }
     }
 
     @Override
