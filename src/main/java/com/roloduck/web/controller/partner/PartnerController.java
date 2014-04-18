@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -95,6 +96,13 @@ public class PartnerController extends ProcessException {
         return "partners-single";
     }
 
+    /**
+     * Serve the assignment page, where a user can assign various projects to a specific partner
+     * The partner is denoted by the id
+     * @param partnerId the id of the partner receiving assignments
+     * @param model the model
+     * @return the partner assign tiles definition
+     */
     @RequestMapping(value = "/assign={partnerId}", method = RequestMethod.GET)
     public String servePartnerAssignProject(@PathVariable long partnerId, ModelMap model) {
         try {
@@ -111,6 +119,13 @@ public class PartnerController extends ProcessException {
         return "partners-assign";
     }
 
+    /**
+     * Post the assignment of a project to the given partner
+     * @param partnerId the id of the partner receiving the assignment
+     * @param project the project being assigned to the partner
+     * @param model the model
+     * @return if successful, return the user to the partner page, else return back to the assignment page
+     */
     @RequestMapping(value = "/assign={partnerId}", method = RequestMethod.POST)
     public String postPartnerAssignProject(@PathVariable long partnerId, @ModelAttribute("project") Project project, ModelMap model) {
         User user = null;
@@ -137,5 +152,16 @@ public class PartnerController extends ProcessException {
             return "partners-assign";
         }
         return "partners-single";
+    }
+
+    @RequestMapping(value = "/remove={partnerId}", method = RequestMethod.POST)
+    public void postRemovePartner(@PathVariable long partnerId, HttpServletRequest request, ModelMap model) {
+        String deletedPartner = request.getParameter("deleted");
+        try {
+            partnerService.removePartner(partnerId);
+        } catch (ServiceLogicException sle) {
+            // TODO write the exception back to the javascript
+            processRDException(model, sle);
+        }
     }
 }

@@ -44,6 +44,29 @@ function edit() {
     alert("edit action");
 }
 
-function trash() {
-    alert("trash action");
+function trash(partnerId) {
+    var data = {deleted : partnerId};
+    var url = '/partners/remove=' + partnerId;
+    var element = $('#partnerpanel' + partnerId);
+    // TODO make the element only hide if the delete is successful
+    ajaxCall(url, data);
+    element.hide(200);
+}
+
+/**
+ * An Ajax post call used to alter html elements on the page to a username fetched from the server
+ * @param url The url the request is routed to
+ * @param dataToServer Contains any information you want to send to the server side
+ */
+function ajaxCall(url, dataToServer) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: dataToServer,
+        success: function(){
+            alert('successful!');
+            return true;
+        }
+    });
 }

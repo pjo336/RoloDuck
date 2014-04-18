@@ -152,4 +152,10 @@ public class PartnerServiceImpl implements PartnerService {
         }
         return associatedContacts;
     }
+
+    @Override
+    public void removePartner(long partnerId) throws ServiceLogicException {
+        Partner partner = restoreById(partnerId);
+        partnerDAO.removePartner(partner);
+    }
 }

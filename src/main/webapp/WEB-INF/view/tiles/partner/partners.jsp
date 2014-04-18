@@ -29,7 +29,7 @@
     </nav>
 
     <c:forEach var="partner" items="${partners}">
-    <div class="panel panel-default">
+    <div id="partnerpanel${partner.id}" class="panel panel-default">
         <div class="panel-heading">
             <a href="/partners/${partner.id}">
                 <h3 class="panel-title pull-left">
@@ -38,7 +38,8 @@
             </a>
             <span class="pull-right">
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="action-link trash-action"
+                   onclick="trash(${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
             <div class="clearfix"></div>
         </div>

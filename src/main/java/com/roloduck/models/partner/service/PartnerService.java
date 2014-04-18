@@ -75,4 +75,10 @@ public interface PartnerService {
      * @throws ServiceLogicException
      */
     List<Contact> findAllAssociatedContacts(long partnerId) throws ServiceLogicException;
+
+    /**
+     * Remove the partner with the given id
+     * @param partnerId the partner to remove
+     */
+    void removePartner(long partnerId) throws ServiceLogicException;
 }
