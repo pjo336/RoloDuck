@@ -47,20 +47,28 @@ public class UserServiceImpl implements UserService {
                 long companyId = companyDAO.restoreCompanyByIdentifier(companyIdentifier).getId();
                 user.setCompanyId(companyId);
                 // Hash the users password
-                if(user.getPassword() == null || user.getPassword().equalsIgnoreCase("")) {
-                    throw new ServiceLogicException("Please enter a password.");
-                }
-                user.setPassword(encoder.encode(user.getPassword()));
-                user.validate();
+            } catch(DAOException nfe) {
+                logger.warn("The company identifier provided: " + companyIdentifier + " in signUpUser does not exist.");
+                throw new ServiceLogicException("Invalid company identifier: " + companyIdentifier + " given.");
+            }
+            if(user.getPassword() == null || user.getPassword().equalsIgnoreCase("")) {
+                throw new ServiceLogicException("Please enter a password.");
+            }
+            user.setPassword(encoder.encode(user.getPassword()));
+            user.validate();
+            // Finally make sure the email is unique
+            try {
+                userDAO.restoreByEmail(user.getEmail());
+                logger.warn("Unique constraint violation on email when creating user.");
+                throw new ServiceLogicException("This email address is already taken, please pick a new one.");
+            } catch(DAOException de) {
+                // No user with this email exists, continue creation
                 userDAO.insertUser(user);
                 // Create and add the matching user role entry
                 // TODO hardcoded role
                 UserRole role = new UserRole(user.getId(), Authority.ROLE_USER);
                 role.validate();
                 userRoleDAO.insert(role);
-            } catch(DAOException nfe) {
-                logger.warn("The company identifier provided: " + companyIdentifier + " in signUpUser does not exist.");
-                throw new ServiceLogicException("Invalid company identifier: " + companyIdentifier + " given.");
             } catch(ServiceLogicException sle) {
                 logger.warn("There was a problem signing up the user: " + user + ". MESSAGE: " + sle.getMessage());
                 throw sle;
