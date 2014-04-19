@@ -4,7 +4,7 @@
   <groupId>RoloDuck</groupId>
   <artifactId>RoloDuck</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <name>RoloDuck</name>
   <url>http://maven.apache.org</url>
 
@@ -155,6 +155,13 @@
             <artifactId>mockito-all</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- GSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
         </dependency>
 
     </dependencies>
