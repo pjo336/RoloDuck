@@ -9,7 +9,6 @@ import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.dao.PartnerDAO;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
-import com.roloduck.models.projpartassoc.ProjPartAssoc;
 import com.roloduck.models.projpartassoc.dao.ProjPartAssocDAO;
 import com.roloduck.user.User;
 import org.slf4j.Logger;
@@ -74,42 +73,6 @@ public class PartnerServiceImpl implements PartnerService {
         }
         logger.error("There was a problem restoring a partner by ID: " + partnerId);
         throw new ServiceLogicException("There was a problem restoring a partner by ID: " + partnerId);
-    }
-
-    @Override
-    public void assignPartnerToProject(Partner partner, long projectId) throws ServiceLogicException {
-        // Ensure the project exists, exception will be thrown if not
-        projectService.restoreProjectById(projectId);
-
-        if(partner != null) {
-            ProjPartAssoc assoc = new ProjPartAssoc();
-            assoc.setProjectId(projectId);
-            assoc.setPartnerId(partner.getId());
-            try {
-                assoc.validate();
-            } catch (ServiceLogicException sle) {
-                logger.error(sle.getMessage());
-                throw sle;
-            }
-            assocDAO.insertAssoc(assoc);
-        } else {
-            logger.error("Partner being assigned does not exist or is null.");
-            throw new ServiceLogicException("The partner being assigned does not exist.");
-        }
-    }
-
-    @Override
-    public void unassignPartnerFromProject(Partner partner, long projectId) throws ServiceLogicException {
-        // Ensure the project exists, exception will be thrown if not
-        projectService.restoreProjectById(projectId);
-
-        if(partner != null) {
-            // TODO find all associate partners and remove them
-        } else {
-            logger.error("Partner being unassigned does not exist or is null.");
-            throw new ServiceLogicException(("The partner being unassigned does not exist."));
-        }
-
     }
 
     @Override

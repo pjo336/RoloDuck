@@ -32,22 +32,6 @@ public interface PartnerService {
     public Partner restoreById(long partnerId) throws ServiceLogicException;
 
     /**
-     * Assign the given partner to the project with the given id, into the ProjPartAssoc table
-     * @param partner The partner to assign
-     * @param projectId The project the partner is assigned to
-     * @throws ServiceLogicException
-     */
-    public void assignPartnerToProject(Partner partner, long projectId) throws ServiceLogicException;
-
-    /**
-     * Unassign the given partner from the project. If its not assigned to the project already, do nothing.
-     * @param partner the partner to unassign
-     * @param projectId the id of the project the partner is currently assigned to
-     * @throws ServiceLogicException
-     */
-    public void unassignPartnerFromProject(Partner partner, long projectId) throws ServiceLogicException;
-
-    /**
      * Return a list of all partners in the database for the *ACTIVE* company
      * @param companyId the id of the company
      * @return a list of all partners belonging to this company

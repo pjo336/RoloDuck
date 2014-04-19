@@ -5,9 +5,7 @@ import com.roloduck.models.company.Company;
 import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.dao.PartnerDAO;
-import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
-import com.roloduck.models.projpartassoc.ProjPartAssoc;
 import com.roloduck.models.projpartassoc.dao.ProjPartAssocDAO;
 import com.roloduck.user.User;
 import org.junit.Test;
@@ -18,7 +16,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -93,34 +90,36 @@ public class PartnerServiceImplTest {
         verify(dao, times(0)).insertPartner(partner);
     }
 
-    /**
-     * Test that when a valid partner and project id are used, a call to insertAssoc is correctly performed.
-     * @throws ServiceLogicException
-     */
-    @Test
-    public void testAssignPartnerToProject() throws ServiceLogicException {
-        Partner partner = new Partner();
-        partner.setId(123);
-        Project project = new Project();
-        project.setId(123);
-        when(projectService.restoreProjectById(project.getId())).thenReturn(project);
-        impl.assignPartnerToProject(partner, project.getId());
-        verify(assocDAO, times(1)).insertAssoc(any(ProjPartAssoc.class));
-    }
+    //TODO move this to the projpartassocservice test
 
-    /**
-     * Since the attached project is not valid, this should throw a ServiceLogicException
-     * @throws ServiceLogicException
-     */
-    @Test(expected = ServiceLogicException.class)
-    public void testAssignPartnerToProjectNonExistentProject() throws ServiceLogicException {
-        Partner partner = new Partner();
-        partner.setId(123);
-        long projectId = -999;
-        //when(projectService.restoreProjectById(projectId)).thenThrow(ServiceLogicException.class);
-        impl.assignPartnerToProject(partner, projectId);
-        //verify(assocDAO, times(1)).insertAssoc(any(ProjPartAssoc.class));
-    }
+//    /**
+//     * Test that when a valid partner and project id are used, a call to insertAssoc is correctly performed.
+//     * @throws ServiceLogicException
+//     */
+//    @Test
+//    public void testAssignPartnerToProject() throws ServiceLogicException {
+//        Partner partner = new Partner();
+//        partner.setId(123);
+//        Project project = new Project();
+//        project.setId(123);
+//        when(projectService.restoreProjectById(project.getId())).thenReturn(project);
+//        impl.assignPartnerToProject(partner, project.getId());
+//        verify(assocDAO, times(1)).insertAssoc(any(ProjPartAssoc.class));
+//    }
+//
+//    /**
+//     * Since the attached project is not valid, this should throw a ServiceLogicException
+//     * @throws ServiceLogicException
+//     */
+//    @Test(expected = ServiceLogicException.class)
+//    public void testAssignPartnerToProjectNonExistentProject() throws ServiceLogicException {
+//        Partner partner = new Partner();
+//        partner.setId(123);
+//        long projectId = -999;
+//        //when(projectService.restoreProjectById(projectId)).thenThrow(ServiceLogicException.class);
+//        impl.assignPartnerToProject(partner, projectId);
+//        //verify(assocDAO, times(1)).insertAssoc(any(ProjPartAssoc.class));
+//    }
 
     @Test
     public void testFindAllCompanyPartners() throws ServiceLogicException {

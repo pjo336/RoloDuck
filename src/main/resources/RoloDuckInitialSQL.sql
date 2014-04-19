@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_PROJECT_PARTNER_ASSOC` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `FK_project_id_project_idx` (`project_id` ASC),
   INDEX `FK_partner_id_partner_idx` (`partner_id` ASC),
+  CONSTRAINT `association_UNIQUE` UNIQUE (`project_id`, `partner_id`),
   CONSTRAINT `FK_project_id_assoc`
     FOREIGN KEY (`project_id`)
     REFERENCES `ROLODUCK`.`RD_PROJECT` (`id`)

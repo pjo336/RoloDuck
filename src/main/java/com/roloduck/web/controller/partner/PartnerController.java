@@ -7,6 +7,7 @@ import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
+import com.roloduck.models.projpartassoc.service.ProjPartAssocService;
 import com.roloduck.user.User;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.exception.ProcessException;
@@ -27,9 +28,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/partners")
-@SessionAttributes("companyName")
+@SessionAttributes(value = {"companyName", "projects"})
 public class PartnerController extends ProcessException {
 
+    @Autowired
+    private ProjPartAssocService associationService;
     @Autowired
     private CompanyService companyService;
     @Autowired
@@ -89,6 +92,8 @@ public class PartnerController extends ProcessException {
             Company company = companyService.restoreCompanyById(user.getCompanyId());
             model.addAttribute("companyName", company.getCompanyName());
             Partner partner = partnerService.restoreById(partnerId);
+            partner.setAssociatedProjects(partnerService.findAllConnectedProjects(partnerId));
+            partner.setAssociatedContacts(partnerService.findAllAssociatedContacts(partnerId));
             model.addAttribute("partner", partner);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
@@ -132,19 +137,19 @@ public class PartnerController extends ProcessException {
         try {
             user = SecurityUtils.getCurrentUser();
         } catch(ServiceLogicException sle) {
-            processRDException(model, sle);
+            processRDException(model,    sle);
         }
         try {
             Partner partner = partnerService.restoreById(partnerId);
             model.addAttribute("partner", partner);
             if(project.getId() > 0) {
-                partnerService.assignPartnerToProject(partner, project.getId());
+                associationService.assignPartnerToProject(partner.getId(), project.getId());
             } else {
                 if(project.getProjectName() != null && !project.getProjectName().equalsIgnoreCase("")) {
                     project.setProjectName(project.getProjectName());
                     project.setProjectDescription(project.getProjectDescription());
                     projectService.createProject(project, user);
-                    partnerService.assignPartnerToProject(partner, project.getId());
+                    associationService.assignPartnerToProject(partner.getId(), project.getId());
                 }
             }
         } catch (ServiceLogicException sle) {
