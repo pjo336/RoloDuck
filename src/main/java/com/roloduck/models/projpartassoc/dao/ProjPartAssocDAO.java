@@ -36,6 +36,16 @@ public interface ProjPartAssocDAO {
     public List<Long> findProjectsByPartnerId(long partnerId) throws DAOException;
 
     /**
+     * Check if there already exists an association between the partner id and the project id of the given
+     * association. If there is already one, return false (For not validated). If there is no association,
+     * return true
+     * @param association the association to pull the partner id and project id from
+     * @return true or false, true if validated correctly
+     * @throws DAOException
+     */
+    public boolean validateUniqueProjectPartnerConstraint(ProjPartAssoc association) throws DAOException;
+
+    /**
      * Remove the given association from the database
      * @param assoc the association to be removed
      */
