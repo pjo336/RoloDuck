@@ -42,7 +42,7 @@ public class ProjectController extends ProcessException {
             // Add the current user, his company, and the list of his company's projects to the model
             model.addAttribute("user", user);
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
-            model.addAttribute("projects", projectService.findAllCompanyProjects(user.getCompanyId()));
+            model.addAttribute("projects", projectService.findAllCompanyProjectsSortedAlphabetically(user.getCompanyId()));
         } catch(ServiceLogicException e) {
             processRDException(model, e);
         }

@@ -116,7 +116,7 @@ public class PartnerController extends ProcessException {
             model.addAttribute("companyName", company.getCompanyName());
             Partner partner = partnerService.restoreById(partnerId);
             model.addAttribute("partner", partner);
-            List<Project> projects = projectService.findAllCompanyProjects(company.getId());
+            List<Project> projects = projectService.findAllCompanyProjectsSortedAlphabetically(company.getId());
             model.addAttribute("projects", projects);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);

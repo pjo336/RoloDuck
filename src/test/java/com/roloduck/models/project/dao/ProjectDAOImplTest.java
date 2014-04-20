@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -57,8 +60,24 @@ public class ProjectDAOImplTest {
     }
 
     @Test
+    public void testFindProjectByCompanyIdSorted() throws DAOException {
+        String name1 = "bMy fake project using for testing";
+        impl.insertProject(getFakeProject(name1));
+        impl.insertProject(getFakeProject("zMy fake project using for testing2"));
+        impl.insertProject(getFakeProject("aMy fake project using for testing3"));
+        Project project = impl.findProjectsByName(name1).get(0);
+        long companyId = project.getCompanyId();
+        // Now test finding and if the sorting worked
+        // First find without a sort
+        List<Project> projectsNotSorted = impl.findProjectsByCompanyId(companyId, false);
+        assertFalse(checkIfListOfProjectsIsSortedByName(projectsNotSorted));
+        // Now find a list that is sorted
+        List<Project> projectsSorted = impl.findProjectsByCompanyId(companyId, true);
+        assertTrue(checkIfListOfProjectsIsSortedByName(projectsSorted));
+    }
+    @Test
     public void testFindProjectsByCompanyIdNotFound() throws DAOException {
-        impl.findProjectsByCompanyId(-999);
+        impl.findProjectsByCompanyId(-999, false);
     }
 
     /**
@@ -101,6 +120,20 @@ public class ProjectDAOImplTest {
             userDAO.insertUser(newUser);
             return newUser;
         }
+    }
+
+    private boolean checkIfListOfProjectsIsSortedByName(List<Project> listToCheckSort) {
+        for(int i = 0; i < listToCheckSort.size(); i++) {
+            if(i + 1 < listToCheckSort.size()) {
+                String projName = listToCheckSort.get(i).getProjectName();
+                String projName2 = listToCheckSort.get(i + 1).getProjectName();
+                int compare = projName.compareToIgnoreCase(projName2);
+                if(compare > 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

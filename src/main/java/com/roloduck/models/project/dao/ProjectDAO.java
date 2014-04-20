@@ -38,9 +38,10 @@ public interface ProjectDAO {
     /**
      * Find the projects with the given company id
      * @param companyId the id of the company
+     * @param toSort if true, include an order by on the name
      * @return the list of projects with this company id
      */
-    public List<Project> findProjectsByCompanyId(long companyId) throws DAOException;
+    public List<Project> findProjectsByCompanyId(long companyId, boolean toSort) throws DAOException;
 
     /**
      * If the project exists, update the record to reflect any changes,

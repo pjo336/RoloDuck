@@ -32,6 +32,14 @@ public interface ProjectService {
     public List<Project> findAllCompanyProjects(long companyId) throws ServiceLogicException;
 
     /**
+     * Find a list of all the projects that belong to the given company sorted alphabetically
+     * @param companyId the id of the company
+     * @return a list of projects that belong to the company
+     * @throws ServiceLogicException
+     */
+    public List<Project> findAllCompanyProjectsSortedAlphabetically(long companyId) throws ServiceLogicException;
+
+    /**
      * Find the project with the given Id
      * @param projectId the id to search for
      * @return the project with this id

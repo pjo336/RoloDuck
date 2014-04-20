@@ -52,10 +52,14 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
     }
 
     @Override
-    public List<Project> findProjectsByCompanyId(long companyId) throws DAOException {
+    public List<Project> findProjectsByCompanyId(long companyId, boolean toSort) throws DAOException {
         Project project = new Project();
-        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
+        String query = "SELECT " + StringUtils.convertStrArrToSQLColStr(project.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
+        if(toSort) {
+            query += " ORDER BY project_name";
+        }
+        final String SQL  = query;
         SQLUtils.printSQL(SQL);
         try {
             return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new ProjectMapper());
