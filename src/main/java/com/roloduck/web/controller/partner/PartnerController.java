@@ -9,6 +9,7 @@ import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
 import com.roloduck.models.projpartassoc.service.ProjPartAssocService;
 import com.roloduck.user.User;
+import com.roloduck.utils.JSONUtils;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,7 +50,7 @@ public class PartnerController extends ProcessException {
             // Add the current company, and the list of company's partners to the model
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
             // Find all the partners
-            List<Partner> partners = partnerService.findAllCompanyPartners(user.getCompanyId());
+            List<Partner> partners = partnerService.findAllCompanyPartnersSortedAlphabetically(user.getCompanyId());
             // For each partner, find its associated projects
             for(Partner p: partners) {
                 p.setAssociatedProjects(partnerService.findAllConnectedProjects(p.getId()));
@@ -159,14 +162,22 @@ public class PartnerController extends ProcessException {
         return "partners-single";
     }
 
-    @RequestMapping(value = "/remove={partnerId}", method = RequestMethod.POST)
-    public void postRemovePartner(@PathVariable long partnerId, HttpServletRequest request, ModelMap model) {
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public void postRemovePartner(HttpServletRequest request, HttpServletResponseWrapper response, ModelMap model) {
         String deletedPartner = request.getParameter("deleted");
+        long partnerId = Long.valueOf(deletedPartner);
         try {
             partnerService.removePartner(partnerId);
+            model.addAttribute("isValid", true);
         } catch (ServiceLogicException sle) {
+            model.addAttribute("isValid", false);
             // TODO write the exception back to the javascript
             processRDException(model, sle);
+        }
+        try {
+            JSONUtils.write(response, model);
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }

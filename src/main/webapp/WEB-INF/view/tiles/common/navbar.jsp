@@ -13,9 +13,10 @@
 
                     <ul id="rolo-main-nav" class="nav navbar-nav navbar-right">
                         <li style="height: 50px;">
-                            <form class="navbar-search form-inline navbar-right navbar-form" action="/search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search" width="260px">
+                            <form class="navbar-search form-inline navbar-right navbar-form" method="post" action="/search">
+                            <div class="form-group">
+                                    <input type="text" name="searchTopic" class="form-control" placeholder="Search"
+                                    width="260px">
                                 </div>
                             </form>
                         </li>

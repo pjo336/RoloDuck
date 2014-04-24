@@ -27,11 +27,13 @@ $(document).ready(function() {
         };
     }
 
-    $("#projectForm").hide();
+    var projectForm = $("#projectForm");
+    var projectId = $("#projectId");
+    projectForm.hide();
     $("#projectFormLink").click(function(){
-        $("#projectId").val(0);
-        $("#projectId").hide(200);
-        $("#projectForm").show(200);
+        projectId.val(0);
+        projectId.hide(200);
+        projectForm.show(200);
     });
 });
 
@@ -46,7 +48,7 @@ function edit() {
 
 function trash(partnerId) {
     var data = {deleted : partnerId};
-    var url = '/partners/remove=' + partnerId;
+    var url = '/partners/remove';
     var element = $('#partnerpanel' + partnerId);
     // TODO make the element only hide if the delete is successful
     ajaxCall(url, data);
@@ -65,8 +67,12 @@ function ajaxCall(url, dataToServer) {
         dataType: 'json',
         data: dataToServer,
         success: function(){
-            alert('successful!');
-            return true;
+            if(dataToServer.isValid) {
+                console.log('isValid');
+            } else {
+                console.log('reloading');
+                window.location.reload();
+            }
         }
     });
 }

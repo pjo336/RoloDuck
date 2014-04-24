@@ -77,8 +77,17 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     public List<Partner> findAllCompanyPartners(long companyId) throws ServiceLogicException {
+        return findAllCompanyPartners(companyId, false);
+    }
+
+    @Override
+    public List<Partner> findAllCompanyPartnersSortedAlphabetically(long companyId) throws ServiceLogicException {
+        return findAllCompanyPartners(companyId, true);
+    }
+
+    private List<Partner> findAllCompanyPartners(long companyId, boolean toSort) throws ServiceLogicException {
         if(companyService.restoreCompanyById(companyId) != null) {
-            return partnerDAO.findPartnersByCompanyId(companyId);
+            return partnerDAO.findPartnersByCompanyId(companyId, toSort);
         } else {
             logger.error("Company with id: " + companyId + " does not exist");
             throw new ServiceLogicException("Company could not be found.");

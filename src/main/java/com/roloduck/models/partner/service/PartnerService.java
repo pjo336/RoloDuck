@@ -39,6 +39,14 @@ public interface PartnerService {
     public List<Partner> findAllCompanyPartners(long companyId) throws ServiceLogicException;
 
     /**
+     * Return a list of all partners in the db for the ACTIVE company, sorted by partner name
+     * @param companyId the id of the company
+     * @return a list of all partners belonging to this company
+     * @throws ServiceLogicException
+     */
+    public List<Partner> findAllCompanyPartnersSortedAlphabetically(long companyId) throws ServiceLogicException;
+
+    /**
      * Find a list of all the partners that belong to the given project
      * @param projectId the id of the project
      * @return a list of partners that belong to the project

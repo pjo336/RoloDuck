@@ -38,10 +38,14 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
     }
 
     @Override
-    public List<Partner> findPartnersByCompanyId(long companyId) {
+    public List<Partner> findPartnersByCompanyId(long companyId, boolean toSort) {
         Partner partner = new Partner();
-        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(partner.getAllColumnNames()) + " FROM " +
+        String query = "SELECT " + StringUtils.convertStrArrToSQLColStr(partner.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
+        if(toSort) {
+            query += " ORDER BY partner_name";
+        }
+        final String SQL  = query;
         SQLUtils.printSQL(SQL);
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
     }

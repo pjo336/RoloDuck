@@ -128,6 +128,6 @@ public class PartnerServiceImplTest {
         company.setId(companyId);
         when(companyService.restoreCompanyById(companyId)).thenReturn(company);
         impl.findAllCompanyPartners(companyId);
-        verify(dao, times(1)).findPartnersByCompanyId(companyId);
+        verify(dao, times(1)).findPartnersByCompanyId(companyId, false);
     }
 }

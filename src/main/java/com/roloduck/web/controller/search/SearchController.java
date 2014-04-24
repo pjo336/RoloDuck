@@ -5,6 +5,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Andrew Ertell
  * @author Peter Johnston
@@ -16,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SearchController {
 
 
-    @RequestMapping(value = "/seach", method = RequestMethod.POST)
-    public String postSearch(ModelMap model) {
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String postSearch(HttpServletRequest request, ModelMap model) {
+        System.out.println(request.getParameter("searchTopic"));
         return "search";
     }
 }
