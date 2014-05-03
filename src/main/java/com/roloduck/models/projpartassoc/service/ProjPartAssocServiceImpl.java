@@ -58,9 +58,19 @@ public class ProjPartAssocServiceImpl implements ProjPartAssocService {
     @Override
     public void unassignPartnerFromProject(long partnerId, long projectId) throws ServiceLogicException {
         // Ensure the project exists, exception will be thrown if not
-        projectService.restoreProjectById(projectId);
-        partnerService.restoreById(partnerId);
-            // TODO find all associate partners and remove them
+        try {
+            projectService.restoreProjectById(projectId);
+            partnerService.restoreById(partnerId);
+            ProjPartAssoc assoc = assocDAO.findAssoc(projectId, partnerId);
+            if(assoc != null) {
+                assocDAO.removeAssoc(assoc);
+            }
+        } catch (DAOException de) {
+            throw new ServiceLogicException(de.getMessage());
+        } catch (ServiceLogicException sle) {
+            logger.error("Problem while unassigning partner from project, message: " + sle.getMessage());
+            throw sle;
+        }
     }
 
     /**

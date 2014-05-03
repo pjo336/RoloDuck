@@ -50,7 +50,10 @@
                     <span class="noProjects">No projects currently assigned</span>
                 </c:if>
                 <c:forEach var="associatedProject" items="${partner.associatedProjects}">
-                <button type="button" id="projectBubble${associatedProject.id}" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign" onclick="trash('project', ${associatedProject.id})">
+                <button type="button" id="projectBubble${associatedProject.id}"
+                        class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom"
+                        title="click to unassign"
+                        onclick="removeAssociation(${associatedProject.id}, ${partner.id})">
                     ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
                 </button>
                 </c:forEach>

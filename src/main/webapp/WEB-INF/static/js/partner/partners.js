@@ -62,12 +62,15 @@ function trash(objectType, id) {
         var url = '/deleteContact';
         var element = $('#contactRow' + id);
     }
-    if (objectType == 'project') {
-        var data = {deleted : id};
-        var url = '/projects/remove';
-        var element = $('#projectBubble' + id);
-    }
     // TODO make the element only hide if the delete is successful
+    ajaxCall(url, data);
+    element.hide(200);
+}
+
+function removeAssociation(projectId, partnerId) {
+    var data = {projectId : projectId, partnerId: partnerId};
+    var url = '/partners/unassign';
+    var element = $('#projectBubble' + projectId);
     ajaxCall(url, data);
     element.hide(200);
 }

@@ -3,6 +3,7 @@ package com.roloduck.models.projpartassoc.dao;
 import com.roloduck.entity.dao.RoloDuckEntityDAOImpl;
 import com.roloduck.exception.DAOException;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
+import com.roloduck.models.projpartassoc.ProjPartAssocMapper;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,27 @@ public class ProjPartAssocDAOImpl extends RoloDuckEntityDAOImpl<ProjPartAssoc>
     @Override
     public void insertAssoc(ProjPartAssoc assoc) {
         super.insert(assoc);
+    }
+
+    @Override
+    public ProjPartAssoc findAssoc(long projectId, long partnerId) throws DAOException {
+        ProjPartAssoc assoc = new ProjPartAssoc();
+        final String SQL = "SELECT " + StringUtils.convertStrArrToSQLColStr(assoc.getAllColumnNames()) + " FROM " +
+                assoc.getTableName() + " where project_id = ? AND partner_id = ?";
+        SQLUtils.printSQL(SQL);
+        try {
+            List<ProjPartAssoc> associations = jdbcTemplate.query(SQL, new Object[]{projectId, partnerId},
+                    new ProjPartAssocMapper());
+            if(associations.size() > 1) {
+                throw new DAOException("There are duplicate associations in existence, please fix.");
+            } else if(associations.size() == 1) {
+                return associations.get(0);
+            } else {
+                return null;
+            }
+        } catch (DataAccessException dae) {
+            throw new DAOException("There was an access exception while finding the proj part assoc.");
+        }
     }
 
     @Override

@@ -21,6 +21,12 @@ public interface ProjPartAssocDAO {
     public void insertAssoc(ProjPartAssoc assoc);
 
     /**
+     * Find the association with the given project and partner ids
+     * @param projectId the project id
+     * @param partnerId the partner id
+     */
+    public ProjPartAssoc findAssoc(long projectId, long partnerId) throws DAOException;
+    /**
      * Find the partners in the assoc table with the given project id
      * @param projectId the id of the project
      * @return the list of partner IDs associated to this project id
