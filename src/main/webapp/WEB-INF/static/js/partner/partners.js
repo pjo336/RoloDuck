@@ -70,7 +70,7 @@ function trash(objectType, id) {
 function removeAssociation(projectId, partnerId) {
     var data = {projectId : projectId, partnerId: partnerId};
     var url = '/partners/unassign';
-    var element = $('#projectBubble' + projectId);
+    var element = $('#projectBubble' + projectId + partnerId);
     ajaxCall(url, data);
     element.hide(200);
 }

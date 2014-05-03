@@ -29,49 +29,47 @@
     </nav>
 
     <c:forEach var="partner" items="${partners}">
-    <div id="partnerpanel${partner.id}" class="panel panel-default">
-        <div class="panel-heading">
-            <a href="/partners/${partner.id}">
-                <h3 class="panel-title pull-left">
-                    ${partner.partnerName}
+        <div id="partnerpanel${partner.id}" class="partner-container">
+            <div class="partner-header">
+
+                <h3 class="partner-name">
+                    <a href="/partners/${partner.id}">${partner.partnerName}</a>
+                    <span class=" pull-right small action-links">
+                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="action-link trash-action"
+                           onclick="trash('partner', ${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
+                    </span>
                 </h3>
-            </a>
-            <span class="pull-right">
-                <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="action-link trash-action"
-                   onclick="trash('partner', ${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
-            </span>
-            <div class="clearfix"></div>
-        </div>
-        <div class="panel-body">
-            <h5>Projects Assigned <span class="small"><a class="pull-right" href="/partners/assign=${partner.id}"><span class="glyphicon glyphicon-plus"></span> add project</a></span></h5>
-            <div class="well well-sm">
-                <c:if test="${empty partner.associatedProjects}">
-                    <span class="noProjects">No projects currently assigned</span>
-                </c:if>
-                <c:forEach var="associatedProject" items="${partner.associatedProjects}">
-                <button type="button" id="projectBubble${associatedProject.id}"
-                        class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom"
-                        title="click to unassign"
-                        onclick="removeAssociation(${associatedProject.id}, ${partner.id})">
-                    ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
-                </button>
-                </c:forEach>
-                <%--TODO pagination for project bubbles here--%>
-                <%--<a class="well-button" href="partners/assign=${partner.id}" data-toggle="tooltip" data-placement="top" title="click to view all projects">and 3 others...</a>--%>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Title</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="partner-body">
+                <h5>Projects Assigned <span class="small"><a class="pull-right" href="/partners/assign=${partner.id}"><span class="glyphicon glyphicon-plus"></span> add project</a></span></h5>
+                <div class="well well-sm">
+                    <c:if test="${empty partner.associatedProjects}">
+                        <span class="noProjects">No projects currently assigned</span>
+                    </c:if>
+                    <c:forEach var="associatedProject" items="${partner.associatedProjects}">
+                        <button type="button" id="projectBubble${associatedProject.id}${partner.id}"
+                                class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom"
+                                title="click to unassign"
+                                onclick="removeAssociation(${associatedProject.id}, ${partner.id})">
+                                ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </c:forEach>
+                        <%--TODO pagination for project bubbles here--%>
+                        <%--<a class="well-button" href="partners/assign=${partner.id}" data-toggle="tooltip" data-placement="top" title="click to view all projects">and 3 others...</a>--%>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Title</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <c:if test="${empty partner.associatedContacts}">
                         <tr><td colspan="6" class="noProjects">No contacts currently assigned</td></tr>
                     </c:if>
@@ -88,10 +86,12 @@
                             </td>
                         </tr>
                     </c:forEach>
-                </tbody>
-            </table>
-            <span class="small"><a href="/contacts/create?partner=${partner.partnerName}" class="pull-right"><span class="glyphicon glyphicon-plus"></span> add a contact</a></span>
+                    </tbody>
+                </table>
+                <span class="small"><a href="/contacts/create/partner=${partner.id}" class="pull-right"><span class="glyphicon glyphicon-plus"></span> add a contact</a></span>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
         </div>
-    </div>
     </c:forEach>
 </div>

@@ -67,3 +67,7 @@ $(document).ready(function() {
         $("#partnerForm").hide(200);
     });
 });
+
+function setVal(id) {
+
+}

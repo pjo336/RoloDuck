@@ -24,7 +24,11 @@
                 <label for="partnerId">Select a Partner</label><br />
                 <select class="selectpicker" name="partnerId" id="partnerId">
                     <c:forEach var="partner" items="${partners}">
-                        <option value="${partner.id}">
+                        <option value="${partner.id}"
+                        <c:if test="${partner.id == partnerSelected}">
+                            selected="selected"
+                        </c:if>
+                        >
                             ${partner.partnerName}
                         </option>
                     </c:forEach>
