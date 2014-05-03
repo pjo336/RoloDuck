@@ -6,6 +6,7 @@ import com.roloduck.models.company.service.CompanyService;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
 import com.roloduck.user.User;
+import com.roloduck.utils.JSONUtils;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
 
 /**
  * @author Andrew Ertell
@@ -96,16 +98,24 @@ public class ProjectController extends ProcessException {
         return "project-single";
     }
 
-    @RequestMapping(value = "/deleteProjects")
-    public void deleteprojects(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper result) {
-        String[] deletedProjectIds = request.getParameter("deleted").split(",");
-        for(String s: deletedProjectIds) {
-            long projectId = Long.valueOf(s);
-            try {
-                Project project = projectService.restoreProjectById(projectId);
-            } catch (ServiceLogicException sle) {
-                processRDException(model, sle);
-            }
+    @RequestMapping(value = "/removeAssociation", method = RequestMethod.POST)
+    public String postRemoveProject(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
+        String deletedProject = request.getParameter("deleted");
+        long projectId = Long.valueOf(deletedProject);
+        try {
+            projectService.removeProject(projectId);
+            model.addAttribute("isValid", true);
+        } catch (ServiceLogicException sle) {
+            model.addAttribute("isValid", false);
+            // TODO write the exception back to the javascript
+            processRDException(model, sle);
+        }
+        try {
+            JSONUtils.write(response, model);
+            return "true";
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+            return "false";
         }
     }
 }

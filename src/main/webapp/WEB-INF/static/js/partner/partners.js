@@ -26,14 +26,19 @@ $(document).ready(function() {
             }
         };
     }
-
-    var projectForm = $("#projectForm");
-    var projectId = $("#projectId");
-    projectForm.hide();
-    $("#projectFormLink").click(function(){
-        projectId.val(0);
-        projectId.hide(200);
-        projectForm.show(200);
+    $("#projectForm").hide();
+    $("#projectFormOpenLink").click(function(){
+        //$("#partnerId").val(0);
+        $(".selectpicker").prop('disabled', true);
+        $(".selectpicker").selectpicker('refresh');
+        $("#projectSelect").hide(200);
+        $("#projectForm").show(200);
+    });
+    $("#projectFormCloseLink").click(function(){
+        $("#projectSelect").show(200);
+        $(".selectpicker").prop('disabled', false);
+        $(".selectpicker").selectpicker('refresh');
+        $("#projectForm").hide(200);
     });
 });
 
@@ -46,10 +51,22 @@ function edit() {
     alert("edit action");
 }
 
-function trash(partnerId) {
-    var data = {deleted : partnerId};
-    var url = '/partners/remove';
-    var element = $('#partnerpanel' + partnerId);
+function trash(objectType, id) {
+    if (objectType == 'partner') {
+        data = {deleted : id};
+        var url = '/partners/remove';
+        var element = $('#partnerpanel' + id);
+    }
+    if (objectType == 'contact') {
+        var data = {contactId : id};
+        var url = '/deleteContact';
+        var element = $('#contactRow' + id);
+    }
+    if (objectType == 'project') {
+        var data = {deleted : id};
+        var url = '/projects/remove';
+        var element = $('#projectBubble' + id);
+    }
     // TODO make the element only hide if the delete is successful
     ajaxCall(url, data);
     element.hide(200);

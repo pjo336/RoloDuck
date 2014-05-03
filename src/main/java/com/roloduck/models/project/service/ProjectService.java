@@ -46,4 +46,6 @@ public interface ProjectService {
      * @throws ServiceLogicException
      */
     public Project restoreProjectById(long projectId) throws ServiceLogicException;
+
+    void removeProject(long partnerId) throws ServiceLogicException;
 }

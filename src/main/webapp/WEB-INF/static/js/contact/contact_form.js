@@ -53,10 +53,17 @@ function addnumber() {
 
 $(document).ready(function() {
     $("#partnerForm").hide();
-    $("#partnerFormLink").click(function(){
-        $("#partnerId").val(0);
-        $("#partnerId").hide(200);
-        $(".bootstrap-select").hide(200);
+    $("#partnerFormOpenLink").click(function(){
+        //$("#partnerId").val(0);
+        $(".selectpicker").prop('disabled', true);
+        $(".selectpicker").selectpicker('refresh');
+        $("#partnerSelect").hide(200);
         $("#partnerForm").show(200);
+    });
+    $("#partnerFormCloseLink").click(function(){
+        $("#partnerSelect").show(200);
+        $(".selectpicker").prop('disabled', false);
+        $(".selectpicker").selectpicker('refresh');
+        $("#partnerForm").hide(200);
     });
 });

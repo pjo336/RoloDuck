@@ -77,4 +77,10 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ServiceLogicException("The project with id: " + projectId + " could not be found.");
         }
     }
+
+    @Override
+    public void removeProject(long projectId) throws ServiceLogicException {
+        Project project = restoreProjectById(projectId);
+        projectDAO.removeProject(project);
+    }
 }

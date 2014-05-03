@@ -20,15 +20,8 @@
                 <input type="text" class="form-control" name="contactLastName" id="contactLastName"
                        placeholder="Contact Last Name">
             </div>
-            <div class="form-group">
-                <label for="partnerId">Partner</label><br />
-                <%--<form:select path="partnerId">--%>
-                    <%--<c:forEach var="partner" items="${partners}">--%>
-                        <%--<form:option value="${partner.id}">--%>
-                            <%--${partner.partnerName}--%>
-                        <%--</form:option>--%>
-                    <%--</c:forEach>--%>
-                <%--</form:select>--%>
+            <div class="form-group" id="partnerSelect">
+                <label for="partnerId">Select a Partner</label><br />
                 <select class="selectpicker" name="partnerId" id="partnerId">
                     <c:forEach var="partner" items="${partners}">
                         <option value="${partner.id}">
@@ -36,20 +29,21 @@
                         </option>
                     </c:forEach>
                 </select><br />
-
-                <div id="partnerForm" style="display: hidden; padding: 5px 10px 5px 40px; border:1px solid black">
-                    <div class="form-group" >
-                        <label for="partnerName">Partner Name</label>
-                        <input type="text" class="form-control" name="partnerName" id="partnername"
-                               placeholder="Partner Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="partnerDescription">Partner Description (optional)</label>
-                        <textarea class="form-control" name="partnerDescription" id="partnerDescription"
-                                  placeholder="Add a description to explain more about the partner" rows="3"></textarea>
-                    </div>
+                or <a id="partnerFormOpenLink">add a new partner</a>
+            </div>
+            <div id="partnerForm" style="display: hidden; padding: 5px 10px; border-radius: 4px; background: #f8f8f8; border: 1px solid #CCCCCC; margin-bottom: 10px;">
+                <a id="partnerFormCloseLink" style="float:right; position: relative; top: 10px; right: 5px;"><span class="glyphicon glyphicon-remove" style="font-size: 12px;"></span> Cancel</a>
+                <h4>Create a new Partner</h4>
+                <div class="form-group" >
+                    <label for="partnerName">Partner Name</label>
+                    <input type="text" class="form-control" name="partnerName" id="partnername"
+                           placeholder="Partner Name">
                 </div>
-                or <a id="partnerFormLink">add a new partner</a>
+                <div class="form-group">
+                    <label for="partnerDescription">Partner Description (optional)</label>
+                    <textarea class="form-control" name="partnerDescription" id="partnerDescription"
+                              placeholder="Add a description to explain more about the partner" rows="3"></textarea>
+                </div>
             </div>
 
             <div class="form-group" >

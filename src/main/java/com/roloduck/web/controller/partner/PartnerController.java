@@ -159,7 +159,7 @@ public class PartnerController extends ProcessException {
             processRDException(model, sle);
             return "partners-assign";
         }
-        return "partners-single";
+        return "redirect:/partners/{partnerId}";
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)

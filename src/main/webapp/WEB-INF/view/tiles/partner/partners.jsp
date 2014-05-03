@@ -39,18 +39,18 @@
             <span class="pull-right">
                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a class="action-link trash-action"
-                   onclick="trash(${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
+                   onclick="trash('partner', ${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
             </span>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
             <h5>Projects Assigned <span class="small"><a class="pull-right" href="/partners/assign=${partner.id}"><span class="glyphicon glyphicon-plus"></span> add project</a></span></h5>
             <div class="well well-sm">
-                <c:if test="${empty partner.associatedProjects}"><h3>yo yo dog, please assign a project to
-                    dis
-                    mad ill partnuhhhh</h3></c:if>
+                <c:if test="${empty partner.associatedProjects}">
+                    <span class="noProjects">No projects currently assigned</span>
+                </c:if>
                 <c:forEach var="associatedProject" items="${partner.associatedProjects}">
-                <button type="button" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign">
+                <button type="button" id="projectBubble${associatedProject.id}" class="btn btn-default btn well-button" data-toggle="tooltip" data-placement="bottom" title="click to unassign" onclick="trash('project', ${associatedProject.id})">
                     ${associatedProject.projectName}<span class="glyphicon glyphicon-remove"></span>
                 </button>
                 </c:forEach>
@@ -70,10 +70,10 @@
                 </thead>
                 <tbody>
                     <c:if test="${empty partner.associatedContacts}">
-                        <tr><td>You need to assign some contacts to this partner you thilly gooth</td></tr>
+                        <tr><td colspan="6" class="noProjects">No contacts currently assigned</td></tr>
                     </c:if>
                     <c:forEach var="contact" items="${partner.associatedContacts}">
-                        <tr>
+                        <tr id="contactRow${contact.id}">
                             <td>${contact.contactFirstName}</td>
                             <td>${contact.contactLastName}</td>
                             <td>${contact.contactTitle}</td>
@@ -81,12 +81,13 @@
                             <td>${contact.contactPhone}</td>
                             <td width="55px" style="padding-right: 0;">
                                 <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="action-link trash-action" onclick="trash('contact', ${contact.id})"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <span class="small"><a href="/contacts/create?partner=${partner.partnerName}" class="pull-right"><span class="glyphicon glyphicon-plus"></span> add a contact</a></span>
         </div>
     </div>
     </c:forEach>
