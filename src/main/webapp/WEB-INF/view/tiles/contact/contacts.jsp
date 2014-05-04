@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container2">
+<div class="container">
 
     <ol class="breadcrumb">
         <span> <strong>${companyName}</strong> <span class="spacer40"></span></span>
