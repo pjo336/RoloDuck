@@ -3,7 +3,9 @@ package com.roloduck.user.dao;
 import com.roloduck.IntegrationTest;
 import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
-import com.roloduck.models.company.service.CompanyService;
+import com.roloduck.models.company.Company;
+import com.roloduck.models.company.SubscriptionType;
+import com.roloduck.models.company.dao.CompanyDAO;
 import com.roloduck.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -35,7 +38,7 @@ public class UserDAOImplTest {
     private UserDAO impl;
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyDAO companyDAO;
 
     /**
      * Tests user insert functionality.
@@ -48,7 +51,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         long countBefore = impl.count();
         // Make sure the id assignment works when a user is inserted
         assertTrue(user.getId() == 0);
@@ -70,7 +73,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         impl.insertUser(user);
         long userId = user.getId();
         User retrievedUser = impl.restoreById(userId);
@@ -112,7 +115,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         impl.insertUser(user);
         String userEmail = user.getEmail();
         User retrievedUser = impl.restoreByEmail(userEmail);
@@ -146,7 +149,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         impl.insertUser(user);
         long amountOfUsers = impl.count();
         assertEquals("The list doesnt contain all the users.", amountOfUsers, impl.find().size());
@@ -164,7 +167,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         impl.insertUser(user);
         long userId = user.getId();
         User retrievedUser = impl.restoreById(userId);
@@ -203,7 +206,7 @@ public class UserDAOImplTest {
         user.setName("This is a test user name");
         user.setEmail("This is a test user email @email.com");
         user.setPassword("123");
-        user.setCompanyId(companyService.restoreCompanyByName("RoloDuck").getId());
+        user.setCompanyId(getAttachedCompany().getId());
         impl.insertUser(user);
         long countBeforeRemoval = impl.count();
         impl.removeUser(user);
@@ -217,6 +220,21 @@ public class UserDAOImplTest {
     @Test
     public void testRemoveUserNull() {
         impl.removeUser(null);
+    }
+
+    /**
+     * Return a company that exists in the database for testing
+     * @return the company that exists
+     */
+    private Company getAttachedCompany() {
+        List<Company> companies = companyDAO.find();
+        if(companies.size() > 0) {
+            return companies.get(0);
+        } else {
+            Company newCompany = new Company(UUID.randomUUID().toString(), SubscriptionType.FREE_SUBSCRIPTION);
+            companyDAO.insertCompany(newCompany);
+            return newCompany;
+        }
     }
 
 }
