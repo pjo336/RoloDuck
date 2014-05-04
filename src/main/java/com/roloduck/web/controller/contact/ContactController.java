@@ -174,7 +174,7 @@ public class ContactController extends ProcessException {
             model.addAttribute("partners", companyPartners);
             Contact contact = contactService.restoreById(contactId);
             model.addAttribute("contact", contact);
-            return "contacts-create";
+            return "contacts-form";
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
             return "redirect:/";
