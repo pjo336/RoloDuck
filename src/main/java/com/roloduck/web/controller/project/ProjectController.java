@@ -118,4 +118,22 @@ public class ProjectController extends ProcessException {
             return "false";
         }
     }
+
+    @RequestMapping(value = URI_PREFIX + "/edit={projectId}", method = RequestMethod.GET)
+    public String serveProjectsEdit(@PathVariable long projectId, ModelMap model) {
+        User user = null;
+        Company company = null;
+
+        try {
+            user = SecurityUtils.getCurrentUser();
+            company = companyService.restoreCompanyByUser(user);
+            model.addAttribute("companyName", company.getCompanyName());
+            Project project = projectService.restoreProjectById(projectId);
+            model.addAttribute("project", project);
+            return "projects-create";
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            return "redirect:/";
+        }
+    }
 }

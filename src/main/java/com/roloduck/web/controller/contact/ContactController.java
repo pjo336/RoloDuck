@@ -160,4 +160,24 @@ public class ContactController extends ProcessException {
         }
 
     }
+
+    @RequestMapping(value = URI_PREFIX + "/edit={contactId}", method = RequestMethod.GET)
+    public String serveContactEdit(@PathVariable long contactId, ModelMap model) {
+        User user = null;
+        Company company = null;
+
+        try {
+            user = SecurityUtils.getCurrentUser();
+            company = companyService.restoreCompanyByUser(user);
+            model.addAttribute("companyName", company.getCompanyName());
+            List<Partner> companyPartners = partnerService.findAllCompanyPartners(company.getId());
+            model.addAttribute("partners", companyPartners);
+            Contact contact = contactService.restoreById(contactId);
+            model.addAttribute("contact", contact);
+            return "contacts-create";
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            return "redirect:/";
+        }
+    }
 }

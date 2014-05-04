@@ -203,4 +203,18 @@ public class PartnerController extends ProcessException {
             ioe.printStackTrace();
         }
     }
+
+    @RequestMapping(value = "/edit={partnerId}", method = RequestMethod.GET)
+    public String servePartnerEdit(@PathVariable long partnerId, ModelMap model) {
+        try {
+            User user = SecurityUtils.getCurrentUser();
+            Company company = companyService.restoreCompanyById(user.getCompanyId());
+            model.addAttribute("companyName", company.getCompanyName());
+            Partner partner = partnerService.restoreById(partnerId);
+            model.addAttribute("partner", partner);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+        }
+        return "partners-create";
+    }
 }

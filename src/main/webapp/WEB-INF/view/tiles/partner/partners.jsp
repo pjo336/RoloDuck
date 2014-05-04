@@ -34,8 +34,8 @@
 
                 <h3 class="partner-name">
                     <a href="/partners/${partner.id}">${partner.partnerName}</a>
-                    <span class=" pull-right small action-links">
-                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <span class=" pull-right small action-link action-link-header">
+                        <a class="action-link edit-action" href="/partners/edit=${partner.id}"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="action-link trash-action"
                            onclick="trash('partner', ${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
