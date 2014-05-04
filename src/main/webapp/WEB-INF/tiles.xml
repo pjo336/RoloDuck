@@ -95,9 +95,9 @@
     </definition>
 
 
-    <definition name="contacts-create" extends="roloduck.common">
+    <definition name="contacts-form" extends="roloduck.common">
         <put-attribute name="title" value="RoloDuck | Contacts - Add New" />
-        <put-attribute name="body" value="/WEB-INF/view/tiles/contact/contacts-create.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/tiles/contact/contacts-form.jsp" />
         <put-attribute name="custom-scripts" value="/WEB-INF/view/tiles/contact/contacts-scripts.jsp" />
     </definition>
 </tiles-definitions>

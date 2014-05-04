@@ -84,7 +84,7 @@ public class ContactController extends ProcessException {
             List<Partner> companyPartners = partnerService.findAllCompanyPartners(company.getId());
             model.addAttribute("partners", companyPartners);
             model.addAttribute("partnerSelected", Long.valueOf(partnerStr));
-            return "contacts-create";
+            return "contacts-form";
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
             return "redirect:/";
@@ -107,7 +107,7 @@ public class ContactController extends ProcessException {
             model.addAttribute("companyName", company.getCompanyName());
             List<Partner> companyPartners = partnerService.findAllCompanyPartners(company.getId());
             model.addAttribute("partners", companyPartners);
-            return "contacts-create";
+            return "contacts-form";
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
             return "redirect:/";
@@ -143,7 +143,7 @@ public class ContactController extends ProcessException {
             }
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
-            return "contacts-create";
+            return "contacts-form";
         }
         return "redirect:/contacts";
     }
