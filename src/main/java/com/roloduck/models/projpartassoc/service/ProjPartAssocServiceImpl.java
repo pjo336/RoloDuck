@@ -48,6 +48,8 @@ public class ProjPartAssocServiceImpl implements ProjPartAssocService {
             assoc.validate();
             if(validateUniqueConstraintProjectPartner(assoc)) {
                 assocDAO.insertAssoc(assoc);
+            } else {
+                throw new ServiceLogicException("This Project and Partner association already exists.");
             }
         } catch (ServiceLogicException sle) {
             logger.error(sle.getMessage());

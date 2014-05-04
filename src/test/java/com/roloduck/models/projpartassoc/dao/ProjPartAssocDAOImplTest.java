@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 /**
@@ -74,6 +74,32 @@ public class ProjPartAssocDAOImplTest {
     }
 
     /**
+     * Test that the correct association is found when given a partner and project id
+     * @throws ServiceLogicException
+     */
+    @Test
+    public void testFindAssociation() throws ServiceLogicException, DAOException {
+        ProjPartAssoc assoc = insertTestProjPartAssoc("This is totes a test project", "This is totes a test partner");
+        long projectId = assoc.getProjectId();
+        long partnerId = assoc.getPartnerId();
+        long currentId = assoc.getId();
+
+        ProjPartAssoc foundAssoc = impl.findAssoc(projectId, partnerId);
+        assertEquals(currentId, foundAssoc.getId());
+        assertEquals(projectId, foundAssoc.getProjectId());
+        assertEquals(partnerId, foundAssoc.getPartnerId());
+    }
+
+    /**
+     * Test what happens when findAssociation returns nothing
+     * @throws DAOException
+     */
+    @Test
+    public void testFindAssociationNotFound() throws DAOException {
+        assertNull(impl.findAssoc(-999, -999));
+    }
+
+    /**
      * Test that when an association is added, findPartnersByProject finds the correct partner id when given the
      * entered project id
      * @throws ServiceLogicException
@@ -117,6 +143,19 @@ public class ProjPartAssocDAOImplTest {
     @Test
     public void testFindProjectsByPartnerIdNotFound() throws ServiceLogicException, DAOException {
         impl.findProjectsByPartnerId(-999);
+    }
+
+    @Test
+    public void testValidateUniqueProjectPartnerConstraint() throws ServiceLogicException, DAOException {
+        ProjPartAssoc assoc = insertTestProjPartAssoc("This is totes a test project", "This is totes a test partner");
+        // This should return false, as is it not valid
+        assertFalse(impl.validateUniqueProjectPartnerConstraint(assoc));
+
+        //This is a new assoc and should return true
+        ProjPartAssoc assocNew = new ProjPartAssoc();
+        assocNew.setPartnerId(-9999);
+        assocNew.setProjectId(-9999);
+        assertTrue(impl.validateUniqueProjectPartnerConstraint(assocNew));
     }
 
     /**

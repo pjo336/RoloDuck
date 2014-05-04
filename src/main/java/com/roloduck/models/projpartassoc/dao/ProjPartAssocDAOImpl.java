@@ -103,7 +103,7 @@ public class ProjPartAssocDAOImpl extends RoloDuckEntityDAOImpl<ProjPartAssoc>
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL, association.getPartnerId(),
                     association.getProjectId());
             if(rows.size() > 0) {
-                throw new DAOException("This Project and Partner association already exists.");
+                return false;
             }
         } catch(DataAccessException DAE) {
             throw new DAOException("There was a Data Access Exception while validating uniqueness of the association.");
