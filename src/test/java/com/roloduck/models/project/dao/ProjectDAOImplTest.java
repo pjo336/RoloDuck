@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -70,7 +69,8 @@ public class ProjectDAOImplTest {
         // Now test finding and if the sorting worked
         // First find without a sort
         List<Project> projectsNotSorted = impl.findProjectsByCompanyId(companyId, false);
-        assertFalse(checkIfListOfProjectsIsSortedByName(projectsNotSorted));
+        // Note this could not always be false, so was removed
+        //assertFalse(checkIfListOfProjectsIsSortedByName(projectsNotSorted));
         // Now find a list that is sorted
         List<Project> projectsSorted = impl.findProjectsByCompanyId(companyId, true);
         assertTrue(checkIfListOfProjectsIsSortedByName(projectsSorted));

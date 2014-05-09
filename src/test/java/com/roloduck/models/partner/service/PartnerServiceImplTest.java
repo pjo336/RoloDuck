@@ -1,5 +1,6 @@
 package com.roloduck.models.partner.service;
 
+import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.Company;
 import com.roloduck.models.company.service.CompanyService;
@@ -14,8 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -128,6 +128,10 @@ public class PartnerServiceImplTest {
         company.setId(companyId);
         when(companyService.restoreCompanyById(companyId)).thenReturn(company);
         impl.findAllCompanyPartners(companyId);
-        verify(dao, times(1)).findPartnersByCompanyId(companyId, false);
+        try {
+            verify(dao, times(1)).findPartnersByCompanyId(companyId, false);
+        } catch (DAOException de) {
+            fail();
+        }
     }
 }

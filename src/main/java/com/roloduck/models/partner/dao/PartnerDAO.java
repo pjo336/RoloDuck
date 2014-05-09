@@ -34,7 +34,7 @@ public interface PartnerDAO {
      * @param toSort should this list be sorted alphabetically
      * @return a list of all partners belonging to the given company
      */
-    public List<Partner> findPartnersByCompanyId(long companyId, boolean toSort);
+    public List<Partner> findPartnersByCompanyId(long companyId, boolean toSort) throws DAOException;
 
     /**
      * If the given partner exists, remove it from the database, else do nothing

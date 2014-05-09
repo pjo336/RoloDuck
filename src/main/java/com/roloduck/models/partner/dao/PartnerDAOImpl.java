@@ -7,6 +7,7 @@ import com.roloduck.models.partner.PartnerMapper;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +39,7 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
     }
 
     @Override
-    public List<Partner> findPartnersByCompanyId(long companyId, boolean toSort) {
+    public List<Partner> findPartnersByCompanyId(long companyId, boolean toSort) throws DAOException {
         Partner partner = new Partner();
         String query = "SELECT " + StringUtils.convertStrArrToSQLColStr(partner.getAllColumnNames()) + " FROM " +
                 TABLE_NAME + " where company_id = ?";
@@ -47,7 +48,11 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
         }
         final String SQL  = query;
         SQLUtils.printSQL(SQL);
+        try {
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
+        } catch (DataAccessException dae) {
+            throw new DAOException("There was a data acess exception while finding partners by company id.");
+        }
     }
 
     @Override
