@@ -31,17 +31,17 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
     @Autowired
     private UserService userService;
 
-    private static final String adminName = "Admin";
-    private static final String adminEmail = "admin@roloduck.com";
-    private static final String adminPassword = "admin";
+    private static final String ADMIN_NAME = "Admin";
+    private static final String ADMIN_EMAIL = "admin@roloduck.com";
+    private static final String ADMIN_PASSWORD = "admin";
 
-    private static final String companyName = "RoloDuck";
+    private static final String COMPANY_NAME = "RoloDuck";
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Company newCompany = new Company(companyName, SubscriptionType.PREMIUM_SUBSCRIPTION);
+        Company newCompany = new Company(COMPANY_NAME, SubscriptionType.PREMIUM_SUBSCRIPTION);
         try {
-            newCompany = companyService.restoreCompanyByName(companyName);
+            newCompany = companyService.restoreCompanyByName(COMPANY_NAME);
         } catch(ServiceLogicException sle) {
             // The company doesnt exist, so add it
             try {
@@ -50,9 +50,9 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
                 e.printStackTrace();
             }
         }
-        User newUser = new User(adminName, adminEmail, adminPassword);
+        User newUser = new User(ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD);
         try {
-            newUser = userService.restoreUserByEmail(adminEmail);
+            newUser = userService.restoreUserByEmail(ADMIN_EMAIL);
         } catch(ServiceLogicException sle) {
             // User doesnt exist, add him
             try {
