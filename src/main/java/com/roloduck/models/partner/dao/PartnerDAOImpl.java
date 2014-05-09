@@ -51,12 +51,23 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
         try {
         return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
         } catch (DataAccessException dae) {
-            throw new DAOException("There was a data acess exception while finding partners by company id.");
+            throw new DAOException("There was a data access exception while finding partners by company id.");
         }
     }
 
     @Override
     public void removePartner(Partner partner) {
         super.remove(partner);
+    }
+
+    @Override
+    public void updatePartner(Partner partner) throws DAOException {
+        final String SQL = "UPDATE " + TABLE_NAME + " SET partner_name = ?, partner_description = ? where id = ?";
+        SQLUtils.printSQL(SQL);
+        try {
+        jdbcTemplateObject.update(SQL, partner.getPartnerName(), partner.getPartnerDescription(), partner.getId());
+        } catch(DataAccessException dae) {
+            throw new DAOException("There was a data access exception while updating a partner.");
+        }
     }
 }

@@ -41,4 +41,11 @@ public interface PartnerDAO {
      * @param partner the partner to remove
      */
     public void removePartner(Partner partner);
+
+    /**
+     * Update the given partner, if it doesnt exist, do nothing
+     * @param partner the partner to update
+     * @exception com.roloduck.exception.DAOException
+     */
+    public void updatePartner(Partner partner) throws DAOException;
 }

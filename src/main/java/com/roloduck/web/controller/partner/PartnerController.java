@@ -217,4 +217,19 @@ public class PartnerController extends ProcessException {
         }
         return "partners-create";
     }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String postPartnerEdit(@ModelAttribute("partner") Partner partner, ModelMap model) {
+        try {
+            SecurityUtils.getCurrentUser();
+            partnerService.updatePartner(partner);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            // Return back to the create page with the error message
+            return "partners-create";
+        }
+        return "redirect:/partners";
+    }
+
+
 }

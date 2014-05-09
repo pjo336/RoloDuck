@@ -135,4 +135,15 @@ public class PartnerServiceImpl implements PartnerService {
         Partner partner = restoreById(partnerId);
         partnerDAO.removePartner(partner);
     }
+
+    @Override
+    public void updatePartner(Partner partner) throws ServiceLogicException {
+        // Ensure the partner actually exists
+        restoreById(partner.getId());
+        try {
+            partnerDAO.updatePartner(partner);
+        } catch (DAOException de) {
+            throw new ServiceLogicException(de.getMessage());
+        }
+    }
 }

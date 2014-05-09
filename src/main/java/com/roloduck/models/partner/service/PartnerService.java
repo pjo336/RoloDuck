@@ -66,11 +66,17 @@ public interface PartnerService {
      * @return A list of all contacts belonging to the owning partner
      * @throws ServiceLogicException
      */
-    List<Contact> findAllAssociatedContacts(long partnerId) throws ServiceLogicException;
+    public List<Contact> findAllAssociatedContacts(long partnerId) throws ServiceLogicException;
 
     /**
      * Remove the partner with the given id
      * @param partnerId the partner to remove
      */
-    void removePartner(long partnerId) throws ServiceLogicException;
+    public void removePartner(long partnerId) throws ServiceLogicException;
+
+    /**
+     * Update the given partner in the database
+     * @param partner the partner to be updated
+     */
+    public void updatePartner(Partner partner) throws ServiceLogicException;
 }

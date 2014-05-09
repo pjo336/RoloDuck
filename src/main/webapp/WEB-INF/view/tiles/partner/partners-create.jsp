@@ -37,7 +37,7 @@
         <h1>Edit Partner</h1>
         <div style="width:700px">
             <form:form action="/partners/edit" modelAttribute="partner" method="POST" role="form">
-                <input type="hidden" name="partnerId" value="${partner.id}">
+                <input type="hidden" name="id" value="${partner.id}">
                 <div class="form-group" >
                     <label for="partnername">Partner Name</label>
                     <input type="text" class="form-control" name="partnerName"
