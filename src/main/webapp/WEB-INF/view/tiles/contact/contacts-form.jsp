@@ -118,7 +118,7 @@
             <h1>Edit Contact</h1>
             <div style="width:700px">
                 <form:form action="/contacts/edit" modelAttribute="converter" method="POST" role="form">
-                    <input type="hidden" name="contactId" value="${contact.id}">
+                    <input type="hidden" name="id" value="${contact.id}">
 
                     <div class="form-group" >
                         <label for="contactFirstName">First Name</label>

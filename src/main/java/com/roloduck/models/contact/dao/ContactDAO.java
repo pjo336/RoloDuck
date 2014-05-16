@@ -53,4 +53,5 @@ public interface ContactDAO {
      */
     public long count();
 
+    public void updateContact(Contact contact) throws DAOException;
 }

@@ -62,4 +62,15 @@ public class ContactServiceImpl implements ContactService {
             contactDAO.removeContact(contact);
         }
     }
+
+    @Override
+    public void updateContact(Contact contact) throws ServiceLogicException {
+        // Ensure the contact actually exists
+        restoreById(contact.getId());
+        try {
+            contactDAO.updateContact(contact);
+        } catch (DAOException de) {
+            throw new ServiceLogicException(de.getMessage());
+        }
+    }
 }

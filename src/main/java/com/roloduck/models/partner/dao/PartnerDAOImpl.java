@@ -65,7 +65,7 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
         final String SQL = "UPDATE " + TABLE_NAME + " SET partner_name = ?, partner_description = ? where id = ?";
         SQLUtils.printSQL(SQL);
         try {
-        jdbcTemplateObject.update(SQL, partner.getPartnerName(), partner.getPartnerDescription(), partner.getId());
+            jdbcTemplateObject.update(SQL, partner.getPartnerName(), partner.getPartnerDescription(), partner.getId());
         } catch(DataAccessException dae) {
             throw new DAOException("There was a data access exception while updating a partner.");
         }

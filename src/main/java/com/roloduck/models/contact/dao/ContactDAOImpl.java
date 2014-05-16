@@ -7,6 +7,7 @@ import com.roloduck.models.contact.ContactMapper;
 import com.roloduck.utils.SQLUtils;
 import com.roloduck.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -62,5 +63,19 @@ public class ContactDAOImpl extends RoloDuckEntityDAOImpl<Contact> implements Co
     @Override
     public long count() {
         return super.count(new Contact());
+    }
+
+    @Override
+    public void updateContact(Contact contact) throws DAOException {
+        final String SQL = "UPDATE " + TABLE_NAME + " SET contact_first_name = ?, contact_last_name = ?, partner_id = ?, " +
+                "contact_title = ?, contact_email = ?, contact_phone = ? WHERE id = ?";
+        SQLUtils.printSQL(SQL);
+        try {
+            jdbcTemplateObject.update(SQL, contact.getContactFirstName(), contact.getContactLastName(),
+                    contact.getPartnerId(), contact.getContactTitle(), contact.getContactEmail(),
+                    contact.getContactPhone(), contact.getId());
+        } catch(DataAccessException dae) {
+            throw new DAOException("There was a data access exception while updating a contact.");
+        }
     }
 }

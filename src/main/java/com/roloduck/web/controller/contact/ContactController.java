@@ -180,4 +180,17 @@ public class ContactController extends ProcessException {
             return "redirect:/";
         }
     }
+
+    @RequestMapping(value = URI_PREFIX + "/edit", method = RequestMethod.POST)
+    public String postContactEdit(@ModelAttribute Contact contact, ModelMap model) {
+        try {
+            SecurityUtils.getCurrentUser();
+            contactService.updateContact(contact);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            // Return back to the create page with the error message
+            return "contacts-form";
+        }
+        return "redirect:/contacts";
+    }
 }

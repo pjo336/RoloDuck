@@ -30,7 +30,24 @@ public interface ContactService {
      */
     public List<Contact> findAllCompanyContacts(long companyId) throws ServiceLogicException;
 
-    Contact restoreById(long id) throws ServiceLogicException;
+    /**
+     * Restore the contact with the given id
+     * @param id the id of the contact
+     * @return the contact with this id
+     * @throws ServiceLogicException Throws if there is no contact with the matching id
+     */
+    public Contact restoreById(long id) throws ServiceLogicException;
 
-    void removeContact(Contact contact);
+    /**
+     * Remove the given contact
+     * @param contact the contact to be removed
+     */
+    public void removeContact(Contact contact);
+
+    /**
+     * Update the given contact information
+     * @param contact the contact with the updated information, should exist already
+     * @throws ServiceLogicException
+     */
+    public void updateContact(Contact contact) throws ServiceLogicException;
 }
