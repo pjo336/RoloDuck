@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Andrew Ertell
@@ -52,7 +54,24 @@ public class ProjectController extends ProcessException {
             // Add the current user, his company, and the list of his company's projects to the model
             model.addAttribute("user", user);
             model.addAttribute("companyName", companyService.restoreCompanyById(user.getCompanyId()).getCompanyName());
-            model.addAttribute("projects", projectService.findAllCompanyProjectsSortedAlphabetically(user.getCompanyId()));
+            List<Project> projects = projectService.findAllCompanyProjectsSortedAlphabetically(user.getCompanyId());
+
+            // This map will store a count of contacts for each project the user has
+            Map<Long, Integer> contactsCountMap = new HashMap<>();
+            for(Project proj: projects) {
+                Integer contactsCount = 0;
+                List<Partner> partners = projPartAssocService.findAssociatedPartnersToProject(proj.getId());
+                // For each partner relate to the current project, find all contacts
+                for(Partner p: partners) {
+                    p.setAssociatedProjects(partnerService.findAllConnectedProjects(p.getId()));
+                    p.setAssociatedContacts(partnerService.findAllAssociatedContacts(p.getId()));
+                    contactsCount += p.getAssociatedContacts().size();
+                }
+                contactsCountMap.put(proj.getId(), contactsCount);
+                proj.setPartnerAssocs(partners);
+            }
+            model.addAttribute("projects", projects);
+            model.addAttribute("contactsMap", contactsCountMap);
         } catch(ServiceLogicException e) {
             processRDException(model, e);
         }

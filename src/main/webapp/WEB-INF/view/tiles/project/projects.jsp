@@ -45,8 +45,8 @@
                     ${project.projectName}
                 </a>
             </td>
-            <td><a href="#">4 Partners</a></td>
-            <td><a href="#">10 Contacts</a></td>
+            <td><a href="#">${project.partnerAssocs.size()}</a></td>
+            <td><a href="#">${contactsMap.get(project.id)}</a></td>
             <td>1 day ago</td>
             <td width="55px" style="padding-right: 0;">
                 <a class="action-link edit-action" href="/projects/edit=${project.id}"><span class="glyphicon glyphicon-pencil"></span></a>
