@@ -57,6 +57,6 @@
             </c:forEach>
             </tbody>
         </table>
-        <span class="small"><a href="#" class="pull-right"><span class="glyphicon glyphicon-plus"></span> add a contact</a></span>
+        <span class="small"><a href="/contacts/create/partner=${partner.id}" class="pull-right"><span class="glyphicon glyphicon-plus"></span> add a contact</a></span>
     </div>
 </div>

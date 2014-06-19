@@ -9,7 +9,7 @@
     <h1 style="margin-bottom:20px"> All Contacts </h1>
 
     <nav class="navbar navbar-default">
-        <span class="navbar-jump">Jump to:</span>
+        <!-- <span class="navbar-jump">Jump to:</span>
         <div class="btn-group jump-dropdown">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 Select Contact
@@ -24,7 +24,7 @@
                 </li>
                 </c:forEach>
             </ul>
-        </div>
+        </div> -->
         <a href="/contacts/create"><button class="btn btn-primary navbar-btn navbar-right add-button"><span class="glyphicon glyphicon-plus"></span> Add New Contact</button></a>
     </nav>
 
