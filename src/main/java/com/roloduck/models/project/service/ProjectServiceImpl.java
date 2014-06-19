@@ -83,4 +83,15 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = restoreProjectById(projectId);
         projectDAO.removeProject(project);
     }
+
+    @Override
+    public void updateProject(Project project) throws ServiceLogicException {
+        // Ensure the project actually exists
+        restoreProjectById(project.getId());
+        try {
+            projectDAO.updateProject(project);
+        } catch (DAOException de) {
+            throw new ServiceLogicException(de.getMessage());
+        }
+    }
 }

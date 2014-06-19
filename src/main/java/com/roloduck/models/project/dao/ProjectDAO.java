@@ -48,7 +48,7 @@ public interface ProjectDAO {
      * otherwise do nothing
      * @param project the project to be updated
      */
-    public void updateProject(Project project);
+    public void updateProject(Project project) throws DAOException;
 
     /**
      * If the project exists, delete the project, otherwise nothing happens.

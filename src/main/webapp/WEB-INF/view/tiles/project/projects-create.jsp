@@ -30,8 +30,9 @@
             <li class="active">Edit</li>
         </ol>
 
-        <form:form id="projectForm" modelAttribute="project" action="create" method="post" class="form" role="form">
-            <input type="hidden" name="projectName" value="${project.id}">
+        <form:form id="projectForm" modelAttribute="project" action="/projects/edit" method="post" class="form"
+                   role="form">
+            <input type="hidden" name="id" value="${project.id}">
 
             <div class="form-group" >
                 <label for="projectName">Project Name</label>

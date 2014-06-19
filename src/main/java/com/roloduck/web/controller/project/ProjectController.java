@@ -169,4 +169,17 @@ public class ProjectController extends ProcessException {
             return "redirect:/";
         }
     }
+
+    @RequestMapping(value = URI_PREFIX + "/edit", method = RequestMethod.POST)
+    public String postProjectEdit(@ModelAttribute("project") Project project, ModelMap model) {
+        try {
+            SecurityUtils.getCurrentUser();
+            projectService.updateProject(project);
+        } catch(ServiceLogicException sle) {
+            processRDException(model, sle);
+            // Return back to the create page with the error message
+            return "projects-create";
+        }
+        return "redirect:/projects";
+    }
 }

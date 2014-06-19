@@ -69,8 +69,15 @@ public class ProjectDAOImpl extends RoloDuckEntityDAOImpl<Project> implements Pr
     }
 
     @Override
-    public void updateProject(Project project) {
-        // TODO
+    public void updateProject(Project project) throws DAOException {
+        final String SQL = "UPDATE " + TABLE_NAME + " SET project_name = ?, project_description = ? where id = ?";
+        SQLUtils.printSQL(SQL);
+        try {
+            jdbcTemplateObject.update(SQL, project.getProjectName(), project.getProjectDescription(),
+                    project.getId());
+        } catch(DataAccessException dae) {
+            throw new DAOException("There was a data access exception while updating a project.");
+        }
     }
 
     @Override
