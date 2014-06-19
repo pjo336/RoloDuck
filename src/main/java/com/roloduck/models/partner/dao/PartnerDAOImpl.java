@@ -49,7 +49,7 @@ public class PartnerDAOImpl extends RoloDuckEntityDAOImpl<Partner> implements Pa
         final String SQL  = query;
         SQLUtils.printSQL(SQL);
         try {
-        return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
+            return jdbcTemplateObject.query(SQL, new Object[]{companyId}, new PartnerMapper());
         } catch (DataAccessException dae) {
             throw new DAOException("There was a data access exception while finding partners by company id.");
         }

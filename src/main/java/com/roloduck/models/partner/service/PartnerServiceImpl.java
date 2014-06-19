@@ -14,6 +14,7 @@ import com.roloduck.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class PartnerServiceImpl implements PartnerService {
         if(partner != null && user != null) {
             partner.setCompanyId(user.getCompanyId());
             partner.validate();
-            partnerDAO.insertPartner(partner);
+            try {
+                partnerDAO.insertPartner(partner);
+            } catch (DuplicateKeyException e) {
+                throw new ServiceLogicException("A partner with the name \"" + partner.getPartnerName() + "\" already exists.");
+            }
         } else {
             if(partner == null) {
                 logger.error("The partner being created was null");

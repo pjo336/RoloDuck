@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_PARTNER` (
   `date_modified` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  CONSTRAINT `partner_company_UNIQUE` UNIQUE (`partner_name`, `company_id`),
   CONSTRAINT `FK_partner_company_id`
    FOREIGN KEY (`company_id`)
    REFERENCES `ROLODUCK`.`RD_COMPANY` (`id`)
@@ -133,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_PARTNER` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `ROLODUCK`.`RD_PARTNER`
+-- Table `ROLODUCK`.`RD_PARTNER_ASSOC`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `ROLODUCK`.`RD_PROJECT_PARTNER_ASSOC` ;
 

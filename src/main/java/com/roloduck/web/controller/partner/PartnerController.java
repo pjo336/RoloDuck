@@ -83,6 +83,7 @@ public class PartnerController extends ProcessException {
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
             // Return back to the create page with the error message
+            model.remove("partner");
             return "partners-create";
         }
         return "redirect:/partners";
