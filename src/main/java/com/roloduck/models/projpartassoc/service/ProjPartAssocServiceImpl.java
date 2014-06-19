@@ -2,6 +2,8 @@ package com.roloduck.models.projpartassoc.service;
 
 import com.roloduck.exception.DAOException;
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.partner.Partner;
+import com.roloduck.models.partner.dao.PartnerDAO;
 import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.models.project.service.ProjectService;
 import com.roloduck.models.projpartassoc.ProjPartAssoc;
@@ -10,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -25,6 +30,8 @@ public class ProjPartAssocServiceImpl implements ProjPartAssocService {
 
     @Autowired
     private ProjPartAssocDAO assocDAO;
+    @Autowired
+    private PartnerDAO partnerDAO;
 
     @Autowired
     private PartnerService partnerService;
@@ -72,6 +79,20 @@ public class ProjPartAssocServiceImpl implements ProjPartAssocService {
         } catch (ServiceLogicException sle) {
             logger.error("Problem while unassigning partner from project, message: " + sle.getMessage());
             throw sle;
+        }
+    }
+
+    @Override
+    public List<Partner> findAssociatedPartnersToProject(long projectId) throws ServiceLogicException {
+        try {
+            List<Partner> partners = new ArrayList<>();
+            List<Long> partnerIds = assocDAO.findPartnersByProjectId(projectId);
+            for(Long id: partnerIds) {
+                partners.add(partnerDAO.restoreById(id));
+            }
+            return partners;
+        } catch(DAOException de) {
+            throw new ServiceLogicException(de.getMessage());
         }
     }
 

@@ -1,6 +1,9 @@
 package com.roloduck.models.projpartassoc.service;
 
 import com.roloduck.exception.ServiceLogicException;
+import com.roloduck.models.partner.Partner;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -28,4 +31,6 @@ public interface ProjPartAssocService
      * @throws ServiceLogicException
      */
     public void unassignPartnerFromProject(long partnerId, long projectId) throws ServiceLogicException;
+
+    List<Partner> findAssociatedPartnersToProject(long projectId) throws ServiceLogicException;
 }

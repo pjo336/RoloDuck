@@ -3,8 +3,11 @@ package com.roloduck.web.controller.project;
 import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.Company;
 import com.roloduck.models.company.service.CompanyService;
+import com.roloduck.models.partner.Partner;
+import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.models.project.Project;
 import com.roloduck.models.project.service.ProjectService;
+import com.roloduck.models.projpartassoc.service.ProjPartAssocService;
 import com.roloduck.user.User;
 import com.roloduck.utils.JSONUtils;
 import com.roloduck.utils.SecurityUtils;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -33,6 +37,10 @@ public class ProjectController extends ProcessException {
     private ProjectService projectService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private ProjPartAssocService projPartAssocService;
+    @Autowired
+    private PartnerService partnerService;
 
     private static final String URI_PREFIX = "/projects";
 
@@ -85,13 +93,19 @@ public class ProjectController extends ProcessException {
     }
 
     @RequestMapping(value = URI_PREFIX + "/{projectId}", method = RequestMethod.GET)
-    public String servePartnerSingle(@PathVariable long projectId, ModelMap model) {
+    public String serveProjectSingle(@PathVariable long projectId, ModelMap model) {
         try {
             User user = SecurityUtils.getCurrentUser();
             Company company = companyService.restoreCompanyById(user.getCompanyId());
             model.addAttribute("companyName", company.getCompanyName());
             Project project = projectService.restoreProjectById(projectId);
             model.addAttribute("project", project);
+            List<Partner> partners = projPartAssocService.findAssociatedPartnersToProject(project.getId());
+            for(Partner p: partners) {
+                p.setAssociatedProjects(partnerService.findAllConnectedProjects(p.getId()));
+                p.setAssociatedContacts(partnerService.findAllAssociatedContacts(p.getId()));
+            }
+            model.addAttribute("partners", partners);
         } catch(ServiceLogicException sle) {
             processRDException(model, sle);
         }
