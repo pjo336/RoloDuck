@@ -38,8 +38,10 @@
                     </h3>
                 </a>
                 <span class="pull-right">
-                    <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a class="action-link remove-action" onclick="remove()"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a class="action-link edit-action" href="/partners/edit=${partner.id}"><span
+                            class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="action-link trash-action" onclick="removePartner(${partner.id})"><span
+                            class="glyphicon glyphicon-trash"></span></a>
                 </span>
                 <div class="clearfix"></div>
             </div>
@@ -68,8 +70,10 @@
                         <td>${contact.contactEmail}</td>
                         <td>${contact.contactPhone}</td>
                         <td width="55px" style="padding-right: 0;">
-                            <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a class="action-link trash-action" onclick="trash('contact', ${contact.id})"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="action-link edit-action" href="/contacts/edit=${contact.id}"><span
+                                    class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="action-link trash-action" onclick="removeContact(${contact.id})"><span
+                                    class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                     </c:forEach>

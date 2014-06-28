@@ -37,7 +37,7 @@
                     <span class=" pull-right small action-link action-link-header">
                         <a class="action-link edit-action" href="/partners/edit=${partner.id}"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="action-link trash-action"
-                           onclick="trash('partner', ${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
+                           onclick="removePartner(${partner.id})"><span class="glyphicon glyphicon-trash"></span></a>
                     </span>
                 </h3>
             </div>
@@ -81,8 +81,10 @@
                             <td>${contact.contactEmail}</td>
                             <td>${contact.contactPhone}</td>
                             <td width="55px" style="padding-right: 0;">
-                                <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a class="action-link trash-action" onclick="trash('contact', ${contact.id})"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="action-link edit-action" href="/contacts/edit=${contact.id}"><span
+                                        class="glyphicon glyphicon-pencil"></span></a>
+                                <a class="action-link trash-action" onclick="removeContact(${contact.id})"><span
+                                        class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -9,7 +9,7 @@
  * Delete a project when the trash button is clicked on a particular row.
  * @param id passed from the view, the id coorelating to the row to be removed.
  */
-function trash(id) {
+function removeProject(id) {
     var url = '/remove';
     var element = $('#projectRow' + id);
     var data = {deleted : id};

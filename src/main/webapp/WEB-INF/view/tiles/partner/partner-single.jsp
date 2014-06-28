@@ -21,7 +21,7 @@
                 </button>
             </c:forEach>
         </div>
-        <a href="/partners/assign=${partner.id}" class="btn btn-primary add-button pull-right">Add to Project</button></a>
+        <a href="/partners/assign=${partner.id}" class="btn btn-primary add-button pull-right">Add to Project</a>
         <div style="clear:both"></div>
     </div>
 
@@ -50,8 +50,9 @@
                     <td>${contact.contactEmail}</td>
                     <td>${contact.contactPhone}</td>
                     <td width="55px" style="padding-right: 0;">
-                        <a class="action-link edit-action" onclick="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a class="action-link edit-action" href="/contacts/edit=${contact.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="action-link trash-action" onclick="removeContact(${contact.id})"><span class=
+                                                                                      "glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
             </c:forEach>

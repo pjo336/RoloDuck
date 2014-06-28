@@ -10,7 +10,7 @@ function edit() {
     alert("edit action");
 }
 
-function trash(id) {
+function removeContact(id) {
     var data = {contactId : id};
     var element = $('#contactRow' + id);
     ajaxDeletion("/deleteContact", data, element);

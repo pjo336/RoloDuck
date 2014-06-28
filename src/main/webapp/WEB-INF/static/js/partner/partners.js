@@ -46,29 +46,10 @@ $(document).ready(function() {
     });
 });
 
-
-function star() {
-    alert("star action");
-}
-
-function edit() {
-    alert("edit action");
-}
-
-function trash(objectType, id) {
-    var data = null;
-    var url = '';
-    var element = '';
-    if (objectType == 'partner') {
-        data = {deleted : id};
-        url = '/partners/remove';
-        element = $('#partnerpanel' + id);
-    }
-    if (objectType == 'contact') {
-        data = {contactId : id};
-        url = '/deleteContact';
-        element = $('#contactRow' + id);
-    }
+function removePartner(id) {
+    var data = {deleted : id};
+    var url = '/partners/remove';
+    var element = $('#partnerpanel' + id);
     // TODO make the element only hide if the delete is successful
     ajaxDeletion(url, data, element);
 }

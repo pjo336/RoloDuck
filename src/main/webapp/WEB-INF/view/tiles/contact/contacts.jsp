@@ -51,7 +51,8 @@
             <td>${contact.contactPhone}</td>
             <td width="55px" style="padding-right: 0;">
                 <a class="action-link edit-action" href="/contacts/edit=${contact.contactId}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="action-link trash-action" onclick="trash(${contact.contactId})"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="action-link trash-action" onclick="removeContact(${contact.contactId})"><span
+                        class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         </c:forEach>
