@@ -8,6 +8,7 @@ import com.roloduck.models.contact.service.ContactService;
 import com.roloduck.models.partner.Partner;
 import com.roloduck.models.partner.service.PartnerService;
 import com.roloduck.user.User;
+import com.roloduck.utils.JSONUtils;
 import com.roloduck.utils.SecurityUtils;
 import com.roloduck.web.converter.ContactPartnerConverter;
 import com.roloduck.web.exception.ProcessException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +95,6 @@ public class ContactController extends ProcessException {
 
     @RequestMapping(value = URI_PREFIX + "/create", method = RequestMethod.GET)
     public String serveContactCreate(ModelMap model) {
-        System.out.println("AHHHH");
         User user = null;
         Company company = null;
         try {
@@ -149,14 +150,20 @@ public class ContactController extends ProcessException {
     }
 
     @RequestMapping(value = "/deleteContact", method = RequestMethod.POST)
-    public String postDeleteContact(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper result) {
+    public void postDeleteContact(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
         try {
             Contact contact = contactService.restoreById(Long.valueOf(request.getParameter("contactId")));
             contactService.removeContact(contact);
-            return "redirect:/contacts";
+            model.addAttribute("isValid", true);
         } catch (ServiceLogicException sle) {
+            model.addAttribute("isValid", false);
+            // TODO write the exception back to the javascript
             processRDException(model, sle);
-            return "contacts";
+        }
+        try {
+            JSONUtils.write(response, model);
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
         }
 
     }

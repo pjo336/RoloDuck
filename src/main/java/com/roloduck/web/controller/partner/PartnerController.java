@@ -185,7 +185,6 @@ public class PartnerController extends ProcessException {
     @RequestMapping(value = "/unassign", method = RequestMethod.POST)
     public void postRemoveAssociation(HttpServletRequest request, HttpServletResponseWrapper response,
                                       ModelMap model) {
-        System.out.println("Hello!");
         String projectIdStr = request.getParameter("projectId");
         String partnerIdStr = request.getParameter("partnerId");
         long projectId = Long.valueOf(projectIdStr);

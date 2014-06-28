@@ -42,7 +42,7 @@
         </thead>
         <tbody>
         <c:forEach var="contact" items="${contacts}">
-        <tr>
+        <tr id="contactRow${contact.contactId}">
             <td>${contact.contactFirstName}</td>
             <td>${contact.contactLastName}</td>
             <td>${contact.partnerName}</td>
