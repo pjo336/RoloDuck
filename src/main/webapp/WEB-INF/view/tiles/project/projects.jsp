@@ -50,7 +50,7 @@
             <td>1 day ago</td>
             <td width="55px" style="padding-right: 0;">
                 <a class="action-link edit-action" href="/projects/edit=${project.id}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="action-link trash-action" onclick="trash()"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="action-link trash-action" onclick="trash(${project.id})"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         </c:forEach>

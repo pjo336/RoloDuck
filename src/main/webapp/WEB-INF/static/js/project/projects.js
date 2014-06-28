@@ -34,6 +34,21 @@ $(document).ready(function(){
 });
 
 /**
+ * Delete a project when the trash button is clicked on a particular row.
+ * @param objectType
+ * @param id passed from the view, the id coorelating to the row to be removed.
+ */
+function trash(id) {
+    var data = {deleted : id};
+    var url = '/remove';
+    var element = $('#projectrow-' + id);
+
+    // TODO make the element only hide if the delete is successful
+    ajaxCall(url, data);
+    element.hide(200);
+}
+
+/**
  * An Ajax post call used to alter html elements on the page to a username fetched from the server
  * @param url The url the request is routed to
  * @param dataToServer Contains any information you want to send to the server side

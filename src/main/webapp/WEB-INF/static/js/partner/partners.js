@@ -26,18 +26,22 @@ $(document).ready(function() {
             }
         };
     }
+
     $("#projectForm").hide();
+
+
+    var selectPicker = $(".selectpicker");
     $("#projectFormOpenLink").click(function(){
-        //$("#partnerId").val(0);
-        $(".selectpicker").prop('disabled', true);
-        $(".selectpicker").selectpicker('refresh');
+        selectPicker.prop('disabled', true);
+        selectPicker.selectpicker('refresh');
         $("#projectSelect").hide(200);
         $("#projectForm").show(200);
     });
+
     $("#projectFormCloseLink").click(function(){
         $("#projectSelect").show(200);
-        $(".selectpicker").prop('disabled', false);
-        $(".selectpicker").selectpicker('refresh');
+        selectPicker.prop('disabled', false);
+        selectPicker.selectpicker('refresh');
         $("#projectForm").hide(200);
     });
 });
@@ -52,15 +56,18 @@ function edit() {
 }
 
 function trash(objectType, id) {
+    var data = null;
+    var url = '';
+    var element = '';
     if (objectType == 'partner') {
         data = {deleted : id};
-        var url = '/partners/remove';
-        var element = $('#partnerpanel' + id);
+        url = '/partners/remove';
+        element = $('#partnerpanel' + id);
     }
     if (objectType == 'contact') {
-        var data = {contactId : id};
-        var url = '/deleteContact';
-        var element = $('#contactRow' + id);
+        data = {contactId : id};
+        url = '/deleteContact';
+        element = $('#contactRow' + id);
     }
     // TODO make the element only hide if the delete is successful
     ajaxCall(url, data);

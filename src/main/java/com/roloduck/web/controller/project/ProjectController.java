@@ -182,4 +182,26 @@ public class ProjectController extends ProcessException {
         }
         return "redirect:/projects";
     }
+
+    /**
+     * Remove a project from the database
+     */
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public void postRemoveProject(HttpServletRequest request, HttpServletResponseWrapper response, ModelMap model) {
+        String deletedProject = request.getParameter("deleted");
+        long projectId = Long.valueOf(deletedProject);
+        try {
+            projectService.removeProject(projectId);
+            model.addAttribute("isValid", true);
+        } catch (ServiceLogicException sle) {
+            model.addAttribute("isValid", false);
+            // TODO write the exception back to the javascript
+            processRDException(model, sle);
+        }
+        try {
+            JSONUtils.write(response, model);
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 }
