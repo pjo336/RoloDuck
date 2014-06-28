@@ -62,7 +62,7 @@ function trash(objectType, id) {
 function trash(id) {
     var data = {deleted : id};
     var url = '/remove';
-    var element = $('#projectrow-' + id);
+    var element = $('#projectRow' + id);
 
     // TODO make the element only hide if the delete is successful
     ajaxCall(url, data);

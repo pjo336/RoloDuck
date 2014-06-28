@@ -131,27 +131,24 @@ public class ProjectController extends ProcessException {
         return "project-single";
     }
 
-    @RequestMapping(value = "/removeAssociation", method = RequestMethod.POST)
-    public void postRemoveProject(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
-        String deletedProject = request.getParameter("deleted");
-        System.out.println(deletedProject);
-        long projectId = Long.valueOf(deletedProject);
-        System.out.println(projectId);
-        try {
-            projectService.removeProject(projectId);
-            model.addAttribute("isValid", true);
-        } catch (ServiceLogicException sle) {
-            System.out.println("moo or something");
-            model.addAttribute("isValid", false);
-            // TODO write the exception back to the javascript
-            processRDException(model, sle);
-        }
-        try {
-            JSONUtils.write(response, model);
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
+//    @RequestMapping(value = "/removeAssociation", method = RequestMethod.POST)
+//    public void postRemoveProject(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
+//        String deletedProject = request.getParameter("deleted");
+//        long projectId = Long.valueOf(deletedProject);
+//        try {
+//            projectService.removeProject(projectId);
+//            model.addAttribute("isValid", true);
+//        } catch (ServiceLogicException sle) {
+//            model.addAttribute("isValid", false);
+//            // TODO write the exception back to the javascript
+//            processRDException(model, sle);
+//        }
+//        try {
+//            JSONUtils.write(response, model);
+//        } catch(IOException ioe) {
+//            ioe.printStackTrace();
+//        }
+//    }
 
     @RequestMapping(value = URI_PREFIX + "/edit={projectId}", method = RequestMethod.GET)
     public String serveProjectsEdit(@PathVariable long projectId, ModelMap model) {
