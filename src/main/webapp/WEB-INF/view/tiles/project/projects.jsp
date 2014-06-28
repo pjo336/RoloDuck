@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         <c:forEach var="project" items="${projects}">
-        <tr id="projectrow-${project.id}">
+        <tr id="projectRow${project.id}">
             <td>
                 <a href="/projects/${project.id}">
                     ${project.projectName}

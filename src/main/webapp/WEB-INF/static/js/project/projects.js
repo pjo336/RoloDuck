@@ -33,6 +33,27 @@ $(document).ready(function(){
     });
 });
 
+function trash(objectType, id) {
+    if (objectType == 'partner') {
+        data = {deleted : id};
+        var url = '/partners/remove';
+        var element = $('#partnerpanel' + id);
+    }
+    if (objectType == 'contact') {
+        var data = {contactId : id};
+        var url = '/deleteContact';
+        var element = $('#contactRow' + id);
+    }
+    if (objectType == 'project') {
+        var data = {deleted : id};
+        var url = '/removeAssociation';
+        var element = $('#projectRow' + id);
+    }
+    // TODO make the element only hide if the delete is successful
+    ajaxCall(url, data);
+    element.hide(200);
+}
+
 /**
  * Delete a project when the trash button is clicked on a particular row.
  * @param objectType

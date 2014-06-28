@@ -132,23 +132,24 @@ public class ProjectController extends ProcessException {
     }
 
     @RequestMapping(value = "/removeAssociation", method = RequestMethod.POST)
-    public String postRemoveProject(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
+    public void postRemoveProject(ModelMap model, HttpServletRequest request, HttpServletResponseWrapper response) {
         String deletedProject = request.getParameter("deleted");
+        System.out.println(deletedProject);
         long projectId = Long.valueOf(deletedProject);
+        System.out.println(projectId);
         try {
             projectService.removeProject(projectId);
             model.addAttribute("isValid", true);
         } catch (ServiceLogicException sle) {
+            System.out.println("moo or something");
             model.addAttribute("isValid", false);
             // TODO write the exception back to the javascript
             processRDException(model, sle);
         }
         try {
             JSONUtils.write(response, model);
-            return "true";
         } catch(IOException ioe) {
             ioe.printStackTrace();
-            return "false";
         }
     }
 
