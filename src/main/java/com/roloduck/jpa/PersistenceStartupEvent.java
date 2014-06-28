@@ -4,12 +4,18 @@ import com.roloduck.exception.ServiceLogicException;
 import com.roloduck.models.company.Company;
 import com.roloduck.models.company.SubscriptionType;
 import com.roloduck.models.company.service.CompanyService;
+import com.roloduck.models.contact.service.ContactService;
+import com.roloduck.models.partner.service.PartnerService;
+import com.roloduck.models.project.Project;
+import com.roloduck.models.project.service.ProjectService;
 import com.roloduck.user.User;
 import com.roloduck.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author Andrew Ertell
@@ -30,6 +36,12 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
     private CompanyService companyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private PartnerService partnerService;
+    @Autowired
+    private ContactService contactService;
 
     private static final String ADMIN_NAME = "Admin";
     private static final String ADMIN_EMAIL = "admin@roloduck.com";
@@ -39,6 +51,7 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        // Create a company
         Company newCompany = new Company(COMPANY_NAME, SubscriptionType.PREMIUM_SUBSCRIPTION);
         try {
             newCompany = companyService.restoreCompanyByName(COMPANY_NAME);
@@ -50,6 +63,7 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
                 e.printStackTrace();
             }
         }
+        // Create the admin user
         User newUser = new User(ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD);
         try {
             newUser = userService.restoreUserByEmail(ADMIN_EMAIL);
@@ -60,6 +74,25 @@ public class PersistenceStartupEvent implements ApplicationListener<ContextRefre
             } catch(ServiceLogicException e) {
                 e.printStackTrace();
             }
+        }
+
+        // Create a project
+        Project newProject = new Project("Test Project", "This is a test project", newUser.getId(), newCompany.getId());
+        try {
+            List<Project> projects = projectService.findAllCompanyProjects(newCompany.getId());
+            boolean projectFound = false;
+            for(Project proj: projects) {
+                if(proj.getCreatedByUser() == newProject.getCreatedByUser() && proj.getProjectName().equals
+                        (newProject.getProjectName()) && proj.getProjectDescription().equals(newProject
+                                .getProjectDescription())) {
+                    projectFound = true;
+                }
+            }
+            if(!projectFound) {
+                projectService.createProject(newProject, newUser);
+            }
+        } catch(ServiceLogicException sle) {
+            sle.printStackTrace();
         }
     }
 }

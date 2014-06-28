@@ -194,6 +194,27 @@ CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_CONTACT` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `ROLODUCK`.`RD_CONTACT_PHONE_ASSOC`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ROLODUCK`.`RD_CONTACT_PHONE_ASSOC` ;
+
+CREATE TABLE IF NOT EXISTS `ROLODUCK`.`RD_CONTACT_PHONE_ASSOC` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `contact_id` BIGINT NOT NULL,
+  `contact_phone` VARCHAR(45) NULL,
+  `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modified` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `FK_contact_id_idx` (`contact_id` ASC),
+  CONSTRAINT `contact_phone_assoc_UNIQUE` UNIQUE (`contact_id`, `contact_phone`),
+  CONSTRAINT `FK_contact_id`
+    FOREIGN KEY (`contact_id`)
+    REFERENCES `ROLODUCK`.`RD_CONTACT` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

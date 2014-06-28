@@ -32,6 +32,13 @@ public class Project implements RoloDuckEntity{
 
     public Project(){}
 
+    public Project(String name, String desc, long userId, long compId) {
+        this.projectName = name;
+        this.projectDescription = desc;
+        this.createdByUser = userId;
+        this.companyId = compId;
+    }
+
     @Override
     public String getTableName() {
         return TABLE_NAME;
